@@ -17440,9 +17440,14 @@ ol.ui.list li,
   color: rgba(0, 0, 0, 0.7);
 }
 
+/*
+ANIMATION LISTE
+*/
+
 .ui.animated.list .item {
   -webkit-transition: 0.2s color ease, 0.2s padding-left ease, 0.2s background-color ease;
   transition: 0.2s color ease, 0.2s padding-left ease, 0.2s background-color ease;
+  
 }
 
 .ui.animated.list .content {
