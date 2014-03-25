@@ -23,7 +23,7 @@
         <img class="ui avatar image" src="images/bus.png">
         <div class="content">
           <div class="header">Ligne 34</div>
-          Bus en direction de ...    
+          Bus en direction de ...    <br>Arrivée dans 15min
         </div>
          <div class="right floated ui like corner label">
           <i class="thumbs up icon"></i>
@@ -33,7 +33,7 @@
         <img class="ui avatar image" src="images/bus.png">
         <div class="content">
           <div class="header">Ligne 38</div>
-          Bus en direction de ...
+          Bus en direction de ... <br>Arrivée dans 5min
         </div>
         <div class="right floated ui like corner label">
           <i class="thumbs up icon"></i>
@@ -43,7 +43,7 @@
         <img class="ui avatar image" src="images/bus.png">
         <div class="content">
           <div class="header">Ligne 42</div>
-          Bus en direction de ...
+          Bus en direction de ... <br>Arrivée dans 21min
         </div>
         <div class="right floated ui like corner label">
           <i class="thumbs up icon"></i>
@@ -53,7 +53,7 @@
         <img class="ui avatar image" src="images/metro.png">
         <div class="content">
           <div class="header">Metro ligne B</div>
-          Direction Ramonville
+          Direction Ramonville <br>Arrivée dans 12min
         </div>
         <div class="right floated ui like corner label">
           <i class="thumbs up icon"></i>
@@ -63,7 +63,7 @@
         <img class="ui avatar image" src="images/metro.png">
         <div class="content">
           <div class="header">Metro ligne B</div>
-          Direction Borderouge
+          Direction Borderouge <br>Arrivée dans 7min
         </div>
         <div class="right floated ui like corner label">
           <i class="thumbs up icon"></i>
@@ -89,7 +89,7 @@
 
 
       <div id="itineraire" class="aligned column">
-        <h3>RENTRER CHEZ MOI</h3><br>
+        <center><h3>RENTRER CHEZ MOI</h3></center><br>
       <div class="ui form segment">
         <div class="field">
           <h5>ADRESSE</h5>
@@ -119,8 +119,8 @@
 
 	<?php 	
 		//RECUPERATION FORMAT JSON DE TOUTES LES LIGNES TISSEO
-		$lines = json_decode(file_get_contents('http://pt.data.tisseo.fr/linesList?format=json&key=a03561f2fd10641d96fb8188d209414d8'),true);
-		//print_r($lines);
+		$lines = file_get_contents('http://pt.data.tisseo.fr/linesList?format=json&key=a03561f2fd10641d96fb8188d209414d8');
+		print_r($lines);
 	 ?>
 
 </body>
