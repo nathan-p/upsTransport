@@ -9,7 +9,7 @@
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
         <script src="javascript/semantic.js"></script>
   	
-</head>
+</head>  
 <body>
     <?php 	
 		//RECUPERATION FORMAT JSON DE TOUTES LES LIGNES TISSEO
