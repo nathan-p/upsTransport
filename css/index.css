@@ -29,4 +29,7 @@ header{
 }
 #corps{
 	position: relative;
+	margin-right: auto;
+	margin-left: auto;
+	width: 90%;
 }

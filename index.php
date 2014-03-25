@@ -16,40 +16,86 @@
 		
 	<div id="corps">
 		<div class="ui two column middle aligned relaxed grid basic segment">
-  <div class="column">
-    <div class="ui form segment">
-      <div class="field">
-        <label>Username</label>
-        <div class="ui left labeled icon input">
-          <input type="text" placeholder="Username">
-          <i class="user icon"></i>
-          <div class="ui corner label">
-            <i class="thumbs up icon"></i>
-          </div>
+    <div class="center aligned column">
+      
+      <div class="ui animated list" style="width:80%;">
+      <div class="item">
+        <img class="ui avatar image" src="images/bus.png">
+        <div class="content">
+          <div class="header">Ligne 34</div>
+          Bus en direction de ...
+        </div>
+         <div class="right floated tiny teal ui corner label">
+          <i class="thumbs up icon"></i>
+        </div>
+
+      </div>
+      <div class="item">
+        <img class="ui avatar image" src="images/bus.png">
+        <div class="content">
+          <div class="header">Ligne 38</div>
+          Bus en direction de ...
         </div>
       </div>
-      <div class="field">
-        <label>Password</label>
-        <div class="ui left labeled icon input">
-          <input type="password">
-          <i class="lock icon"></i>
-          <div class="ui corner label">
-            <i class="thumbs up icon"></i>
-          </div>
+      <div class="item">
+        <img class="ui avatar image" src="images/bus.png">
+        <div class="content">
+          <div class="header">Ligne 42</div>
+          Bus en direction de ...
         </div>
       </div>
-      <div class="ui blue submit button">Login</div>
+      <div class="item">
+        <img class="ui avatar image" src="images/metro.png">
+        <div class="content">
+          <div class="header">Metro ligne B</div>
+          Direction Ramonville
+        </div>
+      </div>
+      <div class="item">
+        <img class="ui avatar image" src="images/metro.png">
+        <div class="content">
+          <div class="header">Metro ligne B</div>
+          Direction Borderouge
+        </div>
+      </div>
+      <div class="item">
+        <img class="ui avatar image" src="images/velo.png">
+        <div class="content">
+          <div class="header">VélôToulouse</div>
+          ....
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="ui vertical divider">
-    OU
-  </div>
-  <div class="center aligned column">
-    <div class="huge green ui labeled icon button">
-      <i class="signup icon"></i>
-      Sign Up
+
+
+
     </div>
-  </div>
+
+
+    <div class="ui vertical divider">
+      OU
+    </div>
+
+
+      <div class="column">
+        <h3>RENTRER CHEZ MOI</h3>
+      <div class="ui form segment">
+        <div class="field">
+          <label>Adresse</label>
+          <div class="ui left labeled icon input">
+            <input type="text" placeholder="Veuillez rentrer votre destination">
+            <i class="map marker icon"></i>
+           <!--  <div class="ui corner label">
+              <i class="thumbs up icon"></i>
+            </div> -->
+          </div>
+        </div>
+        </div>
+        <div class="ui blue submit button">RECHERCHER</div>
+      </div>
+
+
+    </div>
 </div>
 	</div>
 	

@@ -17445,6 +17445,10 @@ ol.ui.list li,
   transition: 0.2s color ease, 0.2s padding-left ease, 0.2s background-color ease;
 }
 
+.ui.animated.list .content {
+  cursor: pointer;
+}
+
 .ui.animated.list:not(.horizontal) .item:hover {
   padding-left: 1em;
 }
