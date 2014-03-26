@@ -142,15 +142,29 @@
 	</footer>
         
         <script>
-      $( ".item" ).click(function() {
+      $( ".content" ).click(function() {
           //remplacer par this, mais ne marche pas
           $( ".test" ).toggleClass( "more_infos_active" );
       });
       
+      jQuery.ajax({
+        type: 'GET', // Le type de ma requete
+        url: 'like.php', // L'url vers laquelle la requete sera envoyee
+        data: {
+          ligne : 55
+        }, 
+        success: function(data, textStatus, jqXHR) {
+          // La reponse du serveur est contenu dans data
+          // On peut faire ce qu'on veut avec ici
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // Une erreur s'est produite lors de la requete
+        }
+      });
+      
                                 
     </script>
-        
-
+       
 	<?php 
         var_dump($velo);
         ?>

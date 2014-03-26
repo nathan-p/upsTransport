@@ -8,7 +8,7 @@ class Database {
      */
     private static function connect(){ 
         try{ 
-            return new PDO('mysql:host=localhost;dbname=upsTransportDB', '', '');
+            return new PDO('mysql:host=localhost;dbname=upsTransport', '', '');
         } catch (Exception $e){ 
             die('Erreur : ' . $e->getMessage()); 
         } 
