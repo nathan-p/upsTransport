@@ -19,7 +19,7 @@
                 //cle JCDECEAUX
                 //1ef4a16b7ad8c600c6e505f8a5d1167fe873de42
                 
-                $velo = file_get_contents('https://api.jcdecaux.com/vls/v1/stations/100?contract=Toulouse&apiKey=1ef4a16b7ad8c600c6e505f8a5d1167fe873de42');
+                $velo = file_get_contents('https://api.jcdecaux.com/vls/v1/stations/227?contract=Toulouse&apiKey=1ef4a16b7ad8c600c6e505f8a5d1167fe873de42');
                 $parsed_json = json_decode($velo);
                 $nbBorneTotal = $parsed_json->{'bike_stands'};
                 $nbBorneDispo = $parsed_json->{'available_bike_stands'};
@@ -30,7 +30,7 @@
 
 	
 	<header id="header" class="test">
-            <div class="logo"><img  src="images/logo.png"></div>
+            <div class="logo"><img  src="images/logo2.png"></div>
                    
 	</header><!-- /header -->
 		
@@ -92,7 +92,7 @@
       <div class="item ui piled segment ">
         <img class="ui avatar image transport_lis_icon" src="images/velo.png">
         <div class="content"">
-             <div class="header">VélôToulouse</div>
+             <div class="header">Vélo Toulouse</div>
                 <?php 
                      echo "$adresse <br> Nombre de vélos disponibles : $nbVeloDispo" 
                 ?>
