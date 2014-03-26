@@ -108,12 +108,12 @@
       </div>
       <div class="item ui piled segment ">
         <img class="ui avatar image transport_lis_icon" src="images/velo.png">
-        <div class="content"">
+        <div class="content">
              <div class="header">Vélo Toulouse</div>
                 <?php 
                      echo "$adresse <br> Nombre de vélos disponibles : $nbVeloDispo" 
                 ?>
-            <div class="test more_infos">
+            <div class="more_infos">
                  <?php 
                     echo "Nombre de bornes : $nbBorneTotal <br> Nombre de bornes disponibles : $nbBorneDispo" 
                  ?>   
@@ -121,12 +121,16 @@
         </div>
         <div class="right floated ui like corner label">
           <i class="thumbs up icon"></i>
+          <div class="infosAjax" style="display:none;">  
+            <?php echo "VELO;227"; ?>
+          </div>
         </div>
+        
       </div>
     </div>
     </div>
     <div class="ui vertical divider">
-      OU
+      
     </div>
 
 
@@ -153,33 +157,50 @@
     </div>
 </div>
 	</div>
-	
+	<div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+          Like
+        </div>
+        <div class="content">
+          Votre like a bien été pris en compte
+        </div>
+        <div class="actions">
+          <div class="ui button">OK</div>
+        </div>
+      </div>
 	<footer>
 		<br><br>
 	</footer>
         
         <script>
+        //affichages des infos suplementaire    
       $( ".content" ).click(function() {
-          //remplacer par this, mais ne marche pas
-          $( ".test" ).toggleClass( "more_infos_active" );
-      });
+          $(this).children(".more_infos").toggleClass( "more_infos_active" );         
+       });
+           
+      $(".like").click(function() {
+          var dataAjax = $(this).children(".infosAjax").text();
+        alert(dataAjax);
       
-      jQuery.ajax({
-        type: 'GET', // Le type de ma requete
-        url: 'like.php', // L'url vers laquelle la requete sera envoyee
-        data: {
-          ligne : 55
-        }, 
-        success: function(data, textStatus, jqXHR) {
-          // La reponse du serveur est contenu dans data
-          // On peut faire ce qu'on veut avec ici
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          // Une erreur s'est produite lors de la requete
-        }
+        $.ajax({
+          type: "POST",
+          url: "like.php",
+          data: {data:dataAjax},
+          success: function(msg){
+            alert( "Data Saved: " + msg );
+          }
+          });
+        
+        //changer l'icone en like/unlike
+        
+        //lancer une modale pour informer l'utilisateur
+        $('.ui.modal').modal('show');
+        //montrer que le like a augmenté ou baissé
+          
+          
       });
-      
-                                
+                             
     </script>
        
 	<?php 
