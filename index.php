@@ -12,38 +12,64 @@
 </head>  
 <body>
     <?php 	
-                // liste de tt les lignes du réseau tisséo
-                $lines = file_get_contents('http://pt.data.tisseo.fr/linesList?format=json&network=Tiss%C3%A9o&key=a03561f2fd10641d96fb8188d209414d8');
-		$parsed_json_lines = json_decode($lines);
-                $tab = $parsed_json_lines->{'lines'}->{'line'};
-                $tabId = array();
-                $j = 0;
-                for ($i = 0; $i < count($tab) ;$i++) {
-                    if(strstr($tab[$i]->{'name'},"Université Paul Sabatier")) {
-                        $tabId[$j] = $tab[$i]->{'id'};
-                        $j++;
-                    }
-                }
-                print_r($tabId);
-                $arrets = file_get_contents('http://pt.data.tisseo.fr/stopAreasList?format=json&key=a03561f2fd10641d96fb8188d209414d8');
-		$parsed_json_arrets = json_decode($arrets);
-                
-                $poteaux = file_get_contents('http://pt.data.tisseo.fr/stopPointsList?stopAreaId=1970324837185012&network=Tisséo&key=a03561f2fd10641d96fb8188d209414d8');
-                $parsed_json_poteaux = json_decode($poteaux);
+        $zonesArrets = file_get_contents('http://pt.data.tisseo.fr/stopAreasList?format=json&key=a03561f2fd10641d96fb8188d209414d8');
+        $parsed_json_zonesArrets = json_decode($zonesArrets);
+        $tabZonesArrets = $parsed_json_zonesArrets->{'stopAreas'}->{'stopArea'};
+        $estTrouve = 0;
+        $idZoneArretPaulSabatier = "";
+        for ($i = 0; $i < count($tabZonesArrets) && !$estTrouve;$i++) {
+            if(strstr($tabZonesArrets[$i]->{'name'},"Université Paul Sabatier")) {
+                $idZoneArretPaulSabatier = $tabZonesArrets[$i]->{'id'};
+                $estTrouve = 1;
+            }
+        }
 
-                //print_r($parsed_json_poteaux);
-                
-                //cle JCDECEAUX
-                //1ef4a16b7ad8c600c6e505f8a5d1167fe873de42
-                
-                $velo = file_get_contents('https://api.jcdecaux.com/vls/v1/stations/227?contract=Toulouse&apiKey=1ef4a16b7ad8c600c6e505f8a5d1167fe873de42');
-                $parsed_json_velo = json_decode($velo);
-                $nbBorneTotal = $parsed_json_velo->{'bike_stands'};
-                $nbBorneDispo = $parsed_json_velo->{'available_bike_stands'};
-                $ouvert = $parsed_json_velo->{'status'};
-                $adresse = $parsed_json_velo->{'address'};
-                $nbVeloDispo = $parsed_json_velo->{'available_bikes'}; 
-	 ?>
+        $poteauxArrets = file_get_contents('http://pt.data.tisseo.fr/stopPointsList?stopAreaId='.$idZoneArretPaulSabatier.'&format=json&network=Tiss%C3%A9o&key=a03561f2fd10641d96fb8188d209414d8');
+        $parsed_json_poteauxArrets = json_decode($poteauxArrets);
+        $tabPoteauxArrets = $parsed_json_poteauxArrets->{'physicalStops'}->{'physicalStop'};
+        $tabCodeOperateur = array();
+        $j = 0;
+        $res = "";
+        for ($i = 0; $i < count($tabPoteauxArrets);$i++) {
+            $res = $tabPoteauxArrets[$i]->{'operatorCodes'};
+            $tabCodeOperateur[$j] = $res[0]->{'operatorCode'}->{'value'};
+            $j++;
+        }
+
+        $parsed_json_linesArrets = array();
+        $j = 0;
+        for ($i = 0; $i < count($tabCodeOperateur);$i++) {
+            $linesArrets = file_get_contents('http://pt.data.tisseo.fr/departureBoard?operatorCode='.$tabCodeOperateur[$i].'&number=1&format=json&key=a03561f2fd10641d96fb8188d209414d8');
+            $parsed_json_linesArrets[$j] = json_decode($linesArrets);
+            $j++;
+        }
+        
+        $tabLineArrets = array();
+        $horaireLigne = array();
+        $numLigne = array();
+        $j = 0;
+        for ($i = 0; $i < count($parsed_json_linesArrets);$i++) {
+            $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
+            $horaireLigne[$j] = $tabLineArrets[0]->{'dateTime'};
+            $numLigne[$j] = $tabLineArrets[0]->{'line'}->{'shortName'};
+            $j++;
+        }
+        
+        print_r($tabCodeOperateur);  
+            
+            
+            
+        //cle JCDECEAUX
+        //1ef4a16b7ad8c600c6e505f8a5d1167fe873de42
+
+        $velo = file_get_contents('https://api.jcdecaux.com/vls/v1/stations/227?contract=Toulouse&apiKey=1ef4a16b7ad8c600c6e505f8a5d1167fe873de42');
+        $parsed_json_velo = json_decode($velo);
+        $nbBorneTotal = $parsed_json_velo->{'bike_stands'};
+        $nbBorneDispo = $parsed_json_velo->{'available_bike_stands'};
+        $ouvert = $parsed_json_velo->{'status'};
+        $adresse = $parsed_json_velo->{'address'};
+        $nbVeloDispo = $parsed_json_velo->{'available_bikes'}; 
+    ?>
 
 	
 	<header id="header" class="test">
