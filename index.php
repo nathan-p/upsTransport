@@ -11,7 +11,10 @@
   	
 </head>  
 <body>
-    <?php 	
+    <?php 
+        // clé tisséo
+        // a03561f2fd10641d96fb8188d209414d8
+    
         $zonesArrets = file_get_contents('http://pt.data.tisseo.fr/stopAreasList?format=json&key=a03561f2fd10641d96fb8188d209414d8');
         $parsed_json_zonesArrets = json_decode($zonesArrets);
         $tabZonesArrets = $parsed_json_zonesArrets->{'stopAreas'}->{'stopArea'};
@@ -56,8 +59,10 @@
         }
         
         print_r($tabCodeOperateur);  
-            
-            
+         
+        // clé google
+        // AIzaSyAaspHQw2EYKhz9zXwu-_6g1RozGe4K_co
+        // https://maps.googleapis.com/maps/api/directions/json?origin=Universit%C3%A9PaulSabatier&destination=Figeac&sensor=false&key=AIzaSyAaspHQw2EYKhz9zXwu-_6g1RozGe4K_co
             
         //cle JCDECEAUX
         //1ef4a16b7ad8c600c6e505f8a5d1167fe873de42
