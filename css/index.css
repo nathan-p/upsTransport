@@ -61,3 +61,7 @@ footer{
     margin-left: 4%;
     padding-top: 2%;
 }
+
+.infosAjax{
+    display: none;
+}

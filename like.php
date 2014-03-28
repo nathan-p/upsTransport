@@ -6,21 +6,36 @@ $db = new Database();
 $db->getConnection();
 
 //chercher l'identifiant du like en fonction de la ligne
-//avec le POST
 $data = explode(";", $_POST['data']);
 $typeTransport = $data[0];
 
 if (isset($typeTransport)) {
-    $numStation = $data[1];
+    $numLigne = $data[1];
 
     //regarder si c'est un like ou unlike
-    //$typeLike = $_POST['typeLike'];
-    //recuperer le nombre de like 
-    $nbLike = 10;
 
-    //modifier ou creer la le like pour cette ligne
-    //$typeTransport ne marche pas
-    $req = "INSERT INTO userlike VALUES(0," . $numStation . ",'" . $typeTransport . "'," . $nbLike . ");";
-    //$db->getOneData($req);
+    
+    
+    //recuperer le nombre de like 
+    $nbLike = 0;
+    $reqNbLike = "SELECT nbLike FROM USERLIKE WHERE numLigne=".$numLigne." AND moyenTransport='".$typeTransport."';";
+    
+    $nbLike = $db->getOneData($reqNbLike);
+    $nbLike = $nbLike[0];
+   
+    
+    //ajouter ou modifier le tuple
+    if($nbLike == 0){
+        $req = "INSERT INTO userlike VALUES(0," . $numLigne . ",'" . $typeTransport . "',1);";
+        $nbLike = 1;
+        $db->getOneData($req);
+    }
+    else{
+        $nbLike = $nbLike+1;
+        $req = "UPDATE userlike SET nbLike=".$nbLike." WHERE numLigne=".$numLigne." AND moyenTransport='".$typeTransport."';";
+        $db->getOneData($req);
+    }
+    echo $nbLike;
+    exit();
 }
 ?>

@@ -13,6 +13,10 @@
     <body>
         <?php
         include 'transportCommun.php';
+        include_once 'controller/Database.php';
+
+        $db = new Database();
+        $db->getConnection();
         ?>
         <header id="header" class="test">
             <div class="logo"><img  src="images/logo2.png"></div>
@@ -30,6 +34,15 @@
                         for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
                             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
                             if (isset($tabLineArrets[0]->{'dateTime'})) {
+                                
+                               $reqNbLike = "SELECT nbLike FROM USERLIKE WHERE numLigne=".$numLigne[$j]." AND moyenTransport='BUS';";
+                               $nbLike = $db->getOneData($reqNbLike);
+                               
+                               $nbLike = $nbLike[0];
+                               if($nbLike < 10){
+                                   $nbLike = $nbLike."&nbsp;";
+                               }
+                               
                                 $horaire = new DateTime($horaireLigne[$j]);
                                 $arriveDans = arriveDans($horaireLigne[$j]);
                                 if ($arriveDans == 0) {
@@ -49,7 +62,8 @@
                                     </div>
                                     <div class = "right floated ui"><br>
                                         <i class="thumbs up icon like" ></i>
-                                        <span class="ui green circular label">11</span><br>
+                                        <div class="infosAjax">BUS;'.$numLigne[$j].'</div>
+                                        <span class="ui green circular label">'.$nbLike.'</span><br>
                                         <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                         <span class="ui red circular label">19</span>
                                     </div>
@@ -67,6 +81,7 @@
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
+                                <div class="infosAjax">METRO;1</div>
                                 <span class="ui green circular label">12</span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">13</span>
@@ -80,6 +95,7 @@
                             </div>
                             <div class="right floated ui"><br>
                                <i class="thumbs up icon like"></i>
+                               <div class="infosAjax">METRO;0</div>
                                 <span class="ui green circular label">11</span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">19</span>
@@ -100,7 +116,7 @@
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
-                                <div class="infosAjax" style="display:none;">VELO;227</div>
+                                <div class="infosAjax">VELO;227</div>
                                 <span class="ui green circular label">16</span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">10</span>
@@ -152,13 +168,18 @@
            
         $(".like").click(function() {
             var dataAjax = $(this).next().text();
-            alert(dataAjax);
+            var elt = $(this);
+            //alert(dataAjax);
             $.ajax({
                 type: "POST",
                 url: "like.php",
                 data: {data:dataAjax},
                 success: function(msg){
-                    alert( "Data Saved: " + msg );
+                    //alert(msg);
+                    labelLike = elt.parent().children(".green");
+                    //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
+                    labelLike.html(msg);
+                   
                 }
             });
         
