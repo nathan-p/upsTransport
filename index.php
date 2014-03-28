@@ -44,17 +44,28 @@
         for ($i = 0; $i < count($tabCodeOperateur);$i++) {
             $linesArrets = file_get_contents('http://pt.data.tisseo.fr/departureBoard?operatorCode='.$tabCodeOperateur[$i].'&number=1&format=json&key=a03561f2fd10641d96fb8188d209414d8');
             $parsed_json_linesArrets[$j] = json_decode($linesArrets);
+            print_r($parsed_json_linesArrets[$j]);
+            print("<br/><br/>");
             $j++;
         }
         
         $tabLineArrets = array();
         $horaireLigne = array();
         $numLigne = array();
+        $destinationLine = array();
+        $tmp = "";
         $j = 0;
         for ($i = 0; $i < count($parsed_json_linesArrets);$i++) {
             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
+            print($i."=>");
             $horaireLigne[$j] = $tabLineArrets[0]->{'dateTime'};
+            print(" Horaire :".$horaireLigne[$j]);
             $numLigne[$j] = $tabLineArrets[0]->{'line'}->{'shortName'};
+            print(" Ligne : ".$numLigne[$j]);
+            $tmp = $tabLineArrets[0]->{'destination'};
+            $destinationLine[$j] = $tmp[0]->{'name'};
+            print(" Destination : ".$destinationLine[$j]);
+            print("<br/>");
             $j++;
         }
         
@@ -62,7 +73,7 @@
          
         // clé google
         // AIzaSyAaspHQw2EYKhz9zXwu-_6g1RozGe4K_co
-        // https://maps.googleapis.com/maps/api/directions/json?origin=Universit%C3%A9PaulSabatier&destination=Figeac&sensor=false&key=AIzaSyAaspHQw2EYKhz9zXwu-_6g1RozGe4K_co
+        // https://maps.googleapis.com/maps/api/directions/json?origin=Universit%C3%A9PaulSabatier&destination=Figeac&mode=bicycling&sensor=false&key=AIzaSyAaspHQw2EYKhz9zXwu-_6g1RozGe4K_co
             
         //cle JCDECEAUX
         //1ef4a16b7ad8c600c6e505f8a5d1167fe873de42
