@@ -37,18 +37,22 @@
                                 } else {
                                     $arriveDans = $arriveDans . " min";
                                 }
-                                echo '<div class = "item ui piled segment">
-                                <img class = "ui avatar image transport_lis_icon" src = "images/bus.png">
-                                <div class = "content">
-                                <div class = "header">Ligne ' . $numLigne[$j] . '</div>
-                                Bus en direction de ' . $destinationLine[$j] . '<br>Arrivée dans ' . $arriveDans . '
-                                <div class="more_infos">
-                                    Heure d\'arrivée : '.$horaire->format('H:i').'  
-                                </div>
-                                </div>
-                                <div class = "right floated ui like corner label">
-                                <i class = "thumbs up icon"></i>
-                                </div>
+                                echo '
+                                <div class = "item ui piled segment">
+                                    <img class = "ui avatar image transport_lis_icon" src = "images/bus.png">
+                                    <div class = "content">
+                                        <div class = "header">Ligne ' . $numLigne[$j] . '</div>
+                                            Bus en direction de ' . $destinationLine[$j] . '<br>Arrivée dans ' . $arriveDans . '
+                                        <div class="more_infos">
+                                            Heure d\'arrivée : '.$horaire->format('H:i').'  
+                                        </div>
+                                    </div>
+                                    <div class = "right floated ui"><br>
+                                        <i class="thumbs up icon like" ></i>
+                                        <span class="ui green circular label">11</span><br>
+                                        <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
+                                        <span class="ui red circular label">19</span>
+                                    </div>
                                 </div >';
                             }
                             $j++;
