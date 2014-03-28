@@ -62,10 +62,11 @@
                                 Direction Ramonville <br>Arrivée dans 12min
                             </div>
                             <div class="right floated ui"><br>
-                                <i class="thumbs up icon like"></i><br>
-                                <i class="thumbs down icon unlike"></i>
+                                <i class="thumbs up icon like"></i>
+                                <span class="ui green circular label">12</span><br>
+                                <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
+                                <span class="ui red circular label">13</span>
                             </div>
-                            <div class="floating ui green label">22</div>
                         </div>
                         <div class="item ui piled segment">
                             <img class="ui avatar image transport_lis_icon" src="images/metro.png">
@@ -74,10 +75,11 @@
                                 Direction Borderouge <br>Arrivée dans 7min
                             </div>
                             <div class="right floated ui"><br>
-                                <i class="thumbs up icon like"></i><br>
-                                <i class="thumbs down icon unlike"></i>
+                               <i class="thumbs up icon like"></i>
+                                <span class="ui green circular label">11</span><br>
+                                <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
+                                <span class="ui red circular label">19</span>
                             </div>
-                            <div class="floating ui green label">5</div>
                         </div>
                         <div class="item ui piled segment ">
                             <img class="ui avatar image transport_lis_icon" src="images/velo.png">
@@ -94,10 +96,12 @@
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
-                                <div class="infosAjax" style="display:none;">VELO;227</div><br>
-                                <i class="thumbs down icon unlike"></i>
+                                <span class="ui green circular label">16</span><br>
+                                <div class="infosAjax" style="display:none;">VELO;227</div>
+                                <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
+                                <span class="ui red circular label">10</span>
                             </div>
-                            <div class="floating ui red label">4</div>
+                            
                             
                         </div>
                     </div>
@@ -153,8 +157,6 @@
            
         $(".like").click(function() {
             var dataAjax = $(this).next().text();
-            //alert(dataAjax);
-      
             $.ajax({
                 type: "POST",
                 url: "like.php",
@@ -166,8 +168,8 @@
         
             //changer l'icone en like/unlike
             $(this).css('color','blue');
-            //lancer une modale pour informer l'utilisateur
-            $('.ui.modal').modal('show');
+            alert("TEST "+$(this).next().next().text());
+
             //montrer que le like a augmenté ou baissé
           
           

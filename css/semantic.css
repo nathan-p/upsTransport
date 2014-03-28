@@ -17459,6 +17459,7 @@ ANIMATION LISTE
 
 .ui.animated.list .content {
   cursor: pointer;
+  margin-bottom: 2%;
 }
 
 .ui.animated.list:not(.horizontal) .item:hover {

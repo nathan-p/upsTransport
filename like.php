@@ -21,6 +21,6 @@ if (isset($typeTransport)) {
     //modifier ou creer la le like pour cette ligne
     //$typeTransport ne marche pas
     $req = "INSERT INTO userlike VALUES(0," . $numStation . ",'" . $typeTransport . "'," . $nbLike . ");";
-    $db->getOneData($req);
+    //$db->getOneData($req);
 }
 ?>
