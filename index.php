@@ -34,15 +34,15 @@
                         for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
                             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
                             if (isset($tabLineArrets[0]->{'dateTime'})) {
-                                
-                               $reqNbLike = "SELECT nbLike FROM USERLIKE WHERE numLigne=".$numLigne[$j]." AND moyenTransport='BUS';";
-                               $nbLike = $db->getOneData($reqNbLike);
-                               
-                               $nbLike = $nbLike[0];
-                               if($nbLike < 10){
-                                   $nbLike = $nbLike."&nbsp;";
-                               }
-                               
+
+                                $reqNbLike = "SELECT nbLike FROM USERLIKE WHERE numLigne=" . $numLigne[$j] . " AND moyenTransport='BUS';";
+                                $nbLike = $db->getOneData($reqNbLike);
+
+                                $nbLike = $nbLike[0];
+                                if ($nbLike < 10) {
+                                    $nbLike = $nbLike . "&nbsp;";
+                                }
+
                                 $horaire = new DateTime($horaireLigne[$j]);
                                 $arriveDans = arriveDans($horaireLigne[$j]);
                                 if ($arriveDans == 0) {
@@ -57,13 +57,13 @@
                                         <div class = "header">Ligne ' . $numLigne[$j] . '</div>
                                             Bus en direction de ' . $destinationLine[$j] . '<br>Arrivée dans ' . $arriveDans . '
                                         <div class="more_infos">
-                                            Heure d\'arrivée : '.$horaire->format('H:i').'  
+                                            Heure d\'arrivée : ' . $horaire->format('H:i') . '  
                                         </div>
                                     </div>
                                     <div class = "right floated ui"><br>
                                         <i class="thumbs up icon like" ></i>
-                                        <div class="infosAjax">BUS;'.$numLigne[$j].'</div>
-                                        <span class="ui green circular label">'.$nbLike.'</span><br>
+                                        <div class="infosAjax">BUS;' . $numLigne[$j] . '</div>
+                                        <span class="ui green circular label">' . $nbLike . '</span><br>
                                         <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                         <span class="ui red circular label">19</span>
                                     </div>
@@ -94,8 +94,8 @@
                                 Direction Borderouge <br>Arrivée dans 7min
                             </div>
                             <div class="right floated ui"><br>
-                               <i class="thumbs up icon like"></i>
-                               <div class="infosAjax">METRO;0</div>
+                                <i class="thumbs up icon like"></i>
+                                <div class="infosAjax">METRO;0</div>
                                 <span class="ui green circular label">11</span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">19</span>
@@ -121,11 +121,11 @@
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">10</span>
                             </div>
-                            
-                            
+
+
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="ui vertical divider">
                     OU
@@ -155,12 +155,19 @@
     </div><br><br>
     <footer>
         <br><br><br><center>
-        UPS TRANSPORT - UE INTEROPERABILITE DES APPLICATIONS ET DES WEB SERVICES - Laurine Marmisse / Nathan Prior
+            UPS TRANSPORT - UE INTEROPERABILITE DES APPLICATIONS ET DES WEB SERVICES - Laurine Marmisse / Nathan Prior
         </center>
         <br><br><br>
     </footer>
 
     <script>
+        
+        //parcourir tous les bus et regarder si on a un localstorage
+        
+        
+        
+        
+        
         //affichages des infos suplementaire    
         $( ".content" ).click(function() {
             $(this).children(".more_infos").toggleClass( "more_infos_active" );         
@@ -168,26 +175,40 @@
            
         $(".like").click(function() {
             var dataAjax = $(this).next().text();
+            var ligne = dataAjax.split(";");
+            ligne = ligne[1];
             var elt = $(this);
-            //alert(dataAjax);
-            $.ajax({
-                type: "POST",
-                url: "like.php",
-                data: {data:dataAjax},
-                success: function(msg){
-                    //alert(msg);
-                    labelLike = elt.parent().children(".green");
-                    //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
-                    labelLike.html(msg);
-                   
-                }
-            });
-        
-            //changer l'icone en like/unlike
-            $(this).css('color','green');
-            $(this).next().next().next().css('color','blue');
             
-            //montrer que le like a augmenté ou baissé
+            if(localStorage.getItem(ligne) == "like" ){
+                alert("DEJA LIKER   ligne "+ligne +"  "+  localStorage.getItem(ligne));
+                //removeItem(ligne);
+            }
+            else
+            {
+            
+                //alert(dataAjax);
+                $.ajax({
+                    type: "POST",
+                    url: "like.php",
+                    data: {data:dataAjax},
+                    success: function(msg){
+                        //alert(msg);
+                        labelLike = elt.parent().children(".green");
+                        //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
+                        labelLike.html(msg);
+                   
+                    }
+                });
+            
+                localStorage.setItem(ligne, "like");
+            
+                //changer l'icone en like/unlike
+                $(this).css('color','green');
+                $(this).next().next().next().css('color','blue');
+            
+                
+            }
+            
           
           
         });
