@@ -93,13 +93,12 @@
                                 </div>
                             </div>
                             <div class="right floated ui"><br>
-                                <i class="thumbs up icon like"></i><br>
+                                <i class="thumbs up icon like"></i>
+                                <div class="infosAjax" style="display:none;">VELO;227</div><br>
                                 <i class="thumbs down icon unlike"></i>
                             </div>
                             <div class="floating ui red label">4</div>
-                            <div class="infosAjax" style="display:none;">  
-                                    <?php echo "VELO;227"; ?>
-                            </div>
+                            
                         </div>
                     </div>
                     
@@ -153,8 +152,8 @@
         });
            
         $(".like").click(function() {
-            var dataAjax = $(this).children(".infosAjax").text();
-            alert(dataAjax);
+            var dataAjax = $(this).next().text();
+            //alert(dataAjax);
       
             $.ajax({
                 type: "POST",
@@ -166,7 +165,7 @@
             });
         
             //changer l'icone en like/unlike
-        
+            $(this).css('color','blue');
             //lancer une modale pour informer l'utilisateur
             $('.ui.modal').modal('show');
             //montrer que le like a augmenté ou baissé
