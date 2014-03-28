@@ -11425,8 +11425,12 @@ a.ui.teal.label:hover:before {
         Piled
 --------------------*/
 
+/*
+    ITEM RAPPROCHES
+*/
+
 .ui.piled.segment {
-  margin: 2em 0em;
+  /*margin: 2em 0em;*/
   -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
   -ms-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
   -o-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.15);
@@ -17449,7 +17453,7 @@ ANIMATION LISTE
   transition: 0.5s color ease, 0.2s padding-left ease, 0.2s background-color ease;
 }
 
-.ui.animated.list .item:hover {
+.ui.animated.list .item .content:hover {
   color:  #1386d2;
 }
 

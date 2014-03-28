@@ -42,8 +42,13 @@ position: relative;
 .like{cursor: pointer;}
 
 .like:hover{
-	color: blue;
-	
+	color: green;
+}
+
+.unlike{cursor: pointer;}
+
+.unlike:hover{
+	color: red;
 }
 
 .section{text-align: center; color: #1f8dd6;}

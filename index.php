@@ -24,13 +24,13 @@
                 <div id="actu" class="center aligned column" >
                     <h2 class="section">TRANSPORTS EN COMMUN DISPONIBLES</h2><br>
 
-
-                    <div class="ui animated list" style="width:90%;">
+                    <div class="ui animated list">
                         <?php
                         $j = 0;
                         for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
                             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
                             if (isset($tabLineArrets[0]->{'dateTime'})) {
+                                $horaire = new DateTime($horaireLigne[$j]);
                                 $arriveDans = arriveDans($horaireLigne[$j]);
                                 if ($arriveDans == 0) {
                                     $arriveDans = "un instant";
@@ -42,6 +42,9 @@
                                 <div class = "content">
                                 <div class = "header">Ligne ' . $numLigne[$j] . '</div>
                                 Bus en direction de ' . $destinationLine[$j] . '<br>Arrivée dans ' . $arriveDans . '
+                                <div class="more_infos">
+                                    Heure d\'arrivée : '.$horaire->format('H:i').'  
+                                </div>
                                 </div>
                                 <div class = "right floated ui like corner label">
                                 <i class = "thumbs up icon"></i>
@@ -58,9 +61,11 @@
                                 <div class="header">Metro ligne B</div>
                                 Direction Ramonville <br>Arrivée dans 12min
                             </div>
-                            <div class="right floated ui like corner label">
-                                <i class="thumbs up icon"></i>
+                            <div class="right floated ui"><br>
+                                <i class="thumbs up icon like"></i><br>
+                                <i class="thumbs down icon unlike"></i>
                             </div>
+                            <div class="floating ui green label">22</div>
                         </div>
                         <div class="item ui piled segment">
                             <img class="ui avatar image transport_lis_icon" src="images/metro.png">
@@ -68,9 +73,11 @@
                                 <div class="header">Metro ligne B</div>
                                 Direction Borderouge <br>Arrivée dans 7min
                             </div>
-                            <div class="right floated ui like corner label">
-                                <i class="thumbs up icon"></i>
+                            <div class="right floated ui"><br>
+                                <i class="thumbs up icon like"></i><br>
+                                <i class="thumbs down icon unlike"></i>
                             </div>
+                            <div class="floating ui green label">5</div>
                         </div>
                         <div class="item ui piled segment ">
                             <img class="ui avatar image transport_lis_icon" src="images/velo.png">
@@ -85,21 +92,21 @@
                                     ?>   
                                 </div>
                             </div>
-                            <div class="right floated ui like corner label">
-                                <i class="thumbs up icon"></i>
-                                <div class="infosAjax" style="display:none;">  
-                                    <?php echo "VELO;227"; ?>
-                                </div>
+                            <div class="right floated ui"><br>
+                                <i class="thumbs up icon like"></i><br>
+                                <i class="thumbs down icon unlike"></i>
                             </div>
-
+                            <div class="floating ui red label">4</div>
+                            <div class="infosAjax" style="display:none;">  
+                                    <?php echo "VELO;227"; ?>
+                            </div>
                         </div>
                     </div>
+                    
                 </div>
                 <div class="ui vertical divider">
-
+                    OU
                 </div>
-
-
                 <div id="itineraire" class="aligned column">
                     <h2 class="section">RENTRER CHEZ MOI</h2><br>
                     <div class="ui form segment">
