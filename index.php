@@ -100,8 +100,8 @@
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
-                                <span class="ui green circular label">16</span><br>
                                 <div class="infosAjax" style="display:none;">VELO;227</div>
+                                <span class="ui green circular label">16</span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">10</span>
                             </div>
@@ -136,21 +136,12 @@
 
             </div>
         </div>
-    </div>
-    <div class="ui modal">
-        <i class="close icon"></i>
-        <div class="header">
-            Like
-        </div>
-        <div class="content">
-            Votre like a bien été pris en compte
-        </div>
-        <div class="actions">
-            <div class="ui button">OK</div>
-        </div>
-    </div>
+    </div><br><br>
     <footer>
-        <br><br>
+        <br><br><br><center>
+        UPS TRANSPORT - UE INTEROPERABILITE DES APPLICATIONS ET DES WEB SERVICES - Laurine Marmisse / Nathan Prior
+        </center>
+        <br><br><br>
     </footer>
 
     <script>
@@ -161,6 +152,7 @@
            
         $(".like").click(function() {
             var dataAjax = $(this).next().text();
+            alert(dataAjax);
             $.ajax({
                 type: "POST",
                 url: "like.php",
@@ -171,9 +163,9 @@
             });
         
             //changer l'icone en like/unlike
-            $(this).css('color','blue');
-            alert("TEST "+$(this).next().next().text());
-
+            $(this).css('color','green');
+            $(this).next().next().next().css('color','blue');
+            
             //montrer que le like a augmenté ou baissé
           
           
