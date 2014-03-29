@@ -8,14 +8,16 @@ $db->getConnection();
 //chercher l'identifiant du like en fonction de la ligne
 $data = explode(";", $_POST['data']);
 $typeTransport = $data[0];
+$erase = $_POST['eraseLike'];
 
 if (isset($typeTransport)) {
+    
+    if($erase){
+        //effacer un like dans la bd pour cette ligne
+    }
+    
     $numLigne = $data[1];
 
-    //regarder si c'est un like ou unlike
-
-    
-    
     //recuperer le nombre de like 
     $nbLike = 0;
     $reqNbLike = "SELECT nbLike FROM USERLIKE WHERE numLigne=".$numLigne." AND moyenTransport='".$typeTransport."';";

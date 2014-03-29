@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 26 Mars 2014 à 08:24
+-- Généré le: Sam 29 Mars 2014 à 16:08
 -- Version du serveur: 5.5.16-log
 -- Version de PHP: 5.3.8
 
@@ -58,10 +58,59 @@ INSERT INTO `metro` (`idMetro`, `ligne`) VALUES
 
 CREATE TABLE IF NOT EXISTS `userlike` (
   `idLike` int(3) NOT NULL AUTO_INCREMENT,
-  `moyen_transport` enum('BUS','METRO','VELO') NOT NULL,
+  `numLigne` int(4) NOT NULL,
+  `moyenTransport` enum('BUS','METRO','VELO') NOT NULL,
   `nbLike` int(5) NOT NULL DEFAULT '0',
   PRIMARY KEY (`idLike`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+
+--
+-- Contenu de la table `userlike`
+--
+
+INSERT INTO `userlike` (`idLike`, `numLigne`, `moyenTransport`, `nbLike`) VALUES
+(15, 227, 'VELO', 30),
+(16, 88, 'BUS', 11),
+(17, 34, 'BUS', 7),
+(18, 54, 'BUS', 35),
+(19, 56, 'BUS', 3),
+(20, 82, 'BUS', 3),
+(21, 81, 'BUS', 2),
+(22, 78, 'BUS', 3),
+(23, 2, 'BUS', 3),
+(24, 0, 'METRO', 13),
+(25, 1, 'METRO', 9);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `userunlike`
+--
+
+CREATE TABLE IF NOT EXISTS `userunlike` (
+  `idUnlike` int(4) NOT NULL AUTO_INCREMENT,
+  `numLigne` int(3) NOT NULL,
+  `moyenTransport` enum('BUS','METRO','VELO') NOT NULL,
+  `nbUnlike` int(3) NOT NULL,
+  PRIMARY KEY (`idUnlike`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+
+--
+-- Contenu de la table `userunlike`
+--
+
+INSERT INTO `userunlike` (`idUnlike`, `numLigne`, `moyenTransport`, `nbUnlike`) VALUES
+(1, 34, 'BUS', 2),
+(2, 56, 'BUS', 1),
+(3, 54, 'BUS', 2),
+(4, 82, 'BUS', 1),
+(5, 88, 'BUS', 2),
+(6, 81, 'BUS', 1),
+(7, 78, 'BUS', 1),
+(8, 2, 'BUS', 1),
+(9, 0, 'METRO', 1),
+(10, 1, 'METRO', 1),
+(11, 227, 'VELO', 1);
 
 -- --------------------------------------------------------
 

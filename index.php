@@ -162,12 +162,25 @@
 
     <script>
         
-        //parcourir tous les bus et regarder si on a un localstorage
-        
-        
-        
-        
-        
+        //parcourir toutes les lignes et regarder si on a un localstorage
+        var tab = $(".infosAjax");
+        $(".infosAjax").each(function(){
+            array = $(this).text().split(";");
+            ligne = array[1];
+            
+            if(localStorage.getItem(ligne) == "like"){
+                alert("ligne "+ligne +" like ok");
+                $(this).prev().css('color','green');
+                $(this).prev().css('cursor','auto');
+            }
+            if(localStorage.getItem(ligne) == "unlike"){
+                 alert("ligne "+ligne +" unlike ok");
+                $(this).parent().children(".unlike").css('color','#bb2b2b');
+                $(this).parent().children(".unlike").css('cursor','auto');
+            } 
+        });
+ 
+
         //affichages des infos suplementaire    
         $( ".content" ).click(function() {
             $(this).children(".more_infos").toggleClass( "more_infos_active" );         
@@ -178,39 +191,72 @@
             var ligne = dataAjax.split(";");
             ligne = ligne[1];
             var elt = $(this);
+            var erase;
+            
+            if(localStorage.getItem(ligne) == "unlike" ){
+                //il faut enlever le unlike de la base de donnée
+                // et mettre a jour le nombre de unlike 
+                erase = true;
+            }
             
             if(localStorage.getItem(ligne) == "like" ){
                 alert("DEJA LIKER   ligne "+ligne +"  "+  localStorage.getItem(ligne));
-                //removeItem(ligne);
             }
-            else
-            {
-            
+            else {
                 //alert(dataAjax);
                 $.ajax({
                     type: "POST",
                     url: "like.php",
-                    data: {data:dataAjax},
+                    data: {data:dataAjax,eraseLike:erase},
                     success: function(msg){
-                        //alert(msg);
+                        alert(msg);
                         labelLike = elt.parent().children(".green");
                         //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
                         labelLike.html(msg);
-                   
                     }
                 });
-            
                 localStorage.setItem(ligne, "like");
-            
                 //changer l'icone en like/unlike
                 $(this).css('color','green');
-                $(this).next().next().next().css('color','blue');
+                $(this).css('cursor','auto');
+            }
+        });
+        
+        
+        $(".unlike").click(function() {
+            var dataAjax = $(this).parent().children(".infosAjax").text();
+            //alert("TEST : "+dataAjax);
+            var ligne = dataAjax.split(";");
+            ligne = ligne[1];
+            var elt = $(this);
             
-                
+            if(localStorage.getItem(ligne) == "like" ){
+                //il faut enlever le like de la base de donnée
+                // et mettre a jour le nombre de like 
             }
             
-          
-          
+            
+            if(localStorage.getItem(ligne) == "unlike" ){
+                alert("DEJA UNLIKER   ligne "+ligne +"  "+  localStorage.getItem(ligne));
+            }
+            else {
+                //alert(dataAjax);
+                $.ajax({
+                    type: "POST",
+                    url: "unlike.php",
+                    data: {data:dataAjax},
+                    success: function(msg){
+                        //alert(msg);
+                        labelUnlike = elt.parent().children(".red");
+                        //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
+                        labelUnlike.html(msg);
+                    }
+                });
+                localStorage.setItem(ligne, "unlike");
+                //changer l'icone en like/unlike
+                $(this).css('color','#bb2b2b');
+                $(this).css('cursor','auto');
+            }
         });
                              
     </script>
