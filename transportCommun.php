@@ -84,14 +84,40 @@ $ouvert = $parsed_json_velo->{'status'};
 $adresse = $parsed_json_velo->{'address'};
 $nbVeloDispo = $parsed_json_velo->{'available_bikes'};
 
-
 function afficherBus() {
     //a faire ici a la place de dans le html
 }
 
+function afficherLikeVelo($num, $dest, $db) {
+    $reqNbLike = "SELECT nbLike FROM VELO WHERE idVelo=" . $num .
+            " AND contratVelo='" . $dest . "';";
+    $nbLike = $db->getOneData($reqNbLike);
+    $nbLike = $nbLike[0];
+    return $nbLike;
+}
 
+function afficherUnlikeVelo($num, $dest, $db) {
+    $reqNbUnlike = "SELECT nbUnlike FROM VELO WHERE idVelo=" . $num .
+            " AND contratVelo='" . $dest . "';";
+    $nbUnlike = $db->getOneData($reqNbUnlike);
+    $nbUnlike = $nbUnlike[0];
+    return $nbUnlike;
+}
+function afficherLikeMetro($num, $dest, $db) {
+    $reqNbLike = "SELECT nbLike FROM METRO WHERE idMetro='" . $num .
+            "' AND directionMetro='" . $dest . "';";
+    $nbLike = $db->getOneData($reqNbLike);
+    $nbLike = $nbLike[0];
+    return $nbLike;
+}
 
-
+function afficherUnlikeMetro($num, $dest, $db) {
+    $reqNbUnlike = "SELECT nbUnlike FROM METRO WHERE idMetro='" . $num .
+            "' AND directionMetro='" . $dest . "';";
+    $nbUnlike = $db->getOneData($reqNbUnlike);
+    $nbUnlike = $nbUnlike[0];
+    return $nbUnlike;
+}
 
 
 
