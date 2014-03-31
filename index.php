@@ -34,15 +34,26 @@
                         for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
                             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
                             if (isset($tabLineArrets[0]->{'dateTime'})) {
-
-                                $reqNbLike = "SELECT nbLike FROM USERLIKE WHERE numLigne=" . $numLigne[$j] . " AND moyenTransport='BUS';";
+                                
+                                 
+                                //verifier s'il y a un "s" en fin de numero de ligne, "s" pour soir
+                                if( substr($numLigne[$j],strlen($numLigne[$j])-1,strlen($numLigne[$j])) == "s"){
+                                    $numLigne[$j] = substr($numLigne[$j], 0, strlen($numLigne[$j])-1);
+                                }
+                              
+                                $reqNbLike = "SELECT nbLike FROM BUS WHERE numBus='". $numLigne[$j]
+                                        . "' AND directionBus='".$destinationLine[$j]."';";
+                                
+                                 //echo "TEST : ".$reqNbLike;
                                 $nbLike = $db->getOneData($reqNbLike);
-
+                                
                                 $nbLike = $nbLike[0];
+                                //echo "TEST : ".$nbLike;
+                                
                                 if ($nbLike < 10) {
                                     $nbLike = $nbLike . "&nbsp;";
                                 }
-
+                                
                                 $horaire = new DateTime($horaireLigne[$j]);
                                 $arriveDans = arriveDans($horaireLigne[$j]);
                                 if ($arriveDans == 0) {
@@ -62,7 +73,7 @@
                                     </div>
                                     <div class = "right floated ui"><br>
                                         <i class="thumbs up icon like" ></i>
-                                        <div class="infosAjax">BUS;' . $numLigne[$j] . '</div>
+                                        <div class="infosAjax">BUS;' . $numLigne[$j] . ';'.$destinationLine[$j].'</div>
                                         <span class="ui green circular label">' . $nbLike . '</span><br>
                                         <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                         <span class="ui red circular label">19</span>
@@ -81,7 +92,7 @@
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
-                                <div class="infosAjax">METRO;1</div>
+                                <div class="infosAjax">METRO;B;Borderouge</div>
                                 <span class="ui green circular label">12</span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">13</span>
@@ -95,7 +106,7 @@
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
-                                <div class="infosAjax">METRO;0</div>
+                                <div class="infosAjax">METRO;B;Ramonville</div>
                                 <span class="ui green circular label">11</span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">19</span>
@@ -116,7 +127,7 @@
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
-                                <div class="infosAjax">VELO;227</div>
+                                <div class="infosAjax">VELO;227;Toulouse</div>
                                 <span class="ui green circular label">16</span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">10</span>
@@ -165,16 +176,20 @@
         //parcourir toutes les lignes et regarder si on a un localstorage
         var tab = $(".infosAjax");
         $(".infosAjax").each(function(){
+            
+            //recuperer en ajax le nombre de like/unlike
+            
+            
             array = $(this).text().split(";");
             ligne = array[1];
             
             if(localStorage.getItem(ligne) == "like"){
-                alert("ligne "+ligne +" like ok");
+                //alert("ligne "+ligne +" like ok");
                 $(this).prev().css('color','green');
                 $(this).prev().css('cursor','auto');
             }
             if(localStorage.getItem(ligne) == "unlike"){
-                 alert("ligne "+ligne +" unlike ok");
+                 //alert("ligne "+ligne +" unlike ok");
                 $(this).parent().children(".unlike").css('color','#bb2b2b');
                 $(this).parent().children(".unlike").css('cursor','auto');
             } 
@@ -191,7 +206,7 @@
             var ligne = dataAjax.split(";");
             ligne = ligne[1];
             var elt = $(this);
-            var erase;
+            var erase=false;
             
             if(localStorage.getItem(ligne) == "unlike" ){
                 //il faut enlever le unlike de la base de donnée
@@ -207,7 +222,7 @@
                 $.ajax({
                     type: "POST",
                     url: "like.php",
-                    data: {data:dataAjax,eraseLike:erase},
+                    data: {data:dataAjax,eraseLike:erase,type:"like"},
                     success: function(msg){
                         alert(msg);
                         labelLike = elt.parent().children(".green");
