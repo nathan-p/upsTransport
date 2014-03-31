@@ -13,7 +13,7 @@
     <body>
         <?php
         include 'transportCommun.php';
-        include_once 'controller/Database.php';
+        include_once 'model/Database.php';
 
         $db = new Database();
         $db->getConnection();
@@ -44,11 +44,11 @@
                                 $reqNbLike = "SELECT nbLike FROM BUS WHERE numBus='". $numLigne[$j]
                                         . "' AND directionBus='".$destinationLine[$j]."';";
                                 
-                                 //echo "TEST : ".$reqNbLike;
+                                echo "TEST : ".$reqNbLike;
                                 $nbLike = $db->getOneData($reqNbLike);
                                 
                                 $nbLike = $nbLike[0];
-                                //echo "TEST : ".$nbLike;
+                                echo "TEST : ".$nbLike;
                                 
                                 if ($nbLike < 10) {
                                     $nbLike = $nbLike . "&nbsp;";
