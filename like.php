@@ -9,13 +9,16 @@ $db->getConnection();
 $data = explode(";", $_POST['data']);
 $typeTransport = $data[0];
 $erase = $_POST['eraseLike'];
+$type = $_POST['type'];
 
 if (isset($typeTransport)) {
 
-    if ($erase) {
-        //effacer un like dans la bd pour cette ligne
+    if($type == "like"){
+        $typeLikeUnlike = "nbLike";
     }
-
+    else{
+        $typeLikeUnlike = "nbUnlike";
+    }
     $numLigne = $data[1];
     $destinationLine = $data[2];
 
@@ -23,49 +26,89 @@ if (isset($typeTransport)) {
         case "BUS":
             //recuperer le nombre de like 
             $nbLike = 0;
-            $reqNbLike = "SELECT nbLike FROM BUS WHERE numBus=" . $numLigne . " AND directionBus='" . $destinationLine . "';";
+            $reqNbLike = "SELECT ".$typeLikeUnlike." FROM BUS WHERE numBus='" . $numLigne .
+                    "' AND directionBus='" . htmlentities($destinationLine) . "';";
             $nbLike = $db->getOneData($reqNbLike);
             $nbLike = $nbLike[0];
 
-            //ajouter ou modifier le tuple
-            $nbLike = $nbLike + 1;
-            $req = "UPDATE BUS SET nbLike=" . $nbLike . " WHERE numBus=" 
-                    . $numLigne . " AND directionBus='" . $destinationLine . "';";
-           
+            $retourNbLike = $nbLike + 1;
+            
+            $req = "UPDATE BUS SET ".$typeLikeUnlike."=" . $retourNbLike . " WHERE numBus='" 
+                    . $numLigne . "' AND directionBus='" . htmlentities($destinationLine) . "';";
+            echo "req : ".$req;
             $db->getOneData($req);
+            
+            if ($erase) {
+                   //recupere le nombre de like
+                   $reqNbLikeUnlike = "SELECT ".$typeLikeUnlike." FROM BUS WHERE numBus='". $numLigne
+                                        . "' AND directionBus='".$destinationLine."';"; 
+                   $nbLikeUnlike = $db->getOneData($reqNbLikeUnlike);
+                   $nbLikeUnlike = $nbLikeUnlike[0];
+                   
+                   //enlever un like/unlike
+                   $nbLikeUnlike = $nbLikeUnlike+1;
+                   $req = "UPDATE BUS SET ".$typeLikeUnlike."=" . $nbLikeUnlike . " WHERE numBus='" 
+                    . $numLigne . "' AND directionBus='" . htmlentities($destinationLine) . "';";
+                    $db->getOneData($req);
+            }
             break;
         case "METRO":
             //recuperer le nombre de like 
             $nbLike = 0;
-            $reqNbLike = "SELECT nbLike FROM METRO WHERE idMetro='" . $numLigne . "' AND directionMetro='" . $destinationLine . "';";
-            //echo $reqNbLike;
+            $reqNbLike = "SELECT ".$typeLikeUnlike." FROM METRO WHERE idMetro='" . $numLigne 
+                    ."' AND directionMetro='" . $destinationLine . "';";
             $nbLike = $db->getOneData($reqNbLike);
             $nbLike = $nbLike[0];
 
-            //ajouter ou modifier le tuple
-            $nbLike = $nbLike + 1;
-            $req = "UPDATE METRO SET nbLike=" . $nbLike . " WHERE idMetro='" 
+            $retourNbLike = $nbLike + 1;
+            $req = "UPDATE METRO SET ".$typeLikeUnlike."=" . $retourNbLike . " WHERE idMetro='" 
                     . $numLigne . "' AND directionMetro='" . $destinationLine . "';";
-            //echo $req;
+           // echo "REQ : $req";
             $db->getOneData($req);
+            if ($erase) {
+                   //recupere le nombre de like
+                   $reqNbLikeUnlike = "SELECT ".$typeLikeUnlike." FROM METRO WHERE idMetro='". $numLigne
+                                        . "' AND directionMetro='".$destinationLine."';"; 
+                   $nbLikeUnlike = $db->getOneData($reqNbLikeUnlike);
+                   $nbLikeUnlike = $nbLikeUnlike[0];
+                   
+                   //enlever un like/unlike
+                   $nbLikeUnlike = $nbLikeUnlike-1;
+                   $req = "UPDATE METRO SET ".$typeLikeUnlike."=" . $nbLikeUnlike . " WHERE idMetro='" 
+                    . $numLigne . "' AND directionMetro='" . $destinationLine . "';";
+                    $db->getOneData($req);
+            }
             break;
         case "VELO":
             //recuperer le nombre de like 
             $nbLike = 0;
-            $reqNbLike = "SELECT nbLike FROM VELO WHERE idVelo=" . $numLigne . " AND contratVelo='" . $destinationLine . "';";
+            $reqNbLike = "SELECT ".$typeLikeUnlike." FROM VELO WHERE idVelo=" . $numLigne .
+                    " AND contratVelo='" . $destinationLine . "';";
             $nbLike = $db->getOneData($reqNbLike);
             $nbLike = $nbLike[0];
 
-            //ajouter ou modifier le tuple
-            $nbLike = $nbLike + 1;
-            $req = "UPDATE VELO SET nbLike=" . $nbLike . " WHERE idVelo=" 
+            $retourNbLike = $nbLike + 1;
+            $req = "UPDATE VELO SET $typeLikeUnlike =" . $retourNbLike . " WHERE idVelo=" 
                     . $numLigne . " AND contratVelo='" . $destinationLine . "';";
             
             $db->getOneData($req);
+            if ($erase) {
+                   //recupere le nombre de like
+                   $reqNbLikeUnlike = "SELECT $typeLikeUnlike FROM VELO WHERE idVelo=". $numLigne
+                                        . " AND contratVelo='".$destinationLine."';"; 
+                   $nbLikeUnlike = $db->getOneData($reqNbLikeUnlike);
+                   $nbLikeUnlike = $nbLikeUnlike[0];
+                   
+                   //enlever un like/unlike
+                   $nbLikeUnlike = $nbLikeUnlike-1;
+                   $req = "UPDATE VELO SET $typeLikeUnlike =" . $nbLikeUnlike . " WHERE idVelo=" 
+                    . $numLigne . " AND contratVelo='" . $destinationLine . "';";
+                    $db->getOneData($req);
+            }
             break;
     }
 
-    echo $nbLike;
+    echo $retourNbLike;
     exit();
 }
 ?>

@@ -16,7 +16,7 @@
         include_once 'controller/Database.php';
 
         $db = new Database();
-        $db->getConnection();
+        //$db->getConnection();
         ?>
         <header id="header" class="test">
             <div class="logo"><img  src="images/logo2.png"></div>
@@ -30,48 +30,53 @@
 
                     <div class="ui animated list">
                         <?php
-                        
                         $j = 0;
                         for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
                             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
-                            if (isset($tabLineArrets[0]->{'dateTime'})) { 
-                                $reqLigneExisteEnBD = "SELECT count(*) FROM BUS WHERE numBus='". $numLigne[$j]
-                                        . "' AND directionBus='".htmlentities($destinationLine[$j])."';";
-                                //echo "REQ EXISTE : ".$reqLigneExisteEnBD;
-                                
+                            if (isset($tabLineArrets[0]->{'dateTime'})) {
+                                $reqLigneExisteEnBD = "SELECT count(*) FROM BUS WHERE numBus='" . $numLigne[$j]
+                                        . "' AND directionBus='" . htmlentities($destinationLine[$j]) . "';";
                                 $nbTuples = $db->getOneData($reqLigneExisteEnBD);
 
-                                if($nbTuples[0] == 0){
+                                if ($nbTuples[0] == 0) {
                                     $reqAjouterLigneEnBD = "INSERT INTO BUS VALUES('"
-                                    .$numLigne[$j]."','".htmlentities($destinationLine[$j])."',0,0);";
+                                            . $numLigne[$j] . "','" . htmlentities($destinationLine[$j]) . "',0,0);";
                                     $db->getOneData($reqAjouterLigneEnBD);
                                 }
                             }
                             $j++;
                         }
-                        
+
                         $j = 0;
                         for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
                             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
-                            if (isset($tabLineArrets[0]->{'dateTime'})) { 
+                            if (isset($tabLineArrets[0]->{'dateTime'})) {
                                 //verifier s'il y a un "s" en fin de numero de ligne, "s" pour soir
-                                if( substr($numLigne[$j],strlen($numLigne[$j])-1,strlen($numLigne[$j])) == "s"){
-                                    $numLigne[$j] = substr($numLigne[$j], 0, strlen($numLigne[$j])-1);
+                                if (substr($numLigne[$j], strlen($numLigne[$j]) - 1, strlen($numLigne[$j])) == "s") {
+                                    $numLigne[$j] = substr($numLigne[$j], 0, strlen($numLigne[$j]) - 1);
                                 }
-                              
-                                $reqNbLike = "SELECT nbLike FROM BUS WHERE numBus='". $numLigne[$j]
-                                        . "' AND directionBus='".htmlentities($destinationLine[$j])."';";
-                                
+                                /* --------like------------ */
+                                $reqNbLike = "SELECT nbLike FROM BUS WHERE numBus='" . $numLigne[$j]
+                                        . "' AND directionBus='" . htmlentities($destinationLine[$j]) . "';";
                                 //echo "REQ : ".$reqNbLike;
                                 $nbLike = $db->getOneData($reqNbLike);
                                 $nbLike = $nbLike[0];
-                                
                                 //echo "NBLIKE : ".$nbLike;
-                                
                                 if ($nbLike < 10) {
                                     $nbLike = $nbLike . "&nbsp;";
                                 }
-                                
+                                /* --------unlike------------ */
+                                $reqNbUnike = "SELECT nbUnlike FROM BUS WHERE numBus='" . $numLigne[$j]
+                                        . "' AND directionBus='" . htmlentities($destinationLine[$j]) . "';";
+                                //echo "REQ : ".$reqNbLike;
+                                $nbUnlike = $db->getOneData($reqNbUnike);
+                                $nbUnlike = $nbUnlike[0];
+                                //echo "NBLIKE : ".$nbLike;
+                                if ($nbUnlike < 10) {
+                                    $nbUnlike = $nbUnlike . "&nbsp;";
+                                }
+                                /* --------fin unlike------------ */
+
                                 $horaire = new DateTime($horaireLigne[$j]);
                                 $arriveDans = arriveDans($horaireLigne[$j]);
                                 if ($arriveDans == 0) {
@@ -91,10 +96,10 @@
                                     </div>
                                     <div class = "right floated ui"><br>
                                         <i class="thumbs up icon like" ></i>
-                                        <div class="infosAjax">BUS;' . $numLigne[$j] . ';'.$destinationLine[$j].'</div>
+                                        <div class="infosAjax">BUS;' . $numLigne[$j] . ';' . $destinationLine[$j] . '</div>
                                         <span class="ui green circular label">' . $nbLike . '</span><br>
                                         <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
-                                        <span class="ui red circular label">19</span>
+                                        <span class="ui red circular label">' . $nbUnlike . '</span>
                                     </div>
                                 </div >';
                             }
@@ -110,10 +115,14 @@
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
-                                <div class="infosAjax">METRO;B;Borderouge</div>
-                                <span class="ui green circular label">12</span><br>
+                                <div class="infosAjax">METRO;B;Ramonville</div>
+                                <span class="ui green circular label">
+                                    <?php echo afficherLikeMetro("B", "Ramonville",$db) ?>
+                                </span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
-                                <span class="ui red circular label">13</span>
+                                <span class="ui red circular label">
+                                     <?php echo afficherUnlikeMetro("B", "Ramonville",$db) ?>
+                                </span>
                             </div>
                         </div>
                         <div class="item ui piled segment">
@@ -124,10 +133,14 @@
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
-                                <div class="infosAjax">METRO;B;Ramonville</div>
-                                <span class="ui green circular label">11</span><br>
+                                <div class="infosAjax">METRO;B;Borderouge</div>
+                                <span class="ui green circular label">
+                                     <?php echo afficherLikeMetro("B", "Borderouge",$db) ?>
+                                </span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
-                                <span class="ui red circular label">19</span>
+                                <span class="ui red circular label">
+                                    <?php echo afficherUnlikeMetro("B", "Borderouge",$db) ?>
+                                </span>
                             </div>
                         </div>
                         <div class="item ui piled segment ">
@@ -146,9 +159,13 @@
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
                                 <div class="infosAjax">VELO;227;Toulouse</div>
-                                <span class="ui green circular label">16</span><br>
+                                <span class="ui green circular label">
+                                    <?php echo afficherLikeVelo(227, "Toulouse",$db) ?>
+                                </span><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
-                                <span class="ui red circular label">10</span>
+                                <span class="ui red circular label">
+                                    <?php echo afficherUnlikeVelo(227, "Toulouse",$db) ?>
+                                </span>
                             </div>
 
 
@@ -194,20 +211,19 @@
         //parcourir toutes les lignes et regarder si on a un localstorage
         var tab = $(".infosAjax");
         $(".infosAjax").each(function(){
-            
             //recuperer en ajax le nombre de like/unlike
-            
-            
             array = $(this).text().split(";");
             ligne = array[1];
+            destination = array[2];
+            itemLocalSorage = ligne+""+destination;
             
-            if(localStorage.getItem(ligne) == "like"){
+            if(localStorage.getItem(itemLocalSorage) == "like"){
                 //alert("ligne "+ligne +" like ok");
                 $(this).prev().css('color','green');
                 $(this).prev().css('cursor','auto');
             }
-            if(localStorage.getItem(ligne) == "unlike"){
-                 //alert("ligne "+ligne +" unlike ok");
+            if(localStorage.getItem(itemLocalSorage) == "unlike"){
+                //alert("ligne "+ligne +" unlike ok");
                 $(this).parent().children(".unlike").css('color','#bb2b2b');
                 $(this).parent().children(".unlike").css('cursor','auto');
             } 
@@ -221,22 +237,22 @@
            
         $(".like").click(function() {
             var dataAjax = $(this).next().text();
-            var ligne = dataAjax.split(";");
-            ligne = ligne[1];
+            var infos = dataAjax.split(";");
+            var ligne = infos[1];
+            var destination = infos[2];
             var elt = $(this);
             var erase=false;
+            var itemLocalSorage = ligne+""+destination;
             
-            if(localStorage.getItem(ligne) == "unlike" ){
-                //il faut enlever le unlike de la base de donnée
-                // et mettre a jour le nombre de unlike 
+            if(localStorage.getItem(itemLocalSorage) == "unlike" ){
                 erase = true;
             }
             
-            if(localStorage.getItem(ligne) == "like" ){
-                alert("DEJA LIKER   ligne "+ligne +"  "+  localStorage.getItem(ligne));
+            if(localStorage.getItem(itemLocalSorage) == "like" ){
+                alert("DEJA LIKER   ligne "+ligne +"  "+  localStorage.getItem(itemLocalSorage));
             }
             else {
-                //alert(dataAjax);
+                alert(dataAjax+" erase : "+erase+" type : like");
                 $.ajax({
                     type: "POST",
                     url: "like.php",
@@ -244,54 +260,68 @@
                     success: function(msg){
                         alert(msg);
                         labelLike = elt.parent().children(".green");
+                        
                         //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
                         labelLike.html(msg);
-                    }
-                });
-                localStorage.setItem(ligne, "like");
-                //changer l'icone en like/unlike
-                $(this).css('color','green');
-                $(this).css('cursor','auto');
+                        //changer l'icone en like/unlike
+                        elt.css('color','green');
+                        elt.css('cursor','auto');
+                        if(erase){
+                            buttonUnlike = elt.parent().children(".unlike");
+                            buttonUnlike.css('color','black');
+                            buttonUnlike.css('cursor','pointer');
+                        }
+                        localStorage.setItem(itemLocalSorage, "like"); 
+                        
+                    }}); 
             }
         });
         
         
         $(".unlike").click(function() {
             var dataAjax = $(this).parent().children(".infosAjax").text();
-            //alert("TEST : "+dataAjax);
-            var ligne = dataAjax.split(";");
-            ligne = ligne[1];
+            var infos = dataAjax.split(";");
+            var ligne = infos[1];
+            var destination = infos[2];
             var elt = $(this);
-            
-            if(localStorage.getItem(ligne) == "like" ){
-                //il faut enlever le like de la base de donnée
-                // et mettre a jour le nombre de like 
+            var erase=false;
+            var itemLocalSorage = ligne+""+destination;
+            if(localStorage.getItem(itemLocalSorage) == "like" ){
+                erase = true;
             }
             
             
-            if(localStorage.getItem(ligne) == "unlike" ){
-                alert("DEJA UNLIKER   ligne "+ligne +"  "+  localStorage.getItem(ligne));
+            if(localStorage.getItem(itemLocalSorage) == "unlike" ){
+                alert("DEJA UNLIKER ligne "+ligne +"  "+  localStorage.getItem(itemLocalSorage));
             }
             else {
-                //alert(dataAjax);
+                alert(dataAjax+" erase : "+erase+" type : unlike");
                 $.ajax({
                     type: "POST",
-                    url: "unlike.php",
-                    data: {data:dataAjax},
+                    url: "like.php",
+                    data: {data:dataAjax,eraseLike:erase,type:"unlike"},
                     success: function(msg){
-                        //alert(msg);
+                        alert(msg);
                         labelUnlike = elt.parent().children(".red");
                         //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
                         labelUnlike.html(msg);
-                    }
-                });
-                localStorage.setItem(ligne, "unlike");
-                //changer l'icone en like/unlike
-                $(this).css('color','#bb2b2b');
-                $(this).css('cursor','auto');
+                        
+                        //changer l'icone en like/unlike
+                        elt.css('color','#bb2b2b');
+                        elt.css('cursor','auto');
+                        
+                        if(erase){
+                            buttonLike = elt.parent().children(".like");
+                            buttonLike.css('color','black');
+                            buttonLike.css('cursor','pointer');
+                        }
+                        localStorage.setItem(itemLocalSorage, "unlike");
+                        
+                    }});
             }
         });
                              
     </script>
+   
 </body>
 </html>
