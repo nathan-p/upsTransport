@@ -13,7 +13,7 @@
     <body>
         <?php
         include 'transportCommun.php';
-        include_once 'model/Database.php';
+        include_once 'controller/Database.php';
 
         $db = new Database();
         $db->getConnection();
