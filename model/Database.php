@@ -8,7 +8,7 @@ class Database {
      */
     private static function connect(){ 
       $account = "root";
-      $password = "intranet";
+      $password = "";
         try{ 
             return new PDO('mysql:host=localhost;dbname=upsTransport', $account, $password);
         } catch (Exception $e){ 
