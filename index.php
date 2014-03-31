@@ -62,10 +62,11 @@
                                 $reqNbLike = "SELECT nbLike FROM BUS WHERE numBus='". $numLigne[$j]
                                         . "' AND directionBus='".htmlentities($destinationLine[$j])."';";
                                 
-                                echo "TEST : ".$reqNbLike;
+                                //echo "REQ : ".$reqNbLike;
                                 $nbLike = $db->getOneData($reqNbLike);
                                 $nbLike = $nbLike[0];
-                                echo "TEST : ".$nbLike;
+                                
+                                //echo "NBLIKE : ".$nbLike;
                                 
                                 if ($nbLike < 10) {
                                     $nbLike = $nbLike . "&nbsp;";
