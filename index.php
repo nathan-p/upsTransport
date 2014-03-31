@@ -12,6 +12,7 @@
     </head>  
     <body>
         <?php
+       
         //include 'transportCommun.php';
         require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
         require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Bus.php");
@@ -20,7 +21,7 @@
         require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Decaux.php");
         require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Tisseo.php");
         require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
-        
+         Metro::getHoraire();
         $db = new Database();
         $db->getConnection();
         ?>

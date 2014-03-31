@@ -687,7 +687,7 @@
 
 .ui.grid {
   display: block;
-  text-align: left;
+  /*text-align: left;*/
   font-size: 0em;
   margin: 0% -1.5%;
   padding: 0%;
@@ -3285,7 +3285,7 @@ body > .ui.grid {
 }
 
 .ui.menu .item {
-  font-size: 1rem;
+  font-size: 1.3rem;
 }
 
 .ui.vertical.menu {
@@ -10418,7 +10418,7 @@ a.ui.teal.label:hover:before {
   padding: 0.5em !important;
   line-height: 1em;
   text-align: center;
-  border-radius: 500rem;
+  /*border-radius: 500rem*/
 }
 
 /*-------------------
@@ -17210,7 +17210,7 @@ ol.ui.list li,
   list-style-type: none;
   list-style-position: inside;
   padding: 0.3em 0em;
-  line-height: 1.2;
+  line-height: 0.5;
 }
 
 .ui.list .item:after {
@@ -17305,6 +17305,7 @@ ol.ui.list li,
 .ui.list .item > .right.floated {
   margin-left: 1em;
   float: right;
+  margin-right: 0.6em;
 }
 
 /*******************************

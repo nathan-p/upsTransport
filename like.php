@@ -35,7 +35,7 @@ if (isset($typeTransport)) {
             
             $req = "UPDATE BUS SET ".$typeLikeUnlike."=" . $retourNbLike . " WHERE numBus='" 
                     . $numLigne . "' AND directionBus='" . htmlentities($destinationLine) . "';";
-            echo "req : ".$req;
+            //echo "req : ".$req;
             $db->getOneData($req);
             
             if ($erase) {
