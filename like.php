@@ -1,6 +1,6 @@
 <?php
 
-include_once 'controller/Database.php';
+require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
 
 $db = new Database();
 $db->getConnection();

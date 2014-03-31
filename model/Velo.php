@@ -1,11 +1,7 @@
 <?php
 
-class Metro {
-    private static $bdd = NULL;
+class Velo {
 
-    public static function connect(){ 
-       
-    } 
 }
 
 ?>

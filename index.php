@@ -12,15 +12,21 @@
     </head>  
     <body>
         <?php
-        include 'transportCommun.php';
-        include_once 'controller/Database.php';
-
+        //include 'transportCommun.php';
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Bus.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Metro.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Velo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Decaux.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Tisseo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
+        
         $db = new Database();
         $db->getConnection();
         ?>
+        
         <header id="header" class="test">
             <div class="logo"><img  src="images/logo2.png"></div>
-
         </header><!-- /header -->
 
         <div id="corps">
@@ -30,21 +36,18 @@
 
                     <div class="ui animated list">
                         <?php
-                        
+                        $idZoneArretPaulSabatier = Tisseo::idZoneArretPaulSabatier();
+                        $tabCodeOperateur = Tisseo::tabCodeOperateur($idZoneArretPaulSabatier);
+                        $parsed_json_linesArrets = Tisseo::linesArrets($tabCodeOperateur);
+                        $numLigne = Tisseo::numLineArrets($parsed_json_linesArrets);
+                        $destinationLine = Tisseo::destinationLineArrets($parsed_json_linesArrets);
+                        $horaireLigne = Tisseo::horaireLineArrets($parsed_json_linesArrets);
                         $j = 0;
                         for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
                             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
                             if (isset($tabLineArrets[0]->{'dateTime'})) { 
-                                $reqLigneExisteEnBD = "SELECT count(*) FROM BUS WHERE numBus='". $numLigne[$j]
-                                        . "' AND directionBus='".htmlentities($destinationLine[$j])."';";
-                                //echo "REQ EXISTE : ".$reqLigneExisteEnBD;
-                                
-                                $nbTuples = $db->getOneData($reqLigneExisteEnBD);
-
-                                if($nbTuples[0] == 0){
-                                    $reqAjouterLigneEnBD = "INSERT INTO BUS VALUES('"
-                                    .$numLigne[$j]."','".htmlentities($destinationLine[$j])."',0,0);";
-                                    $db->getOneData($reqAjouterLigneEnBD);
+                                if(Bus::existeBusDansBD($numLigne[$j],$destinationLine[$j]) == 0){
+                                    Bus::insererBusDansBd($numLigne[$j],$destinationLine[$j]);
                                 }
                             }
                             $j++;
@@ -59,21 +62,14 @@
                                     $numLigne[$j] = substr($numLigne[$j], 0, strlen($numLigne[$j])-1);
                                 }
                               
-                                $reqNbLike = "SELECT nbLike FROM BUS WHERE numBus='". $numLigne[$j]
-                                        . "' AND directionBus='".htmlentities($destinationLine[$j])."';";
-                                
-                                //echo "REQ : ".$reqNbLike;
-                                $nbLike = $db->getOneData($reqNbLike);
-                                $nbLike = $nbLike[0];
-                                
-                                //echo "NBLIKE : ".$nbLike;
+                                $nbLike = Bus::nbLikeBus($numLigne[$j],$destinationLine[$j]);
                                 
                                 if ($nbLike < 10) {
                                     $nbLike = $nbLike . "&nbsp;";
                                 }
                                 
                                 $horaire = new DateTime($horaireLigne[$j]);
-                                $arriveDans = arriveDans($horaireLigne[$j]);
+                                $arriveDans = Toolkit::arriveDans($horaireLigne[$j]);
                                 if ($arriveDans == 0) {
                                     $arriveDans = "un instant";
                                 } else {
@@ -135,6 +131,10 @@
                             <div class="content">
                                 <div class="header">Vélo Toulouse</div>
                                 <?php
+                                $nbVeloDispo = Decaux::nbVeloDispo();
+                                $nbBorneTotal = Decaux::nbBorneTotal();
+                                $nbBorneDispo = Decaux::nbBorneDispo();
+                                $adresse = Decaux::adresse();
                                 echo "$adresse <br> Nombre de vélos disponibles : $nbVeloDispo"
                                 ?>
                                 <div class="more_infos">
