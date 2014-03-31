@@ -30,25 +30,43 @@
 
                     <div class="ui animated list">
                         <?php
+                        
                         $j = 0;
                         for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
                             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
-                            if (isset($tabLineArrets[0]->{'dateTime'})) {
+                            if (isset($tabLineArrets[0]->{'dateTime'})) { 
+                                $reqLigneExisteEnBD = "SELECT count(*) FROM BUS WHERE numBus='". $numLigne[$j]
+                                        . "' AND directionBus='".htmlentities($destinationLine[$j])."';";
+                                //echo "REQ EXISTE : ".$reqLigneExisteEnBD;
                                 
-                                 
+                                $nbTuples = $db->getOneData($reqLigneExisteEnBD);
+
+                                if($nbTuples[0] == 0){
+                                    $reqAjouterLigneEnBD = "INSERT INTO BUS VALUES('"
+                                    .$numLigne[$j]."','".htmlentities($destinationLine[$j])."',0,0);";
+                                    $db->getOneData($reqAjouterLigneEnBD);
+                                }
+                            }
+                            $j++;
+                        }
+                        
+                        $j = 0;
+                        for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
+                            $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
+                            if (isset($tabLineArrets[0]->{'dateTime'})) { 
                                 //verifier s'il y a un "s" en fin de numero de ligne, "s" pour soir
                                 if( substr($numLigne[$j],strlen($numLigne[$j])-1,strlen($numLigne[$j])) == "s"){
                                     $numLigne[$j] = substr($numLigne[$j], 0, strlen($numLigne[$j])-1);
                                 }
                               
                                 $reqNbLike = "SELECT nbLike FROM BUS WHERE numBus='". $numLigne[$j]
-                                        . "' AND directionBus='".$destinationLine[$j]."';";
+                                        . "' AND directionBus='".htmlentities($destinationLine[$j])."';";
                                 
-                                 //echo "TEST : ".$reqNbLike;
+                                //echo "REQ : ".$reqNbLike;
                                 $nbLike = $db->getOneData($reqNbLike);
-                                
                                 $nbLike = $nbLike[0];
-                                //echo "TEST : ".$nbLike;
+                                
+                                //echo "NBLIKE : ".$nbLike;
                                 
                                 if ($nbLike < 10) {
                                     $nbLike = $nbLike . "&nbsp;";
