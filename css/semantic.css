@@ -944,7 +944,7 @@ body > .ui.grid {
 .ui.two.column.grid > .row > .column,
 .ui.two.column.grid > .column,
 .ui.grid > .two.column.row > .column {
-  width: 50%;
+  /*width: 50%;*/
 }
 
 .ui.three.column.grid > .row > .column,
@@ -10418,7 +10418,7 @@ a.ui.teal.label:hover:before {
   padding: 0.5em !important;
   line-height: 1em;
   text-align: center;
-  /*border-radius: 500rem*/
+  border-radius: 500rem;
 }
 
 /*-------------------

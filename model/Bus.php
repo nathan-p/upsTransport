@@ -20,7 +20,14 @@ class Bus {
                 . "' AND directionBus='".htmlentities($destinationLine)."';";
 
         $nbLike = Database::getOneData($reqNbLike);
+        return $nbLike[0];
+    }
+    
+    public static function nbUnlikeBus($numLigne, $destinationLine) {
+        $reqNbLike = "SELECT nbUnlike FROM BUS WHERE numBus='". $numLigne
+                . "' AND directionBus='".htmlentities($destinationLine)."';";
 
+        $nbLike = Database::getOneData($reqNbLike);
         return $nbLike[0];
     }
 }

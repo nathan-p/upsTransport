@@ -8,7 +8,43 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
         <script src="javascript/semantic.js"></script>
-
+        <script type="text/javascript">
+        function affichHome() {
+            document.getElementById('idDivHome').style.display = 'block';
+            document.getElementById('idDivBus').style.display = 'none';
+            document.getElementById('idDivMetro').style.display = 'none';
+            document.getElementById('idDivVelo').style.display = 'none';
+            document.getElementById('idDivItineraire').style.display = 'none';
+        } 
+        function affichBus() {
+            document.getElementById('idDivHome').style.display = 'none';
+            document.getElementById('idDivBus').style.display = 'block';
+            document.getElementById('idDivMetro').style.display = 'none';
+            document.getElementById('idDivVelo').style.display = 'none';
+            document.getElementById('idDivItineraire').style.display = 'none';
+        } 
+        function affichMetro() {
+            document.getElementById('idDivHome').style.display = 'none';
+            document.getElementById('idDivBus').style.display = 'none';
+            document.getElementById('idDivMetro').style.display = 'block';
+            document.getElementById('idDivVelo').style.display = 'none';
+            document.getElementById('idDivItineraire').style.display = 'none';
+        }
+        function affichVelo() {
+            document.getElementById('idDivHome').style.display = 'none';
+            document.getElementById('idDivBus').style.display = 'none';
+            document.getElementById('idDivMetro').style.display = 'none';
+            document.getElementById('idDivVelo').style.display = 'block';
+            document.getElementById('idDivItineraire').style.display = 'none';
+        } 
+        function affichItineraire() {
+            document.getElementById('idDivHome').style.display = 'none';
+            document.getElementById('idDivBus').style.display = 'none';
+            document.getElementById('idDivMetro').style.display = 'none';
+            document.getElementById('idDivVelo').style.display = 'none';
+            document.getElementById('idDivItineraire').style.display = 'block';
+        }
+        </script>
     </head>  
     <body>
         <?php
@@ -20,174 +56,56 @@
         require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Velo.php");
         require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Decaux.php");
         require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Tisseo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Google.php");
         require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
-         Metro::getHoraire();
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Vue.php");
         $db = new Database();
         $db->getConnection();
         ?>
         
-        <header id="header" class="test">
-            <div class="logo"><img  src="images/logo2.png"></div>
-        </header><!-- /header -->
+        <header id="header">
+            <img src="./images/logo2.png"/>
+        </header>
 
-        <div id="corps">
-            <div class="ui two column middle aligned relaxed grid basic segment">
-                <div id="actu" class="center aligned column" >
-                    <h2 class="section">TRANSPORTS EN COMMUN DISPONIBLES</h2><br>
-
-                    <div class="ui animated list">
-                        <?php
-                        $idZoneArretPaulSabatier = Tisseo::idZoneArretPaulSabatier();
-                        $tabCodeOperateur = Tisseo::tabCodeOperateur($idZoneArretPaulSabatier);
-                        $parsed_json_linesArrets = Tisseo::linesArrets($tabCodeOperateur);
-                        $numLigne = Tisseo::numLineArrets($parsed_json_linesArrets);
-                        $destinationLine = Tisseo::destinationLineArrets($parsed_json_linesArrets);
-                        $horaireLigne = Tisseo::horaireLineArrets($parsed_json_linesArrets);
-                        $j = 0;
-                        for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
-                            $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
-                            if (isset($tabLineArrets[0]->{'dateTime'})) { 
-                                if(Bus::existeBusDansBD($numLigne[$j],$destinationLine[$j]) == 0){
-                                    Bus::insererBusDansBd($numLigne[$j],$destinationLine[$j]);
-                                }
-                            }
-                            $j++;
-                        }
-                        
-                        $j = 0;
-                        for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
-                            $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
-                            if (isset($tabLineArrets[0]->{'dateTime'})) { 
-                                //verifier s'il y a un "s" en fin de numero de ligne, "s" pour soir
-                                if( substr($numLigne[$j],strlen($numLigne[$j])-1,strlen($numLigne[$j])) == "s"){
-                                    $numLigne[$j] = substr($numLigne[$j], 0, strlen($numLigne[$j])-1);
-                                }
-                              
-                                $nbLike = Bus::nbLikeBus($numLigne[$j],$destinationLine[$j]);
-                                
-                                if ($nbLike < 10) {
-                                    $nbLike = $nbLike . "&nbsp;";
-                                }
-                                
-                                $horaire = new DateTime($horaireLigne[$j]);
-                                $arriveDans = Toolkit::arriveDans($horaireLigne[$j]);
-                                if ($arriveDans == 0) {
-                                    $arriveDans = "un instant";
-                                } else {
-                                    $arriveDans = $arriveDans . " min";
-                                }
-                                echo '
-                                <div class = "item ui piled segment">
-                                    <img class = "ui avatar image transport_lis_icon" src = "images/bus.png">
-                                    <div class = "content">
-                                        <div class = "header">Ligne ' . $numLigne[$j] . '</div>
-                                            Bus en direction de ' . $destinationLine[$j] . '<br>Arrivée dans ' . $arriveDans . '
-                                        <div class="more_infos">
-                                            Heure d\'arrivée : ' . $horaire->format('H:i') . '  
-                                        </div>
-                                    </div>
-                                    <div class = "right floated ui"><br>
-                                        <i class="thumbs up icon like" ></i>
-                                        <div class="infosAjax">BUS;' . $numLigne[$j] . ';'.$destinationLine[$j].'</div>
-                                        <span class="ui green circular label">' . $nbLike . '</span><br>
-                                        <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
-                                        <span class="ui red circular label">19</span>
-                                    </div>
-                                </div >';
-                            }
-                            $j++;
-                        }
-                        ?>
-
-                        <div class="item ui piled segment">
-                            <img class="ui avatar image transport_lis_icon" src="images/metro.png">
-                            <div class="content">
-                                <div class="header">Metro ligne B</div>
-                                Direction Ramonville <br>Arrivée dans 12min
-                            </div>
-                            <div class="right floated ui"><br>
-                                <i class="thumbs up icon like"></i>
-                                <div class="infosAjax">METRO;B;Borderouge</div>
-                                <span class="ui green circular label">12</span><br>
-                                <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
-                                <span class="ui red circular label">13</span>
-                            </div>
-                        </div>
-                        <div class="item ui piled segment">
-                            <img class="ui avatar image transport_lis_icon" src="images/metro.png">
-                            <div class="content">
-                                <div class="header">Metro ligne B</div>
-                                Direction Borderouge <br>Arrivée dans 7min
-                            </div>
-                            <div class="right floated ui"><br>
-                                <i class="thumbs up icon like"></i>
-                                <div class="infosAjax">METRO;B;Ramonville</div>
-                                <span class="ui green circular label">11</span><br>
-                                <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
-                                <span class="ui red circular label">19</span>
-                            </div>
-                        </div>
-                        <div class="item ui piled segment ">
-                            <img class="ui avatar image transport_lis_icon" src="images/velo.png">
-                            <div class="content">
-                                <div class="header">Vélo Toulouse</div>
-                                <?php
-                                $nbVeloDispo = Decaux::nbVeloDispo();
-                                $nbBorneTotal = Decaux::nbBorneTotal();
-                                $nbBorneDispo = Decaux::nbBorneDispo();
-                                $adresse = Decaux::adresse();
-                                echo "$adresse <br> Nombre de vélos disponibles : $nbVeloDispo"
-                                ?>
-                                <div class="more_infos">
-                                    <?php
-                                    echo "Nombre de bornes : $nbBorneTotal <br> Nombre de bornes disponibles : $nbBorneDispo"
-                                    ?>   
-                                </div>
-                            </div>
-                            <div class="right floated ui"><br>
-                                <i class="thumbs up icon like"></i>
-                                <div class="infosAjax">VELO;227;Toulouse</div>
-                                <span class="ui green circular label">16</span><br>
-                                <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
-                                <span class="ui red circular label">10</span>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                </div>
-                <div class="ui vertical divider">
-                    OU
-                </div>
-                <div id="itineraire" class="aligned column">
-                    <h2 class="section">RENTRER CHEZ MOI</h2><br>
-                    <div class="ui form segment">
-                        <div class="field">
-                            <h5>ADRESSE</h5>
-                            <div class="ui left labeled icon input">
-                                <input type="text" placeholder="Veuillez rentrer votre destination">
-                                <i class="map marker icon"></i>
-                                <div class="ui corner label">
-                                    <i class="asterisk icon"></i>
-                                </div> 
-                            </div>
-
-                        </div>
-                        <div class="ui blue submit button">RECHERCHER</div>
-                    </div>
-
-                </div>
-
-
+        <center>
+            <div class="ui secondary  menu">
+                <a class="active item" href="javascript: affichHome();">
+                  <i class="home icon"></i> Home
+                </a>
+                <a class="item" href="javascript: affichBus();">
+                  <img src="images/bus.png" width="20px" style="display:inline;vertical-align:middle"> Bus
+                </a>
+                <a class="item" href="javascript: affichMetro();">
+                  <img src="images/metro.png" width="20px" style="display:inline;vertical-align:middle"> Métro
+                </a>
+                <a class="item" href="javascript: affichVelo();">
+                  <img src="images/velo.png" width="20px" style="display:inline;vertical-align:middle"> Vélo
+                </a>
+                <a class="item" href="javascript: affichItineraire();">
+                  <i class="location icon"></i> Itinéraire
+                </a>
             </div>
-        </div>
-    </div><br><br>
-    <footer>
-        <br><br><br><center>
-            UPS TRANSPORT - UE INTEROPERABILITE DES APPLICATIONS ET DES WEB SERVICES - Laurine Marmisse / Nathan Prior
         </center>
-        <br><br><br>
+    
+    <center>
+        <div id="idDivHome" style="display:block;">
+          idDivHome  
+        </div>
+        <div id="idDivBus" style="display:none;">
+            <?php Vue::affichInfoBus(); ?>  
+        </div>
+        <div id="idDivMetro" style="display:none;">
+             <?php Vue::affichInfoMetro(); ?>
+        </div>
+        <div id="idDivVelo" style="display:none;">
+            <?php Vue::affichInfoVelo(); ?>
+        </div>
+        <div id="idDivItineraire" style="display:none;">
+            <?php Vue::affichInfoItineraire(); ?>         
+        </div>
+    </center>
+    <footer>
+            UPS TRANSPORT - UE INTEROPERABILITE DES APPLICATIONS ET DES WEB SERVICES - Laurine Marmisse / Nathan Prior
     </footer>
 
     <script>
@@ -195,20 +113,19 @@
         //parcourir toutes les lignes et regarder si on a un localstorage
         var tab = $(".infosAjax");
         $(".infosAjax").each(function(){
-            
             //recuperer en ajax le nombre de like/unlike
-            
-            
             array = $(this).text().split(";");
             ligne = array[1];
+            destination = array[2];
+            itemLocalSorage = ligne+""+destination;
             
-            if(localStorage.getItem(ligne) == "like"){
+            if(localStorage.getItem(itemLocalSorage) == "like"){
                 //alert("ligne "+ligne +" like ok");
                 $(this).prev().css('color','green');
                 $(this).prev().css('cursor','auto');
             }
-            if(localStorage.getItem(ligne) == "unlike"){
-                 //alert("ligne "+ligne +" unlike ok");
+            if(localStorage.getItem(itemLocalSorage) == "unlike"){
+                //alert("ligne "+ligne +" unlike ok");
                 $(this).parent().children(".unlike").css('color','#bb2b2b');
                 $(this).parent().children(".unlike").css('cursor','auto');
             } 
@@ -222,74 +139,87 @@
            
         $(".like").click(function() {
             var dataAjax = $(this).next().text();
-            var ligne = dataAjax.split(";");
-            ligne = ligne[1];
+            var infos = dataAjax.split(";");
+            var ligne = infos[1];
+            var destination = infos[2];
             var elt = $(this);
             var erase=false;
+            var itemLocalSorage = ligne+""+destination;
             
-            if(localStorage.getItem(ligne) == "unlike" ){
-                //il faut enlever le unlike de la base de donnée
-                // et mettre a jour le nombre de unlike 
+            if(localStorage.getItem(itemLocalSorage) == "unlike" ){
                 erase = true;
             }
             
-            if(localStorage.getItem(ligne) == "like" ){
-                alert("DEJA LIKER   ligne "+ligne +"  "+  localStorage.getItem(ligne));
+            if(localStorage.getItem(itemLocalSorage) == "like" ){
+                alert("Vous avez déjà liker la ligne "+ligne);
             }
             else {
-                //alert(dataAjax);
+                //alert(dataAjax+" erase : "+erase+" type : like");
                 $.ajax({
                     type: "POST",
                     url: "like.php",
                     data: {data:dataAjax,eraseLike:erase,type:"like"},
                     success: function(msg){
-                        alert(msg);
+                        //alert(msg);
                         labelLike = elt.parent().children(".green");
+                        
                         //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
                         labelLike.html(msg);
-                    }
-                });
-                localStorage.setItem(ligne, "like");
-                //changer l'icone en like/unlike
-                $(this).css('color','green');
-                $(this).css('cursor','auto');
+                        //changer l'icone en like/unlike
+                        elt.css('color','green');
+                        elt.css('cursor','auto');
+                        if(erase){
+                            buttonUnlike = elt.parent().children(".unlike");
+                            buttonUnlike.css('color','black');
+                            buttonUnlike.css('cursor','pointer');
+                        }
+                        localStorage.setItem(itemLocalSorage, "like"); 
+                        
+                    }}); 
             }
         });
         
         
         $(".unlike").click(function() {
             var dataAjax = $(this).parent().children(".infosAjax").text();
-            //alert("TEST : "+dataAjax);
-            var ligne = dataAjax.split(";");
-            ligne = ligne[1];
+            var infos = dataAjax.split(";");
+            var ligne = infos[1];
+            var destination = infos[2];
             var elt = $(this);
-            
-            if(localStorage.getItem(ligne) == "like" ){
-                //il faut enlever le like de la base de donnée
-                // et mettre a jour le nombre de like 
+            var erase=false;
+            var itemLocalSorage = ligne+""+destination;
+            if(localStorage.getItem(itemLocalSorage) == "like" ){
+                erase = true;
             }
             
             
-            if(localStorage.getItem(ligne) == "unlike" ){
-                alert("DEJA UNLIKER   ligne "+ligne +"  "+  localStorage.getItem(ligne));
+            if(localStorage.getItem(itemLocalSorage) == "unlike" ){
+                alert("Vous avez déjà unliker la ligne "+ligne);
             }
             else {
-                //alert(dataAjax);
+                //alert(dataAjax+" erase : "+erase+" type : unlike");
                 $.ajax({
                     type: "POST",
-                    url: "unlike.php",
-                    data: {data:dataAjax},
+                    url: "like.php",
+                    data: {data:dataAjax,eraseLike:erase,type:"unlike"},
                     success: function(msg){
                         //alert(msg);
                         labelUnlike = elt.parent().children(".red");
                         //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
                         labelUnlike.html(msg);
-                    }
-                });
-                localStorage.setItem(ligne, "unlike");
-                //changer l'icone en like/unlike
-                $(this).css('color','#bb2b2b');
-                $(this).css('cursor','auto');
+                        
+                        //changer l'icone en like/unlike
+                        elt.css('color','#bb2b2b');
+                        elt.css('cursor','auto');
+                        
+                        if(erase){
+                            buttonLike = elt.parent().children(".like");
+                            buttonLike.css('color','black');
+                            buttonLike.css('cursor','pointer');
+                        }
+                        localStorage.setItem(itemLocalSorage, "unlike");
+                        
+                    }});
             }
         });
                              

@@ -3,8 +3,7 @@
 class Vue {
     
     public static function affichInfoVelo() {
-        echo '<div class="ui two column middle aligned relaxed grid basic segment">
-                <div id="actu" class="center aligned column" >
+        echo '<div id="actu" class="center aligned column" >
                     <div class="ui animated list">
                         <div class="item ui piled segment ">
                             <img class="ui avatar image transport_lis_icon" src="images/velo.png">
@@ -22,19 +21,21 @@ class Vue {
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
                                 <div class="infosAjax">VELO;227;Toulouse</div>
-                                <span class="ui green circular label">16</span><br/><br/>
+                                <span class="ui green circular label">';
+                                echo Velo::afficherLikeVelo(227, "Toulouse");
+                                echo '</span><br/><br/>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
-                                <span class="ui red circular label">10</span>
+                                <span class="ui red circular label">';
+                                echo Velo::afficherUnlikeVelo(227, "Toulouse");
+                                echo '</span>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>';
+                </div>';
     }
     
     public static function affichInfoBus() {
-        echo '<div class="ui two column middle aligned relaxed grid basic segment">
-                <div id="actu" class="center aligned column" >
+        echo '<div id="actu" class="center aligned column" >
                     <div class="ui animated list">';
                         $idZoneArretPaulSabatier = Tisseo::idZoneArretPaulSabatier();
                         $tabCodeOperateur = Tisseo::tabCodeOperateur($idZoneArretPaulSabatier);
@@ -68,6 +69,12 @@ class Vue {
                                     $nbLike = $nbLike."&nbsp;";
                                 }
                                 
+                                $nbUnlike = Bus::nbUnlikeBus($numLigne[$j],$destinationLine[$j]);
+                                
+                                if ($nbUnlike < 10) {
+                                    $nbUnlike = $nbUnlike . "&nbsp;";
+                                }
+                                
                                 $horaire = new DateTime($horaireLigne[$j]);
                                 $arriveDans = Toolkit::arriveDans($horaireLigne[$j]);
                                 if ($arriveDans == 0) {
@@ -90,17 +97,53 @@ class Vue {
                                         <div class="infosAjax">BUS;' . $numLigne[$j] . ';'.$destinationLine[$j].'</div>
                                         <span class="ui green circular label">' . $nbLike . '</span><br><br/>
                                         <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
-                                        <span class="ui red circular label">19</span>
+                                        <span class="ui red circular label">' . $nbUnlike . '</span>
                                     </div>
                                 </div >';
                             }
                             $j++;
                         }
-          echo '</div></div></div>';                    
+          echo '</div></div>';                    
     }
     
     public static function affichInfoMetro() {
-        Google::dureeTrajetVelo();
+        //Google::dureeTrajetVelo();
+        echo '<div class="item ui piled segment">
+                            <img class="ui avatar image transport_lis_icon" src="images/metro.png">
+                            <div class="content">
+                                <div class="header">Metro ligne B</div>
+                                Direction Ramonville <br>Arrivée dans 12min
+                            </div>
+                            <div class="right floated ui"><br>
+                                <i class="thumbs up icon like"></i>
+                                <div class="infosAjax">METRO;B;Ramonville</div>
+                                <span class="ui green circular label">';
+                                    echo Metro::afficherLikeMetro("B", "Ramonville");
+                                echo '</span><br>
+                                <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
+                                <span class="ui red circular label">';
+                                     echo Metro::afficherUnlikeMetro("B", "Ramonville");
+                                echo '</span>
+                            </div>
+                        </div>
+                        <div class="item ui piled segment">
+                            <img class="ui avatar image transport_lis_icon" src="images/metro.png">
+                            <div class="content">
+                                <div class="header">Metro ligne B</div>
+                                Direction Borderouge <br>Arrivée dans 7min
+                            </div>
+                            <div class="right floated ui"><br>
+                                <i class="thumbs up icon like"></i>
+                                <div class="infosAjax">METRO;B;Borderouge</div>
+                                <span class="ui green circular label">';
+                                     echo Metro::afficherLikeMetro("B", "Borderouge");
+                                echo '</span><br>
+                                <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
+                                <span class="ui red circular label">';
+                                    echo Metro::afficherUnlikeMetro("B", "Borderouge");
+                                echo '</span>
+                            </div>
+                        </div>';
     }
     
     public static function affichInfoItineraire() {
