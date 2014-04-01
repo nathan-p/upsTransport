@@ -1,11 +1,6 @@
 <?php
 
 class Metro {
-    public static function getHoraire(){ 
-       $jourCourant = date("l");
-       echo $jourCourant;
-    } 
-    
     public static function afficherLikeMetro($num, $dest) {
         $reqNbLike = "SELECT nbLike FROM METRO WHERE idMetro='" . $num .
                 "' AND directionMetro='" . $dest . "';";

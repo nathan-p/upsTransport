@@ -120,7 +120,7 @@ class Vue {
                                 <div class="infosAjax">METRO;B;Ramonville</div>
                                 <span class="ui green circular label">';
                                     echo Metro::afficherLikeMetro("B", "Ramonville");
-                                echo '</span><br>
+                                echo '</span><br><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">';
                                      echo Metro::afficherUnlikeMetro("B", "Ramonville");
@@ -138,7 +138,7 @@ class Vue {
                                 <div class="infosAjax">METRO;B;Borderouge</div>
                                 <span class="ui green circular label">';
                                      echo Metro::afficherLikeMetro("B", "Borderouge");
-                                echo '</span><br>
+                                echo '</span><br><br>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">';
                                     echo Metro::afficherUnlikeMetro("B", "Borderouge");
