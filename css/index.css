@@ -26,9 +26,10 @@ header{
 	/*margin-top: -83%;*/
 }
 #corps{
-	position: relative;
+	position: absolute;
 	margin-right: auto;
 	margin-left: auto;
+        top:80%;
 	width: 90%;
 }
 

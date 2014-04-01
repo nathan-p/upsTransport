@@ -10,39 +10,69 @@
         <script src="javascript/semantic.js"></script>
         <script type="text/javascript">
         function affichHome() {
-            document.getElementById('idDivHome').style.display = 'block';
-            document.getElementById('idDivBus').style.display = 'none';
-            document.getElementById('idDivMetro').style.display = 'none';
-            document.getElementById('idDivVelo').style.display = 'none';
-            document.getElementById('idDivItineraire').style.display = 'none';
+            $('#idDivHome').css('display','block');
+            $('#idDivBus').css('display','none');
+            $('#idDivMetro').css('display','none');
+            $('#idDivVelo').css('display','none');
+            $('#idDivItineraire').css('display','none');
+            
+            $('#menu_home').addClass("active");
+            $('#menu_bus').removeClass("active");
+            $('#menu_velo').removeClass("active");
+            $('#menu_metro').removeClass("active");
+            $('#menu_itineraire').removeClass("active");
         } 
         function affichBus() {
-            document.getElementById('idDivHome').style.display = 'none';
-            document.getElementById('idDivBus').style.display = 'block';
-            document.getElementById('idDivMetro').style.display = 'none';
-            document.getElementById('idDivVelo').style.display = 'none';
-            document.getElementById('idDivItineraire').style.display = 'none';
+            $('#idDivHome').css('display','none');
+            $('#idDivBus').css('display','block');
+            $('#idDivMetro').css('display','none');
+            $('#idDivVelo').css('display','none');
+            $('#idDivItineraire').css('display','none');
+            
+            $('#menu_home').removeClass("active");
+            $('#menu_bus').addClass("active");
+            $('#menu_velo').removeClass("active");
+            $('#menu_metro').removeClass("active");
+            $('#menu_itineraire').removeClass("active");
         } 
         function affichMetro() {
-            document.getElementById('idDivHome').style.display = 'none';
-            document.getElementById('idDivBus').style.display = 'none';
-            document.getElementById('idDivMetro').style.display = 'block';
-            document.getElementById('idDivVelo').style.display = 'none';
-            document.getElementById('idDivItineraire').style.display = 'none';
+            $('#idDivHome').css('display','none');
+            $('#idDivBus').css('display','none');
+            $('#idDivMetro').css('display','block');
+            $('#idDivVelo').css('display','none');
+            $('#idDivItineraire').css('display','none');
+            
+            $('#menu_home').removeClass("active");
+            $('#menu_bus').removeClass("active");
+            $('#menu_velo').removeClass("active");
+            $('#menu_metro').addClass("active");
+            $('#menu_itineraire').removeClass("active");
         }
         function affichVelo() {
-            document.getElementById('idDivHome').style.display = 'none';
-            document.getElementById('idDivBus').style.display = 'none';
-            document.getElementById('idDivMetro').style.display = 'none';
-            document.getElementById('idDivVelo').style.display = 'block';
-            document.getElementById('idDivItineraire').style.display = 'none';
+            $('#idDivHome').css('display','none');
+            $('#idDivBus').css('display','none');
+            $('#idDivMetro').css('display','none');
+            $('#idDivVelo').css('display','block');
+            $('#idDivItineraire').css('display','none');
+            
+            $('#menu_home').removeClass("active");
+            $('#menu_bus').removeClass("active");
+            $('#menu_velo').addClass("active");
+            $('#menu_metro').removeClass("active");
+            $('#menu_itineraire').removeClass("active");
         } 
         function affichItineraire() {
-            document.getElementById('idDivHome').style.display = 'none';
-            document.getElementById('idDivBus').style.display = 'none';
-            document.getElementById('idDivMetro').style.display = 'none';
-            document.getElementById('idDivVelo').style.display = 'none';
-            document.getElementById('idDivItineraire').style.display = 'block';
+            $('#idDivHome').css('display','none');
+            $('#idDivBus').css('display','none');
+            $('#idDivMetro').css('display','none');
+            $('#idDivVelo').css('display','none');
+            $('#idDivItineraire').css('display','block');
+            
+            $('#menu_home').removeClass("active");
+            $('#menu_bus').removeClass("active");
+            $('#menu_velo').removeClass("active");
+            $('#menu_metro').removeClass("active");
+            $('#menu_itineraire').addClass("active");
         }
         </script>
     </head>  
@@ -50,15 +80,15 @@
         <?php
        
         //include 'transportCommun.php';
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Bus.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Metro.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Velo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Decaux.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Tisseo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Google.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Vue.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Database.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Bus.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Metro.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Velo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Decaux.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Tisseo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Google.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/toolkit/Vue.php");
         $db = new Database();
         $db->getConnection();
         ?>
@@ -69,19 +99,19 @@
 
         <center>
             <div class="ui secondary  menu">
-                <a class="active item" href="javascript: affichHome();">
+                <a id="menu_home" class="active item menu" href="javascript: affichHome();">
                   <i class="home icon"></i> Home
                 </a>
-                <a class="item" href="javascript: affichBus();">
+                <a id="menu_bus" class="item menu" href="javascript: affichBus();">
                   <img src="images/bus.png" width="20px" style="display:inline;vertical-align:middle"> Bus
                 </a>
-                <a class="item" href="javascript: affichMetro();">
+                <a id="menu_metro" class="item menu" href="javascript: affichMetro();">
                   <img src="images/metro.png" width="20px" style="display:inline;vertical-align:middle"> Métro
                 </a>
-                <a class="item" href="javascript: affichVelo();">
+                <a id="menu_velo" class="item menu" href="javascript: affichVelo();">
                   <img src="images/velo.png" width="20px" style="display:inline;vertical-align:middle"> Vélo
                 </a>
-                <a class="item" href="javascript: affichItineraire();">
+                <a id="menu_itineraire" class="item menu" href="javascript: affichItineraire();">
                   <i class="location icon"></i> Itinéraire
                 </a>
             </div>
@@ -109,7 +139,6 @@
     </footer>
 
     <script>
-        
         //parcourir toutes les lignes et regarder si on a un localstorage
         var tab = $(".infosAjax");
         $(".infosAjax").each(function(){

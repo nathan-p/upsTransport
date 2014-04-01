@@ -108,7 +108,8 @@ class Vue {
     
     public static function affichInfoMetro() {
         //Google::dureeTrajetVelo();
-        echo '<div class="item ui piled segment">
+        echo '<div class="ui animated list">
+            <div class="item ui piled segment">
                             <img class="ui avatar image transport_lis_icon" src="images/metro.png">
                             <div class="content">
                                 <div class="header">Metro ligne B</div>
@@ -143,7 +144,7 @@ class Vue {
                                     echo Metro::afficherUnlikeMetro("B", "Borderouge");
                                 echo '</span>
                             </div>
-                        </div>';
+                        </div></div>';
     }
     
     public static function affichInfoItineraire() {
