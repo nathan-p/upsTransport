@@ -23,20 +23,21 @@ if (isset($typeTransport)) {
     }
     $numLigne = $data[1];
     $destinationLine = $data[2];
+    $destinationLine = htmlentities($destinationLine);
 
     switch ($typeTransport) {
         case "BUS":
             //recuperer le nombre de like 
             $nbUn_LikeAjout = 0;
             $reqNbLike = "SELECT ".$typeLikeUnlike." FROM BUS WHERE numBus='" . $numLigne .
-                    "' AND directionBus='" . htmlentities($destinationLine) . "';";
+                    "' AND directionBus='" . $destinationLine . "';";
             $nbUn_LikeAjout = $db->getOneData($reqNbLike);
             $nbUn_LikeAjout = $nbUn_LikeAjout[0];
 
             $retourNbUn_LikeAjout = $nbUn_LikeAjout+ 1;
             
             $req = "UPDATE BUS SET ".$typeLikeUnlike."=" . $retourNbUn_LikeAjout . " WHERE numBus='" 
-                    . $numLigne . "' AND directionBus='" . htmlentities($destinationLine) . "';";
+                    . $numLigne . "' AND directionBus='" . $destinationLine . "';";
             $db->getOneData($req);
             
             if ($erase == "true") {
@@ -50,7 +51,7 @@ if (isset($typeTransport)) {
                    //enlever un like/unlike
                    $retourNbUn_LikeRetrait = $nbUn_LikeRetrait-1;
                    $req = "UPDATE BUS SET ".$typeInverse."=" . $retourNbUn_LikeRetrait . " WHERE numBus='" 
-                    . $numLigne . "' AND directionBus='" . htmlentities($destinationLine) . "';";
+                    . $numLigne . "' AND directionBus='" .$destinationLine . "';";
                     $db->getOneData($req);
             }
             break;
