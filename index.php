@@ -179,6 +179,11 @@
           <br>
           <br>
           <p>ici faire un paragraphe expliquant comment utiliser l'API</p>
+          <p>
+              Utilisation :
+              http://127.0.0.1/[...]/upsTransport/api/UpsTransport.php?[moyen de transport]&key=[votre cle]
+              <br> moyen de transport : bus,metro,velo
+          </p>
           <br>
           <br><br>
           <br>
