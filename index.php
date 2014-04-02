@@ -119,7 +119,9 @@
     
     <center>
         <div id="idDivHome" style="display:block;">
-          idDivHome  
+          <div class="ui button" onclick="localStorage.clear();location.reload();">
+            RESET LOCALSTORAGE
+          </div>
         </div>
         <div id="idDivBus" style="display:none;">
             <?php Vue::affichInfoBus(); ?>  
@@ -194,7 +196,7 @@
                         labelLike = elt.parent().children(".green");
                         labelUnlike = elt.parent().children(".red");
                         if(erase){
-                            alert(msg.nbLikeAjout + "  ___  "+ msg.nbLikeRetrait);
+                            //alert(msg.nbLikeAjout + "  ___  "+ msg.nbLikeRetrait);
                             labelLike.html(msg.nbLikeAjout);
                             labelUnlike.html(msg.nbLikeRetrait);
                         } else {
@@ -239,12 +241,11 @@
                     url: "like.php",
                     dataType: "json",
                     data: {data:dataAjax,eraseLike:erase,type:"unlike"},
-                    success: function(msg){
-                        
+                    success: function(msg){ 
                         labelUnlike = elt.parent().children(".red");
                         labelLike = elt.parent().children(".green");
                         if(erase){
-                            alert(msg.nbLikeAjout + "  ___  "+ msg.nbLikeRetrait);
+                            //alert(msg.nbLikeAjout + "  ___  "+ msg.nbLikeRetrait);
                             labelUnlike.html(msg.nbLikeAjout);
                             labelLike.html(msg.nbLikeRetrait);
                         } else {

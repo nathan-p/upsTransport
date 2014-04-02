@@ -39,7 +39,7 @@ if (isset($typeTransport)) {
                     . $numLigne . "' AND directionBus='" . htmlentities($destinationLine) . "';";
             $db->getOneData($req);
             
-            if ($erase) {
+            if ($erase == "true") {
                    //recupere le nombre de like
                    $reqNbLikeUnlike = "SELECT ".$typeInverse." FROM BUS WHERE numBus='". $numLigne
                                         . "' AND directionBus='".$destinationLine."';"; 
@@ -66,7 +66,7 @@ if (isset($typeTransport)) {
             $req = "UPDATE METRO SET ".$typeLikeUnlike."=" . $retourNbUn_LikeAjout . " WHERE idMetro='" 
                     . $numLigne . "' AND directionMetro='" . $destinationLine . "';";
             $db->getOneData($req);
-            if ($erase) {
+            if ($erase == "true") {
                    //recupere le nombre de like
                    $reqNbLikeUnlike = "SELECT ".$typeInverse." FROM METRO WHERE idMetro='". $numLigne
                                         . "' AND directionMetro='".$destinationLine."';"; 
@@ -93,7 +93,7 @@ if (isset($typeTransport)) {
                     . $numLigne . " AND contratVelo='" . $destinationLine . "';";
             
             $db->getOneData($req);
-            if ($erase) {
+            if ($erase == "true") {
                    //recupere le nombre de like
                    $reqNbLikeUnlike = "SELECT $typeInverse FROM VELO WHERE idVelo=". $numLigne
                                         . " AND contratVelo='".$destinationLine."';"; 
@@ -108,16 +108,14 @@ if (isset($typeTransport)) {
             }
             break;
     }
-    if($erase){
-        $nbLikeUnlike = array('nbLikeAjout'=>$retourNbUn_LikeAjout,'nbLikeRetrait'=>$retourNbUn_LikeRetrait);
-        echo json_encode($nbLikeUnlike);
-    }
-    else {
-        $nbLikeAjout = array('nbLikeAjout'=>$retourNbUn_LikeAjout);
-        echo json_encode($nbLikeAjout);
+    if($erase == "true"){
+        $nbLikeUnlike = json_encode(array('nbLikeAjout'=>$retourNbUn_LikeAjout,'nbLikeRetrait'=>$retourNbUn_LikeRetrait));
+        echo $nbLikeUnlike;
+    } else {
+        $nbLikeAjout = json_encode(array('nbLikeAjout'=>$retourNbUn_LikeAjout));
         echo $nbLikeAjout;
     }
-    
+    //echo "b";
     
     exit();
 }
