@@ -175,6 +175,36 @@ class Vue {
 
                 </div></div>';
     }
+    
+    public static function affichInfoAPI() {
+        echo "L' API mise à disposition ici permet de récupérer les données de l'application.
+          Elle est accessible par l'appel d'un lien de type : <br/><br/>
+          <center><b>http://127.0.0.1/upsTransport/api/UpsTransport.php?[moyen_de_transport]&key=[votre_cle]</b></center>
+          <br/>
+          [moyen_de_transport] : 
+          <ul>
+              <li>bus : </li>
+              <li>métro : </li>
+              <li>vélo : </li>
+          </ul>
+          L'API fouRnit dans la mesure du possible un format JSON.
+          <br/><br/>
+          L'utilisation de l'API est soumise à l'utilisation d'une clé attribuée à chaque demandeur. 
+          Cette clé doit être transmise lors de chaque appel. Pour obtenir une clé, rien de plus simple, 
+          appuyez sur le bouton ci-dessous et vous vous verrez attribuer instantanément une clé d'accès à notre API.
+          <br/><br/> 
+          <center>
+          <div class=\"ui button\" onclick=\"genererCle();\">
+            DEMANDER UNE CLE
+          </div>
+          <br/><br/>
+          <div id=\"affKey\"></div>
+          </center>";
+    }
+    
+    public static function affichInfoHome() {
+        echo "faire résumé";
+    }
 }
 
 ?>

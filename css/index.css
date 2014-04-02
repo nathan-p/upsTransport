@@ -65,10 +65,19 @@ footer{
     display: none;
 }
 
-#idDivHome, #idDivBus, #idDivContact, #idDivItineraire, #idDivMetro, #idDivVelo {
+#idDivBus, #idDivContact, #idDivItineraire, #idDivMetro, #idDivVelo {
     width:40%;
     margin-top:30px;
     margin-bottom:30px;
+}
+
+#idDivHome, #idDivApi {
+    text-align:justify;
+    width:50%;
+    margin-top:30px;
+    margin-bottom:30px;
+    padding : 10px;
+    border : 1px #000 solid;
 }
 
 .content.metro{cursor:auto!important;}

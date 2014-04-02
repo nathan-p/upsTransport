@@ -5,7 +5,7 @@
     
     $keyGenerated = Toolkit::getKey();
     
-    $reqAddKey = "INSERT INTO apikey VALUES('".$keyGenerated."');";
+    $reqAddKey = "INSERT INTO apikey(ref) VALUES('".$keyGenerated."');";
     Database::getOneData($reqAddKey);
     
     echo $keyGenerated;

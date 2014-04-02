@@ -104,17 +104,17 @@
     </head>  
     <body>
         <?php
-        //Master/Projet_IAWS
+        // /Master/Projet_IAWS
         //include 'transportCommun.php';
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Database.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Bus.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Metro.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Velo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Decaux.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Tisseo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Google.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/toolkit/Vue.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Database.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Bus.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Metro.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Velo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Decaux.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Tisseo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Google.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/toolkit/Vue.php");
         $db = new Database();
         $db->getConnection();
         ?>
@@ -148,15 +148,10 @@
     
     <center>
         <div id="idDivHome" style="display:block;">
-          <div class="ui button" onclick="localStorage.clear();location.reload();">
-            RESET LOCALSTORAGE
-          </div>
-          <br>
-          <br>
-          <p>ici faire un paragraphe expliquant le projet ...</p>
-          <br>
-          <br><br>
-          <br>
+            <div class="ui button" onclick="localStorage.clear();location.reload();">
+                RESET LOCALSTORAGE
+            </div><br/><br/>
+            <?php Vue::affichInfoHome(); ?>  
         </div>
         <div id="idDivBus" style="display:none;">
             <?php Vue::affichInfoBus(); ?>  
@@ -171,24 +166,10 @@
             <?php Vue::affichInfoItineraire(); ?>         
         </div>
         <div id="idDivApi" style="display:none;">
-           <br><br>
-          <div class="ui button" onclick="genererCle();">
-            DEMANDER UNE CLE
-          </div> <br>
-          <div id="affKey"></div>
-          <br>
-          <br>
-          <p>ici faire un paragraphe expliquant comment utiliser l'API</p>
-          <p>
-              Utilisation :
-              http://127.0.0.1/[...]/upsTransport/api/UpsTransport.php?[moyen de transport]&key=[votre cle]
-              <br> moyen de transport : bus,metro,velo
-          </p>
-          <br>
-          <br><br>
-          <br>
+          <?php Vue::affichInfoAPI(); ?>   
         </div>
     </center>
+    
     <footer>
             UPS TRANSPORT - UE INTEROPERABILITE DES APPLICATIONS ET DES WEB SERVICES - Laurine Marmisse / Nathan Prior
     </footer>
