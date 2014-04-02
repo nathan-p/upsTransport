@@ -104,17 +104,17 @@
     </head>  
     <body>
         <?php
-       
+        //Master/Projet_IAWS
         //include 'transportCommun.php';
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Bus.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Metro.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Velo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Decaux.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Tisseo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Google.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Vue.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Database.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Bus.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Metro.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Velo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Decaux.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Tisseo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Google.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/toolkit/Vue.php");
         $db = new Database();
         $db->getConnection();
         ?>
@@ -151,6 +151,10 @@
           <div class="ui button" onclick="localStorage.clear();location.reload();">
             RESET LOCALSTORAGE
           </div>
+          <div class="ui button" onclick="genererCle();">
+            DEMANDER UNE CLE
+          </div> <br>
+          <div id="affKey"></div>
         </div>
         <div id="idDivBus" style="display:none;">
             <?php Vue::affichInfoBus(); ?>  
@@ -196,6 +200,26 @@
                 $(this).parent().children(".unlike").css('cursor','auto');
             } 
         });
+        
+        
+        function genererCle(){
+            
+            if(localStorage.getItem("apiKey") === null){
+                $.ajax({
+                    type: "POST",
+                    url: "toolkit/generatingKey.php",
+                    success: function(key){
+                        $("#affKey").html("Votre clé est : "+key);
+                        localStorage.setItem("apiKey",key);
+                    }
+                    });
+                
+            }
+            else {
+                $("#affKey").html("Vous avez déjà reçu une clé ! La voici : "+localStorage.getItem("apiKey"));
+            }
+            
+        }
  
 
         //affichages des infos suplementaire    

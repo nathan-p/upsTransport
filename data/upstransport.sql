@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 29 Mars 2014 à 16:08
+-- Généré le: Mer 02 Avril 2014 à 15:01
 -- Version du serveur: 5.5.16-log
 -- Version de PHP: 5.3.8
 
@@ -23,13 +23,52 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `apikey`
+--
+
+CREATE TABLE IF NOT EXISTS `apikey` (
+  `idKey` int(11) NOT NULL AUTO_INCREMENT,
+  `ref` varchar(33) NOT NULL,
+  PRIMARY KEY (`idKey`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `apikey`
+--
+
+INSERT INTO `apikey` (`idKey`, `ref`) VALUES
+(1, '123456789');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `bus`
 --
 
 CREATE TABLE IF NOT EXISTS `bus` (
-  `ligneBus` int(4) NOT NULL,
-  PRIMARY KEY (`ligneBus`)
+  `numBus` varchar(3) NOT NULL,
+  `directionBus` varchar(50) NOT NULL,
+  `nbLike` int(3) NOT NULL,
+  `nbUnlike` int(3) NOT NULL,
+  PRIMARY KEY (`numBus`,`directionBus`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `bus`
+--
+
+INSERT INTO `bus` (`numBus`, `directionBus`, `nbLike`, `nbUnlike`) VALUES
+('2', 'Cours Dillon', 0, 2),
+('34', 'Ar&Atilde;&uml;nes', 1, 0),
+('54', 'Empalot', 0, 2),
+('54', 'Gleyze-Vieille', 1, 1),
+('56', 'Auzeville Eglise', 1, 1),
+('78', 'Saint Orens Lyc&Atilde;&copy;e', 0, 2),
+('81', 'Castanet-Tolosan', 2, 0),
+('82', 'Ramonville Port Sud', 1, 1),
+('88', 'CHR Rangueil', 0, 0),
+('88', 'H&Atilde;&acute;pital Larrey', 2, 0),
+('88', 'Ramonville M&Atilde;&copy;tro', 0, 2);
 
 -- --------------------------------------------------------
 
@@ -38,79 +77,19 @@ CREATE TABLE IF NOT EXISTS `bus` (
 --
 
 CREATE TABLE IF NOT EXISTS `metro` (
-  `idMetro` int(1) NOT NULL AUTO_INCREMENT,
-  `ligne` varchar(1) NOT NULL,
-  PRIMARY KEY (`idMetro`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `idMetro` char(1) NOT NULL,
+  `directionMetro` varchar(50) NOT NULL,
+  `nbLike` int(3) NOT NULL,
+  `nbUnlike` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `metro`
 --
 
-INSERT INTO `metro` (`idMetro`, `ligne`) VALUES
-(0, 'B');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `userlike`
---
-
-CREATE TABLE IF NOT EXISTS `userlike` (
-  `idLike` int(3) NOT NULL AUTO_INCREMENT,
-  `numLigne` int(4) NOT NULL,
-  `moyenTransport` enum('BUS','METRO','VELO') NOT NULL,
-  `nbLike` int(5) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`idLike`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
-
---
--- Contenu de la table `userlike`
---
-
-INSERT INTO `userlike` (`idLike`, `numLigne`, `moyenTransport`, `nbLike`) VALUES
-(15, 227, 'VELO', 30),
-(16, 88, 'BUS', 11),
-(17, 34, 'BUS', 7),
-(18, 54, 'BUS', 35),
-(19, 56, 'BUS', 3),
-(20, 82, 'BUS', 3),
-(21, 81, 'BUS', 2),
-(22, 78, 'BUS', 3),
-(23, 2, 'BUS', 3),
-(24, 0, 'METRO', 13),
-(25, 1, 'METRO', 9);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `userunlike`
---
-
-CREATE TABLE IF NOT EXISTS `userunlike` (
-  `idUnlike` int(4) NOT NULL AUTO_INCREMENT,
-  `numLigne` int(3) NOT NULL,
-  `moyenTransport` enum('BUS','METRO','VELO') NOT NULL,
-  `nbUnlike` int(3) NOT NULL,
-  PRIMARY KEY (`idUnlike`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
-
---
--- Contenu de la table `userunlike`
---
-
-INSERT INTO `userunlike` (`idUnlike`, `numLigne`, `moyenTransport`, `nbUnlike`) VALUES
-(1, 34, 'BUS', 2),
-(2, 56, 'BUS', 1),
-(3, 54, 'BUS', 2),
-(4, 82, 'BUS', 1),
-(5, 88, 'BUS', 2),
-(6, 81, 'BUS', 1),
-(7, 78, 'BUS', 1),
-(8, 2, 'BUS', 1),
-(9, 0, 'METRO', 1),
-(10, 1, 'METRO', 1),
-(11, 227, 'VELO', 1);
+INSERT INTO `metro` (`idMetro`, `directionMetro`, `nbLike`, `nbUnlike`) VALUES
+('B', 'Ramonville ', 1, 0),
+('B', 'Borderouge', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -119,16 +98,18 @@ INSERT INTO `userunlike` (`idUnlike`, `numLigne`, `moyenTransport`, `nbUnlike`) 
 --
 
 CREATE TABLE IF NOT EXISTS `velo` (
-  `idVelo` int(4) NOT NULL,
-  `contrat` varchar(50) NOT NULL DEFAULT 'Toulouse'
+  `idVelo` int(3) NOT NULL,
+  `contratVelo` varchar(50) NOT NULL DEFAULT 'Toulouse',
+  `nbLike` int(3) NOT NULL,
+  `nbUnlike` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `velo`
 --
 
-INSERT INTO `velo` (`idVelo`, `contrat`) VALUES
-(227, 'Toulouse');
+INSERT INTO `velo` (`idVelo`, `contratVelo`, `nbLike`, `nbUnlike`) VALUES
+(227, 'Toulouse', 0, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
