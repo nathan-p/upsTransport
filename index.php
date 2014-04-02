@@ -15,12 +15,14 @@
             $('#idDivMetro').css('display','none');
             $('#idDivVelo').css('display','none');
             $('#idDivItineraire').css('display','none');
+            $('#idDivApi').css('display','none');
             
             $('#menu_home').addClass("active");
             $('#menu_bus').removeClass("active");
             $('#menu_velo').removeClass("active");
             $('#menu_metro').removeClass("active");
             $('#menu_itineraire').removeClass("active");
+            $('#menu_api').removeClass("active");                   
         } 
         function affichBus() {
             $('#idDivHome').css('display','none');
@@ -28,12 +30,14 @@
             $('#idDivMetro').css('display','none');
             $('#idDivVelo').css('display','none');
             $('#idDivItineraire').css('display','none');
-            
+            $('#idDivApi').css('display','none');
+           
             $('#menu_home').removeClass("active");
             $('#menu_bus').addClass("active");
             $('#menu_velo').removeClass("active");
             $('#menu_metro').removeClass("active");
             $('#menu_itineraire').removeClass("active");
+            $('#menu_api').removeClass("active");                   
         } 
         function affichMetro() {
             $('#idDivHome').css('display','none');
@@ -41,12 +45,14 @@
             $('#idDivMetro').css('display','block');
             $('#idDivVelo').css('display','none');
             $('#idDivItineraire').css('display','none');
+            $('#idDivApi').css('display','none');
             
             $('#menu_home').removeClass("active");
             $('#menu_bus').removeClass("active");
             $('#menu_velo').removeClass("active");
             $('#menu_metro').addClass("active");
             $('#menu_itineraire').removeClass("active");
+            $('#menu_api').removeClass("active");                   
         }
         function affichVelo() {
             $('#idDivHome').css('display','none');
@@ -54,12 +60,14 @@
             $('#idDivMetro').css('display','none');
             $('#idDivVelo').css('display','block');
             $('#idDivItineraire').css('display','none');
-            
+            $('#idDivApi').css('display','none');
+           
             $('#menu_home').removeClass("active");
             $('#menu_bus').removeClass("active");
             $('#menu_velo').addClass("active");
             $('#menu_metro').removeClass("active");
             $('#menu_itineraire').removeClass("active");
+            $('#menu_api').removeClass("active");                   
         } 
         function affichItineraire() {
             $('#idDivHome').css('display','none');
@@ -67,28 +75,46 @@
             $('#idDivMetro').css('display','none');
             $('#idDivVelo').css('display','none');
             $('#idDivItineraire').css('display','block');
+            $('#idDivApi').css('display','none');
             
             $('#menu_home').removeClass("active");
             $('#menu_bus').removeClass("active");
             $('#menu_velo').removeClass("active");
             $('#menu_metro').removeClass("active");
             $('#menu_itineraire').addClass("active");
+            $('#menu_api').removeClass("active");                   
         }
+        
+        function affichApi() {
+            $('#idDivHome').css('display','none');
+            $('#idDivBus').css('display','none');
+            $('#idDivMetro').css('display','none');
+            $('#idDivVelo').css('display','none');
+            $('#idDivItineraire').css('display','none');
+            $('#idDivApi').css('display','block');
+            
+            $('#menu_home').removeClass("active");
+            $('#menu_bus').removeClass("active");
+            $('#menu_velo').removeClass("active");
+            $('#menu_metro').removeClass("active");
+            $('#menu_itineraire').removeClass("active");
+            $('#menu_api').addClass("active");                   
+       }
         </script>
     </head>  
     <body>
         <?php
        
         //include 'transportCommun.php';
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Database.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Bus.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Metro.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/model/Velo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Decaux.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Tisseo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/api/Google.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."Master/Projet_IAWS/upsTransport/toolkit/Vue.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Bus.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Metro.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Velo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Decaux.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Tisseo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Google.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Vue.php");
         $db = new Database();
         $db->getConnection();
         ?>
@@ -114,6 +140,9 @@
                 <a id="menu_itineraire" class="item menu" href="javascript: affichItineraire();">
                   <i class="location icon"></i> Itinéraire
                 </a>
+                <a id="menu_api" class="item menu" href="javascript: affichApi();">
+                  <i class="archive icon"></i> API
+                </a>
             </div>
         </center>
     
@@ -134,6 +163,12 @@
         </div>
         <div id="idDivItineraire" style="display:none;">
             <?php Vue::affichInfoItineraire(); ?>         
+        </div>
+        <div id="idDivApi" style="display:none;">
+            <?php 
+                //Vue::affichInfoApi(); 
+                echo (Toolkit::getKey());
+            ?>         
         </div>
     </center>
     <footer>

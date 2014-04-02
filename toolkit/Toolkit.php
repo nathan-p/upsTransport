@@ -28,27 +28,40 @@ class Toolkit {
            
        $enSoireSemaine = ($heure == 19 && $minute >= 30) || ($heure >= 20 && $heure <= 23);
        $enSoireHorsSemaine = ($heure == 19 && $minute >= 30) || ($heure >= 20 && $heure <= 22);
-       $secondeAttente = 0;
+       
+       $minuteAttente = 0;
+       $secondeAttente = 00;
        
        if ($jour != "Sunday") {
             if ($matin) {
-                $secondeAttente = 9*60;
+                $minuteAttente = 9;
             } else if ($heurePointe) {
-                $secondeAttente = 80;
+                $minuteAttente = 1;
+                $secondeAttente = 20;
             } else if ($heureCreuse) {
-                $secondeAttente = 5*60;    
+                $minuteAttente = 5;    
             } else if ($enSoireSemaine && ($jour != "Friday" || $jour != "Saturday")) {
-                $secondeAttente = 7*60;    
+                $minuteAttente = 7;    
             } else if ($enSoireHorsSemaine && ($jour == "Friday" || $jour == "Saturday")) {
-                $secondeAttente = 4*60;    
+                $minuteAttente = 4;    
             } else {
-                return "erreur";
+                return "Pas de métro à cette heure ci.";
             }
        } else { // dimanche
-           $secondeAttente = 7*60;
+           $minuteAttente = 7;
        }      
-       return ($secondeAttente/60)+"."+($secondeAttente%60);
+       return $minuteAttente.$secondeAttente;
     } 
+    
+    
+    public static function getKey() {
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyz'; // Certains caract�res ont �t� enlev�s car ils pr�tent � confusion
+        $rand_str = '';
+        for ($i = 0; $i < 33; $i++) {
+          $rand_str .= $chars{ mt_rand( 0, strlen($chars)-1 ) };
+        }
+        return $rand_str;
+    }
 }
 
 ?>

@@ -113,8 +113,12 @@ class Vue {
                             <img class="ui avatar image transport_lis_icon" src="images/metro.png">
                             <div class="content">
                                 <div class="header">Metro ligne B</div>
-                                Direction Ramonville <br>Arrivée toutes les '.Toolkit::getHoraire().'min
-                            </div>
+                                Direction Ramonville <br>Arrivée toutes les ';
+                                echo substr(Toolkit::getHoraire(), 0, 1).' min';
+                                if (substr(Toolkit::getHoraire(), 1, 2) != 0) {
+                                    echo " ".substr(Toolkit::getHoraire(), 1, 3).' s ';
+                                }
+                            echo '</div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
                                 <div class="infosAjax">METRO;B;Ramonville</div>
@@ -131,8 +135,12 @@ class Vue {
                             <img class="ui avatar image transport_lis_icon" src="images/metro.png">
                             <div class="content">
                                 <div class="header">Metro ligne B</div>
-                                Direction Borderouge <br>Arrivée toutes les '.Toolkit::getHoraire().'min
-                            </div>
+                                Direction Borderouge <br>Arrivée toutes les ';
+                                echo substr(Toolkit::getHoraire(), 0, 1).' min';
+                                if (substr(Toolkit::getHoraire(), 1, 2) != 0) {
+                                    echo " ".substr(Toolkit::getHoraire(), 1, 3).' s ';
+                                }
+                            echo '</div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
                                 <div class="infosAjax">METRO;B;Borderouge</div>
