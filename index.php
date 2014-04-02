@@ -151,10 +151,12 @@
           <div class="ui button" onclick="localStorage.clear();location.reload();">
             RESET LOCALSTORAGE
           </div>
-          <div class="ui button" onclick="genererCle();">
-            DEMANDER UNE CLE
-          </div> <br>
-          <div id="affKey"></div>
+          <br>
+          <br>
+          <p>ici faire un paragraphe expliquant le projet ...</p>
+          <br>
+          <br><br>
+          <br>
         </div>
         <div id="idDivBus" style="display:none;">
             <?php Vue::affichInfoBus(); ?>  
@@ -169,10 +171,17 @@
             <?php Vue::affichInfoItineraire(); ?>         
         </div>
         <div id="idDivApi" style="display:none;">
-            <?php 
-                //Vue::affichInfoApi(); 
-                echo (Toolkit::getKey());
-            ?>         
+           <br><br>
+          <div class="ui button" onclick="genererCle();">
+            DEMANDER UNE CLE
+          </div> <br>
+          <div id="affKey"></div>
+          <br>
+          <br>
+          <p>ici faire un paragraphe expliquant comment utiliser l'API</p>
+          <br>
+          <br><br>
+          <br>
         </div>
     </center>
     <footer>
