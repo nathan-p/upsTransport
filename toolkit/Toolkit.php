@@ -42,12 +42,12 @@ class Toolkit {
             } else if ($enSoireHorsSemaine && ($jour == "Friday" || $jour == "Saturday")) {
                 $secondeAttente = 4*60;    
             } else {
-                echo "erreur";
+                return "erreur";
             }
        } else { // dimanche
            $secondeAttente = 7*60;
        }      
-       echo $secondeAttente;
+       return $secondeAttente;
     } 
 }
 

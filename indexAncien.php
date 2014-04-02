@@ -59,11 +59,11 @@
                                 $reqNbLike = "SELECT nbLike FROM BUS WHERE numBus='" . $numLigne[$j]
                                         . "' AND directionBus='" . htmlentities($destinationLine[$j]) . "';";
                                 //echo "REQ : ".$reqNbLike;
-                                $nbLike = $db->getOneData($reqNbLike);
-                                $nbLike = $nbLike[0];
+                                $nbUn_LikeAjout = $db->getOneData($reqNbLike);
+                                $nbUn_LikeAjout = $nbUn_LikeAjout[0];
                                 //echo "NBLIKE : ".$nbLike;
-                                if ($nbLike < 10) {
-                                    $nbLike = $nbLike . "&nbsp;";
+                                if ($nbUn_LikeAjout < 10) {
+                                    $nbUn_LikeAjout = $nbUn_LikeAjout . "&nbsp;";
                                 }
                                 /* --------unlike------------ */
                                 $reqNbUnike = "SELECT nbUnlike FROM BUS WHERE numBus='" . $numLigne[$j]
@@ -97,7 +97,7 @@
                                     <div class = "right floated ui"><br>
                                         <i class="thumbs up icon like" ></i>
                                         <div class="infosAjax">BUS;' . $numLigne[$j] . ';' . $destinationLine[$j] . '</div>
-                                        <span class="ui green circular label">' . $nbLike . '</span><br>
+                                        <span class="ui green circular label">' . $nbUn_LikeAjout . '</span><br>
                                         <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                         <span class="ui red circular label">' . $nbUnlike . '</span>
                                     </div>

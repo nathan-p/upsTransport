@@ -113,7 +113,7 @@ class Vue {
                             <img class="ui avatar image transport_lis_icon" src="images/metro.png">
                             <div class="content">
                                 <div class="header">Metro ligne B</div>
-                                Direction Ramonville <br>Arrivée dans 12min
+                                Direction Ramonville <br>Arrivée dans '.Toolkit::getHoraire().' secondes
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
@@ -131,7 +131,7 @@ class Vue {
                             <img class="ui avatar image transport_lis_icon" src="images/metro.png">
                             <div class="content">
                                 <div class="header">Metro ligne B</div>
-                                Direction Borderouge <br>Arrivée dans 7min
+                                Direction Borderouge <br>Arrivée dans '.Toolkit::getHoraire().' secondes
                             </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>

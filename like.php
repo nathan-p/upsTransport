@@ -27,15 +27,15 @@ if (isset($typeTransport)) {
     switch ($typeTransport) {
         case "BUS":
             //recuperer le nombre de like 
-            $nbLike = 0;
+            $nbUn_LikeAjout = 0;
             $reqNbLike = "SELECT ".$typeLikeUnlike." FROM BUS WHERE numBus='" . $numLigne .
                     "' AND directionBus='" . htmlentities($destinationLine) . "';";
-            $nbLike = $db->getOneData($reqNbLike);
-            $nbLike = $nbLike[0];
+            $nbUn_LikeAjout = $db->getOneData($reqNbLike);
+            $nbUn_LikeAjout = $nbUn_LikeAjout[0];
 
-            $retourNbLike = $nbLike+ 1;
+            $retourNbUn_LikeAjout = $nbUn_LikeAjout+ 1;
             
-            $req = "UPDATE BUS SET ".$typeLikeUnlike."=" . $retourNbLike . " WHERE numBus='" 
+            $req = "UPDATE BUS SET ".$typeLikeUnlike."=" . $retourNbUn_LikeAjout . " WHERE numBus='" 
                     . $numLigne . "' AND directionBus='" . htmlentities($destinationLine) . "';";
             $db->getOneData($req);
             
@@ -44,52 +44,52 @@ if (isset($typeTransport)) {
                    $reqNbLikeUnlike = "SELECT ".$typeInverse." FROM BUS WHERE numBus='". $numLigne
                                         . "' AND directionBus='".$destinationLine."';"; 
                    
-                   $nbLikeUnlike = $db->getOneData($reqNbLikeUnlike);
-                   $nbLikeUnlike = $nbLikeUnlike[0];
+                   $nbUn_LikeRetrait = $db->getOneData($reqNbLikeUnlike);
+                   $nbUn_LikeRetrait = $nbUn_LikeRetrait[0];
                    
                    //enlever un like/unlike
-                   $nbLikeUnlike = $nbLikeUnlike-1;
-                   $req = "UPDATE BUS SET ".$typeInverse."=" . $nbLikeUnlike . " WHERE numBus='" 
+                   $retourNbUn_LikeRetrait = $nbUn_LikeRetrait-1;
+                   $req = "UPDATE BUS SET ".$typeInverse."=" . $retourNbUn_LikeRetrait . " WHERE numBus='" 
                     . $numLigne . "' AND directionBus='" . htmlentities($destinationLine) . "';";
                     $db->getOneData($req);
             }
             break;
         case "METRO":
             //recuperer le nombre de like 
-            $nbLike = 0;
+            $nbUn_LikeAjout = 0;
             $reqNbLike = "SELECT ".$typeLikeUnlike." FROM METRO WHERE idMetro='" . $numLigne 
                     ."' AND directionMetro='" . $destinationLine . "';";
-            $nbLike = $db->getOneData($reqNbLike);
-            $nbLike = $nbLike[0];
+            $nbUn_LikeAjout = $db->getOneData($reqNbLike);
+            $nbUn_LikeAjout = $nbUn_LikeAjout[0];
 
-            $retourNbLike = $nbLike + 1;
-            $req = "UPDATE METRO SET ".$typeLikeUnlike."=" . $retourNbLike . " WHERE idMetro='" 
+            $retourNbUn_LikeAjout = $nbUn_LikeAjout + 1;
+            $req = "UPDATE METRO SET ".$typeLikeUnlike."=" . $retourNbUn_LikeAjout . " WHERE idMetro='" 
                     . $numLigne . "' AND directionMetro='" . $destinationLine . "';";
             $db->getOneData($req);
             if ($erase) {
                    //recupere le nombre de like
                    $reqNbLikeUnlike = "SELECT ".$typeInverse." FROM METRO WHERE idMetro='". $numLigne
                                         . "' AND directionMetro='".$destinationLine."';"; 
-                   $nbLikeUnlike = $db->getOneData($reqNbLikeUnlike);
-                   $nbLikeUnlike = $nbLikeUnlike[0];
+                   $nbUn_LikeRetrait = $db->getOneData($reqNbLikeUnlike);
+                   $nbUn_LikeRetrait = $nbUn_LikeRetrait[0];
                    
                    //enlever un like/unlike
-                   $nbLikeUnlike = $nbLikeUnlike-1;
-                   $req = "UPDATE METRO SET ".$typeInverse."=" . $nbLikeUnlike . " WHERE idMetro='" 
+                   $retourNbUn_LikeRetrait = $nbUn_LikeRetrait-1;
+                   $req = "UPDATE METRO SET ".$typeInverse."=" . $retourNbUn_LikeRetrait . " WHERE idMetro='" 
                     . $numLigne . "' AND directionMetro='" . $destinationLine . "';";
                     $db->getOneData($req);
             }
             break;
         case "VELO":
             //recuperer le nombre de like 
-            $nbLike = 0;
+            $nbUn_LikeAjout = 0;
             $reqNbLike = "SELECT ".$typeLikeUnlike." FROM VELO WHERE idVelo=" . $numLigne .
                     " AND contratVelo='" . $destinationLine . "';";
-            $nbLike = $db->getOneData($reqNbLike);
-            $nbLike = $nbLike[0];
+            $nbUn_LikeAjout = $db->getOneData($reqNbLike);
+            $nbUn_LikeAjout = $nbUn_LikeAjout[0];
 
-            $retourNbLike = $nbLike + 1;
-            $req = "UPDATE VELO SET $typeLikeUnlike =" . $retourNbLike . " WHERE idVelo=" 
+            $retourNbUn_LikeAjout = $nbUn_LikeAjout + 1;
+            $req = "UPDATE VELO SET $typeLikeUnlike =" . $retourNbUn_LikeAjout . " WHERE idVelo=" 
                     . $numLigne . " AND contratVelo='" . $destinationLine . "';";
             
             $db->getOneData($req);
@@ -97,19 +97,28 @@ if (isset($typeTransport)) {
                    //recupere le nombre de like
                    $reqNbLikeUnlike = "SELECT $typeInverse FROM VELO WHERE idVelo=". $numLigne
                                         . " AND contratVelo='".$destinationLine."';"; 
-                   $nbLikeUnlike = $db->getOneData($reqNbLikeUnlike);
-                   $nbLikeUnlike = $nbLikeUnlike[0];
+                   $nbUn_LikeRetrait = $db->getOneData($reqNbLikeUnlike);
+                   $nbUn_LikeRetrait = $nbUn_LikeRetrait[0];
                    
                    //enlever un like/unlike
-                   $nbLikeUnlike = $nbLikeUnlike-1;
-                   $req = "UPDATE VELO SET $typeInverse =" . $nbLikeUnlike . " WHERE idVelo=" 
+                   $retourNbUn_LikeRetrait = $nbUn_LikeRetrait-1;
+                   $req = "UPDATE VELO SET $typeInverse =" . $retourNbUn_LikeRetrait . " WHERE idVelo=" 
                     . $numLigne . " AND contratVelo='" . $destinationLine . "';";
                     $db->getOneData($req);
             }
             break;
     }
-
-    echo $retourNbLike;
+    if($erase){
+        $nbLikeUnlike = array('nbLikeAjout'=>$retourNbUn_LikeAjout,'nbLikeRetrait'=>$retourNbUn_LikeRetrait);
+        echo json_encode($nbLikeUnlike);
+    }
+    else {
+        $nbLikeAjout = array('nbLikeAjout'=>$retourNbUn_LikeAjout);
+        echo json_encode($nbLikeAjout);
+        echo $nbLikeAjout;
+    }
+    
+    
     exit();
 }
 ?>

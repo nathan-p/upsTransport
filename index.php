@@ -187,13 +187,20 @@
                 $.ajax({
                     type: "POST",
                     url: "like.php",
+                    dataType: "json",
                     data: {data:dataAjax,eraseLike:erase,type:"like"},
                     success: function(msg){
                         //alert(msg);
                         labelLike = elt.parent().children(".green");
+                        labelUnlike = elt.parent().children(".red");
+                        if(erase){
+                            alert(msg.nbLikeAjout + "  ___  "+ msg.nbLikeRetrait);
+                            labelLike.html(msg.nbLikeAjout);
+                            labelUnlike.html(msg.nbLikeRetrait);
+                        } else {
+                            labelLike.html(msg.nbLikeAjout);
+                        }
                         
-                        //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
-                        labelLike.html(msg);
                         //changer l'icone en like/unlike
                         elt.css('color','green');
                         elt.css('cursor','auto');
@@ -230,13 +237,20 @@
                 $.ajax({
                     type: "POST",
                     url: "like.php",
+                    dataType: "json",
                     data: {data:dataAjax,eraseLike:erase,type:"unlike"},
                     success: function(msg){
-                        //alert(msg);
-                        labelUnlike = elt.parent().children(".red");
-                        //alert(elt.next().text()+" TEST : "+elt.parent().children(".green").text());
-                        labelUnlike.html(msg);
                         
+                        labelUnlike = elt.parent().children(".red");
+                        labelLike = elt.parent().children(".green");
+                        if(erase){
+                            alert(msg.nbLikeAjout + "  ___  "+ msg.nbLikeRetrait);
+                            labelUnlike.html(msg.nbLikeAjout);
+                            labelLike.html(msg.nbLikeRetrait);
+                        } else {
+                             labelUnlike.html(msg.nbLikeAjout);
+                        }
+
                         //changer l'icone en like/unlike
                         elt.css('color','#bb2b2b');
                         elt.css('cursor','auto');
