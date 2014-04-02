@@ -47,7 +47,7 @@ class Toolkit {
        } else { // dimanche
            $secondeAttente = 7*60;
        }      
-       return $secondeAttente;
+       return ($secondeAttente/60)+"."+($secondeAttente%60);
     } 
 }
 
