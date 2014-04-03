@@ -1,18 +1,22 @@
 <?php
-    include_once '../model/Database.php';
-    include_once 'Tisseo.php';
-    include_once 'Decaux.php';
-    include_once '../toolkit/Toolkit.php';
+//    require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Database.php");
+//    require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/ApiKey.php");
+//    require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Tisseo.php");
+//    require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Decaux.php");
+//    require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
+
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/ApiKey.php");
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Tisseo.php");
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Decaux.php");
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
     
     if(isset($_GET['key'])){
         
         $key = $_GET['key'];
         $keyValid = false;
 
-        $reqKeyExisteEnBD = "SELECT count(*) FROM apiKey WHERE ref='".$key."';";
-        $result = Database::getOneData($reqKeyExisteEnBD);
-
-        if( $result[0] == 1){
+        if(ApiKey::isValidKey($key) == 1){
             $keyValid = true;
         }
     
@@ -36,6 +40,7 @@
                 $metro2 = array("line"=>$ligne,"destination"=>$direction1,"passageTime"=>$passageTime);
                 $metro = array($metro1,$metro2);
                 echo json_encode($metro);
+                
             } else if(isset($_GET['velo'])) {
                 $adresse= Decaux::adresse();
                 $nbBorneTotal= Decaux::nbBorneTotal();
@@ -44,8 +49,7 @@
                 $ouvert= Decaux::ouvert();
                 $velo = array("adress"=>$adresse,"nbBorneTotal"=>$nbBorneTotal,"nbBorneDispo"=>$nbBorneDispo,
                     "nbVeloDispo"=>$nbVeloDispo,"ouvert"=>$ouvert);
-                echo json_encode($velo);
-                
+                echo json_encode($velo);               
             }
         } else {
             echo "La clef est invalide ...";

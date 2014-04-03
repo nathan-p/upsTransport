@@ -106,15 +106,26 @@
         <?php
         // /Master/Projet_IAWS
         //include 'transportCommun.php';
-        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Database.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Bus.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Metro.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Velo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Decaux.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Tisseo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Google.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/toolkit/Vue.php");
+//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Database.php");
+//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Bus.php");
+//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Metro.php");
+//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Velo.php");
+//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Decaux.php");
+//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Tisseo.php");
+//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Google.php");
+//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
+//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/toolkit/Vue.php");
+        
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Bus.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Metro.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Velo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Decaux.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Tisseo.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Google.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
+        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Vue.php");
+        
         $db = new Database();
         $db->getConnection();
         ?>
@@ -202,7 +213,7 @@
             if(localStorage.getItem("apiKey") === null){
                 $.ajax({
                     type: "POST",
-                    url: "toolkit/generatingKey.php",
+                    url: "toolkit/GeneratingKey.php",
                     success: function(key){
                         $("#affKey").html("Votre clé est : "+key);
                         localStorage.setItem("apiKey",key);

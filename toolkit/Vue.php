@@ -187,7 +187,7 @@ class Vue {
               <li>métro : </li>
               <li>vélo : </li>
           </ul>
-          L'API fouRnit dans la mesure du possible un format JSON.
+          L'API fournit dans la mesure du possible un format JSON.
           <br/><br/>
           L'utilisation de l'API est soumise à l'utilisation d'une clé attribuée à chaque demandeur. 
           Cette clé doit être transmise lors de chaque appel. Pour obtenir une clé, rien de plus simple, 
@@ -203,7 +203,26 @@ class Vue {
     }
     
     public static function affichInfoHome() {
-        echo "faire résumé";
+        echo "<h3>Contexte</h3>Dans le cadre de l'UE Intéropérabilité des Applications et Introduction au Web Services"
+        . " du Master 1 Informatique à l'Université Paul Sabatier, <b>Laurine MARMISSE et Nathan Prior</b> ont développé "
+        . "ce site Web permettant à vous, personnels de l'Université, de vous déplacer le plus efficacement possible pour quitter l'Université. ";
+        echo "<h3>Fonctionnalités</h3>L'ensemble des stories, que vous avez demandées, ont été développées dans ce site Web et ont été regroupées dans différents onglets. Voici une etite explication de chaque contenu :"
+        ."<ul><li>Les onglets <b>Bus</b> et <b>Métro</b> mettent en évidence dans combien de temps arrive les prochains bus/métro partant de l'Université Paul Sabatier."
+                . "Pour chacun de ces moyens de transports, vous pouvez liker / disliker la ligne pour participer à l'évaluation de sa fiabilité. A côté de chaque symbole, "
+                . "vous pourrez apercevoir le nombre de personnes ayant effectué le même choix que vous. A noter que les horaires du métro est calculé sous forme de plage horaires.</li>"
+        . "<li>L'onglet <b>Vélo</b> indique le nombre de vélos disponibles ainsi que le nombre de bornes disponibles et effectives pour la station de vélo de l'Université Paul Sabatier.</li>"
+        . "<li>L'onglet <b>Itinéraire</b> :</li>"
+        . "<li>L'onglet <b>API</b> </li></ul>";
+        echo "<h3>Ressources utilisées</h3>L'objectif principal de ce site était de développer et de consommer des services Web. "
+        . "Différentes API ont donc été mis à la disposition des étudiants pour répondre efficacement à vos exigences :<br/><br/>"
+        . "<center><img src='./images/tisseo.jpg' height='100px' style='vertical-align:middle'></center><br/>"
+                . "> Grâce à l'<b>API de Tisséo</b>, vous pouvez ainsi connaître dans combien de temps arrive le prochain bus/métro sur la ligne de "
+                . "votre choix et pour l'un des arrêts de l'Université Paul Sabatier.<br/><br/>"
+                . "<center><img src='./images/decaux.png' height='100px' style='vertical-align:middle'></center><br/>"
+                . "> Grâce à l'<b>Api de Decaux</b>, vous pouvez désormais savoir si la station de VélôToulouse de l'Université Paul Sabatier "
+                . "a des vélos disponibles.<br/><br/>"
+                . "<center><img src='./images/google.jpg' height='100px' style='vertical-align:middle'></center><br/>"
+                . "Grâce à l'<b>Api de Google Maps</b>, vous permet enfin de chosir le moyen de transport le plus rapide pour rentrer chez vous.<br/><br/>";
     }
 }
 
