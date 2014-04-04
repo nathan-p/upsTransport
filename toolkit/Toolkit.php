@@ -10,6 +10,13 @@ class Toolkit {
         return $interval->format('%i');
     }
     
+    public static function heureReelle($minute) {
+        date_default_timezone_set('Etc/GMT-2');
+        $h1=date("Y-m-d H:i:s"); 
+        $h2 = strtotime('+'.$minute.' minute');
+        return date('H:i', $h2);
+    }
+    
     public static function getHoraire(){ 
        date_default_timezone_set('Etc/GMT-2');
        $jour = date("l"); // monday ...
@@ -52,7 +59,6 @@ class Toolkit {
        }      
        return $minuteAttente.$secondeAttente;
     } 
-    
     
     public static function getKey() {
         $chars = '0123456789abcdefghijklmnopqrstuvwxyz'; // Certains caract�res ont �t� enlev�s car ils pr�tent � confusion

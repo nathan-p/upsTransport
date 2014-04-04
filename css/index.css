@@ -37,6 +37,8 @@ footer{
     position: relative;
     height: 20%;
     text-align:center;
+    font-size: 14px;
+    background-color: "#acacac";
 }
 
 .like{cursor: pointer;}
@@ -69,6 +71,7 @@ footer{
     width:40%;
     margin-top:30px;
     margin-bottom:30px;
+    min-height:170px;
 }
 
 #idDivHome, #idDivApi {
@@ -80,3 +83,14 @@ footer{
 }
 
 .content.metro{cursor:auto!important;}
+
+.ui.animated.list{
+    /*margin-bottom: 50%;*/
+    margin-top: 2%;
+}
+
+#itineraire{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;   
+}

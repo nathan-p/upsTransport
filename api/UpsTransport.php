@@ -1,15 +1,16 @@
 <?php
-//    require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Database.php");
-//    require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/ApiKey.php");
-//    require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Tisseo.php");
-//    require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Decaux.php");
-//    require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
 
     require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/ApiKey.php");
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Tisseo.php");
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Decaux.php");
+    
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/ApiKey.php");
+    
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/moyenTransport/Bus.php");
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/moyenTransport/Velo.php");
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/moyenTransport/Metro.php");
+    
     require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Tisseo.php");
+    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Google.php");
     
     if(isset($_GET['key'])){
         
@@ -42,13 +43,10 @@
                 echo json_encode($metro);
                 
             } else if(isset($_GET['velo'])) {
-                $adresse= Decaux::adresse();
-                $nbBorneTotal= Decaux::nbBorneTotal();
-                $nbBorneDispo = Decaux::nbBorneDispo();
-                $nbVeloDispo= Decaux::nbVeloDispo();
-                $ouvert= Decaux::ouvert();
-                $velo = array("adress"=>$adresse,"nbBorneTotal"=>$nbBorneTotal,"nbBorneDispo"=>$nbBorneDispo,
-                    "nbVeloDispo"=>$nbVeloDispo,"ouvert"=>$ouvert);
+                $velo = new Velo(227, "Toulouse");
+                $velo = array("numStation"=>227,"adress"=>Velo::getAdresse($velo),
+                    "nbBorneTotal"=>Velo::getNbBorneTotal($velo),"nbBorneDispo"=>Velo::getNbBorneDispo($velo),
+                    "nbVeloDispo"=>Velo::getNbVeloDispo($velo),"statut"=>Velo::estOuvert($velo));
                 echo json_encode($velo);               
             }
         } else {

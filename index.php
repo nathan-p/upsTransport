@@ -8,158 +8,152 @@
         <link rel="stylesheet" type="text/css" href="css/index.css">
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
         <script src="javascript/semantic.js"></script>
+        <script src="javascript/itineraire.js"></script> 
         <script type="text/javascript">
-        function affichHome() {
-            $('#idDivHome').css('display','block');
-            $('#idDivBus').css('display','none');
-            $('#idDivMetro').css('display','none');
-            $('#idDivVelo').css('display','none');
-            $('#idDivItineraire').css('display','none');
-            $('#idDivApi').css('display','none');
-            
-            $('#menu_home').addClass("active");
-            $('#menu_bus').removeClass("active");
-            $('#menu_velo').removeClass("active");
-            $('#menu_metro').removeClass("active");
-            $('#menu_itineraire').removeClass("active");
-            $('#menu_api').removeClass("active");                   
-        } 
-        function affichBus() {
-            $('#idDivHome').css('display','none');
-            $('#idDivBus').css('display','block');
-            $('#idDivMetro').css('display','none');
-            $('#idDivVelo').css('display','none');
-            $('#idDivItineraire').css('display','none');
-            $('#idDivApi').css('display','none');
-           
-            $('#menu_home').removeClass("active");
-            $('#menu_bus').addClass("active");
-            $('#menu_velo').removeClass("active");
-            $('#menu_metro').removeClass("active");
-            $('#menu_itineraire').removeClass("active");
-            $('#menu_api').removeClass("active");                   
-        } 
-        function affichMetro() {
-            $('#idDivHome').css('display','none');
-            $('#idDivBus').css('display','none');
-            $('#idDivMetro').css('display','block');
-            $('#idDivVelo').css('display','none');
-            $('#idDivItineraire').css('display','none');
-            $('#idDivApi').css('display','none');
-            
-            $('#menu_home').removeClass("active");
-            $('#menu_bus').removeClass("active");
-            $('#menu_velo').removeClass("active");
-            $('#menu_metro').addClass("active");
-            $('#menu_itineraire').removeClass("active");
-            $('#menu_api').removeClass("active");                   
-        }
-        function affichVelo() {
-            $('#idDivHome').css('display','none');
-            $('#idDivBus').css('display','none');
-            $('#idDivMetro').css('display','none');
-            $('#idDivVelo').css('display','block');
-            $('#idDivItineraire').css('display','none');
-            $('#idDivApi').css('display','none');
-           
-            $('#menu_home').removeClass("active");
-            $('#menu_bus').removeClass("active");
-            $('#menu_velo').addClass("active");
-            $('#menu_metro').removeClass("active");
-            $('#menu_itineraire').removeClass("active");
-            $('#menu_api').removeClass("active");                   
-        } 
-        function affichItineraire() {
-            $('#idDivHome').css('display','none');
-            $('#idDivBus').css('display','none');
-            $('#idDivMetro').css('display','none');
-            $('#idDivVelo').css('display','none');
-            $('#idDivItineraire').css('display','block');
-            $('#idDivApi').css('display','none');
-            
-            $('#menu_home').removeClass("active");
-            $('#menu_bus').removeClass("active");
-            $('#menu_velo').removeClass("active");
-            $('#menu_metro').removeClass("active");
-            $('#menu_itineraire').addClass("active");
-            $('#menu_api').removeClass("active");                   
-        }
-        
-        function affichApi() {
-            $('#idDivHome').css('display','none');
-            $('#idDivBus').css('display','none');
-            $('#idDivMetro').css('display','none');
-            $('#idDivVelo').css('display','none');
-            $('#idDivItineraire').css('display','none');
-            $('#idDivApi').css('display','block');
-            
-            $('#menu_home').removeClass("active");
-            $('#menu_bus').removeClass("active");
-            $('#menu_velo').removeClass("active");
-            $('#menu_metro').removeClass("active");
-            $('#menu_itineraire').removeClass("active");
-            $('#menu_api').addClass("active");                   
-       }
+            function affichHome() {
+                $('#idDivHome').css('display', 'block');
+                $('#idDivBus').css('display', 'none');
+                $('#idDivMetro').css('display', 'none');
+                $('#idDivVelo').css('display', 'none');
+                $('#idDivItineraire').css('display', 'none');
+                $('#idDivApi').css('display', 'none');
+
+                $('#menu_home').addClass("active");
+                $('#menu_bus').removeClass("active");
+                $('#menu_velo').removeClass("active");
+                $('#menu_metro').removeClass("active");
+                $('#menu_itineraire').removeClass("active");
+                $('#menu_api').removeClass("active");
+            }
+            function affichBus() {
+                $('#idDivHome').css('display', 'none');
+                $('#idDivBus').css('display', 'block');
+                $('#idDivMetro').css('display', 'none');
+                $('#idDivVelo').css('display', 'none');
+                $('#idDivItineraire').css('display', 'none');
+                $('#idDivApi').css('display', 'none');
+
+                $('#menu_home').removeClass("active");
+                $('#menu_bus').addClass("active");
+                $('#menu_velo').removeClass("active");
+                $('#menu_metro').removeClass("active");
+                $('#menu_itineraire').removeClass("active");
+                $('#menu_api').removeClass("active");
+            }
+            function affichMetro() {
+                $('#idDivHome').css('display', 'none');
+                $('#idDivBus').css('display', 'none');
+                $('#idDivMetro').css('display', 'block');
+                $('#idDivVelo').css('display', 'none');
+                $('#idDivItineraire').css('display', 'none');
+                $('#idDivApi').css('display', 'none');
+
+                $('#menu_home').removeClass("active");
+                $('#menu_bus').removeClass("active");
+                $('#menu_velo').removeClass("active");
+                $('#menu_metro').addClass("active");
+                $('#menu_itineraire').removeClass("active");
+                $('#menu_api').removeClass("active");
+            }
+            function affichVelo() {
+                $('#idDivHome').css('display', 'none');
+                $('#idDivBus').css('display', 'none');
+                $('#idDivMetro').css('display', 'none');
+                $('#idDivVelo').css('display', 'block');
+                $('#idDivItineraire').css('display', 'none');
+                $('#idDivApi').css('display', 'none');
+
+                $('#menu_home').removeClass("active");
+                $('#menu_bus').removeClass("active");
+                $('#menu_velo').addClass("active");
+                $('#menu_metro').removeClass("active");
+                $('#menu_itineraire').removeClass("active");
+                $('#menu_api').removeClass("active");
+            }
+            function affichItineraire() {
+                $('#idDivHome').css('display', 'none');
+                $('#idDivBus').css('display', 'none');
+                $('#idDivMetro').css('display', 'none');
+                $('#idDivVelo').css('display', 'none');
+                $('#idDivItineraire').css('display', 'block');
+                $('#idDivApi').css('display', 'none');
+
+                $('#menu_home').removeClass("active");
+                $('#menu_bus').removeClass("active");
+                $('#menu_velo').removeClass("active");
+                $('#menu_metro').removeClass("active");
+                $('#menu_itineraire').addClass("active");
+                $('#menu_api').removeClass("active");
+            }
+
+            function affichApi() {
+                $('#idDivHome').css('display', 'none');
+                $('#idDivBus').css('display', 'none');
+                $('#idDivMetro').css('display', 'none');
+                $('#idDivVelo').css('display', 'none');
+                $('#idDivItineraire').css('display', 'none');
+                $('#idDivApi').css('display', 'block');
+
+                $('#menu_home').removeClass("active");
+                $('#menu_bus').removeClass("active");
+                $('#menu_velo').removeClass("active");
+                $('#menu_metro').removeClass("active");
+                $('#menu_itineraire').removeClass("active");
+                $('#menu_api').addClass("active");
+            }
         </script>
     </head>  
     <body>
         <?php
         // /Master/Projet_IAWS
         //include 'transportCommun.php';
-//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Database.php");
-//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Bus.php");
-//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Metro.php");
-//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/model/Velo.php");
-//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Decaux.php");
-//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Tisseo.php");
-//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/api/Google.php");
-//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
-//        require_once($_SERVER['DOCUMENT_ROOT']."/Master/Projet_IAWS/upsTransport/toolkit/Vue.php");
+
+        require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/model/Database.php");
+
+        require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/moyenTransport/Bus.php");
+        require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/moyenTransport/Velo.php");
+        require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/moyenTransport/Metro.php");
+
+        require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/toolkit/Tisseo.php");
+        require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/toolkit/Toolkit.php");
         
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Bus.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Metro.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Velo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Decaux.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Tisseo.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/Google.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
-        require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Vue.php");
-        
+        require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/view/Vue.php");
+
         $db = new Database();
         $db->getConnection();
         ?>
-        
+
         <header id="header">
             <img src="./images/logo2.png"/>
         </header>
 
-        <center>
-            <div class="ui secondary  menu">
-                <a id="menu_home" class="active item menu" href="javascript: affichHome();">
-                  <i class="home icon"></i> Home
-                </a>
-                <a id="menu_bus" class="item menu" href="javascript: affichBus();">
-                  <img src="images/bus.png" width="20px" style="display:inline;vertical-align:middle"> Bus
-                </a>
-                <a id="menu_metro" class="item menu" href="javascript: affichMetro();">
-                  <img src="images/metro.png" width="20px" style="display:inline;vertical-align:middle"> Métro
-                </a>
-                <a id="menu_velo" class="item menu" href="javascript: affichVelo();">
-                  <img src="images/velo.png" width="20px" style="display:inline;vertical-align:middle"> Vélo
-                </a>
-                <a id="menu_itineraire" class="item menu" href="javascript: affichItineraire();">
-                  <i class="location icon"></i> Itinéraire
-                </a>
-                <a id="menu_api" class="item menu" href="javascript: affichApi();">
-                  <i class="archive icon"></i> API
-                </a>
-            </div>
-        </center>
-    
+    <center>
+        <div class="ui secondary  menu">
+            <a id="menu_home" class="active item menu" href="javascript: affichHome();">
+                <i class="home icon"></i> Home
+            </a>
+            <a id="menu_bus" class="item menu" href="javascript: affichBus();">
+                <img src="images/bus.png" width="20px" style="display:inline;vertical-align:middle"> Bus
+            </a>
+            <a id="menu_metro" class="item menu" href="javascript: affichMetro();">
+                <img src="images/metro.png" width="20px" style="display:inline;vertical-align:middle"> Métro
+            </a>
+            <a id="menu_velo" class="item menu" href="javascript: affichVelo();">
+                <img src="images/velo.png" width="20px" style="display:inline;vertical-align:middle"> Vélo
+            </a>
+            <a id="menu_itineraire" class="item menu" href="javascript: affichItineraire();">
+                <i class="location icon"></i> Itinéraire
+            </a>
+            <a id="menu_api" class="item menu" href="javascript: affichApi();">
+                <i class="archive icon"></i> API
+            </a>
+        </div>
+    </center>
+
     <center>
         <div id="idDivHome" style="display:block;">
-            <div class="ui button" onclick="localStorage.clear();location.reload();">
+            <div class="ui button" onclick="localStorage.clear();
+                    location.reload();">
                 RESET LOCALSTORAGE
             </div><br/><br/>
             <?php Vue::affichInfoHome(); ?>  
@@ -168,7 +162,7 @@
             <?php Vue::affichInfoBus(); ?>  
         </div>
         <div id="idDivMetro" style="display:none;">
-             <?php Vue::affichInfoMetro(); ?>
+            <?php Vue::affichInfoMetro(); ?>
         </div>
         <div id="idDivVelo" style="display:none;">
             <?php Vue::affichInfoVelo(); ?>
@@ -177,161 +171,154 @@
             <?php Vue::affichInfoItineraire(); ?>         
         </div>
         <div id="idDivApi" style="display:none;">
-          <?php Vue::affichInfoAPI(); ?>   
+            <?php Vue::affichInfoAPI(); ?>   
         </div>
     </center>
-    
+
     <footer>
-            UPS TRANSPORT - UE INTEROPERABILITE DES APPLICATIONS ET DES WEB SERVICES - Laurine Marmisse / Nathan Prior
+        <!--<div class="ui horizontal divider"></div><br/>-->
+        UPS TRANSPORT - UE INTEROPERABILITE DES APPLICATIONS ET DES WEB SERVICES - Laurine Marmisse / Nathan Prior
     </footer>
 
     <script>
-        //parcourir toutes les lignes et regarder si on a un localstorage
+
+//parcourir toutes les lignes et regarder si on a un localstorage
         var tab = $(".infosAjax");
-        $(".infosAjax").each(function(){
-            //recuperer en ajax le nombre de like/unlike
+        $(".infosAjax").each(function() {
+//recuperer en ajax le nombre de like/unlike
             array = $(this).text().split(";");
             ligne = array[1];
             destination = array[2];
-            itemLocalSorage = ligne+""+destination;
-            
-            if(localStorage.getItem(itemLocalSorage) == "like"){
-                //alert("ligne "+ligne +" like ok");
-                $(this).prev().css('color','green');
-                $(this).prev().css('cursor','auto');
+            itemLocalSorage = ligne + "" + destination;
+            if (localStorage.getItem(itemLocalSorage) == "like") {
+//alert("ligne "+ligne +" like ok");
+                $(this).prev().css('color', 'green');
+                $(this).prev().css('cursor', 'auto');
             }
-            if(localStorage.getItem(itemLocalSorage) == "unlike"){
-                //alert("ligne "+ligne +" unlike ok");
-                $(this).parent().children(".unlike").css('color','#bb2b2b');
-                $(this).parent().children(".unlike").css('cursor','auto');
-            } 
+            if (localStorage.getItem(itemLocalSorage) == "unlike") {
+//alert("ligne "+ligne +" unlike ok");
+                $(this).parent().children(".unlike").css('color', '#bb2b2b');
+                $(this).parent().children(".unlike").css('cursor', 'auto');
+            }
         });
-        
-        
-        function genererCle(){
-            
-            if(localStorage.getItem("apiKey") === null){
+        function genererCle() {
+            if (localStorage.getItem("apiKey") === null) {
                 $.ajax({
                     type: "POST",
-                    url: "toolkit/GeneratingKey.php",
-                    success: function(key){
-                        $("#affKey").html("Votre clé est : "+key);
-                        localStorage.setItem("apiKey",key);
+                    url: "api/GeneratingKey.php",
+                    success: function(key) {
+                        $("#affKey").html("Votre clé est : <b>" + key + "</b>");
+                        localStorage.setItem("apiKey", key);
                     }
-                    });
-                
+                });
             }
             else {
-                $("#affKey").html("Vous avez déjà reçu une clé ! La voici : "+localStorage.getItem("apiKey"));
+                $("#affKey").html("Vous avez déjà reçu une clé ! La voici : <b>" + localStorage.getItem("apiKey") + "</b>");
             }
-            
         }
- 
+        /*$('#calculItineraire').click(function(){
+         adress = $('#inputItineraire').val();
+         $.ajax({
+         type: "POST",
+         url: "toolkit/itineraire.php",
+         dataType: "json",
+         data: {dest:adress},
+         success: function(msg){
+         }});
+         });*/
 
-        //affichages des infos suplementaire    
-        $( ".content" ).click(function() {
-            $(this).children(".more_infos").toggleClass( "more_infos_active" );         
+//affichages des infos suplementaire
+        $(".content").click(function() {
+            $(this).children(".more_infos").toggleClass("more_infos_active");
         });
-           
         $(".like").click(function() {
             var dataAjax = $(this).next().text();
             var infos = dataAjax.split(";");
             var ligne = infos[1];
             var destination = infos[2];
             var elt = $(this);
-            var erase=false;
-            var itemLocalSorage = ligne+""+destination;
-            
-            if(localStorage.getItem(itemLocalSorage) == "unlike" ){
+            var erase = false;
+            var itemLocalSorage = ligne + "" + destination;
+            if (localStorage.getItem(itemLocalSorage) == "unlike") {
                 erase = true;
             }
-            
-            if(localStorage.getItem(itemLocalSorage) == "like" ){
-                alert("Vous avez déjà liker la ligne "+ligne);
+            if (localStorage.getItem(itemLocalSorage) == "like") {
+                alert("Vous avez déjà liker la ligne " + ligne);
             }
             else {
-                //alert(dataAjax+" erase : "+erase+" type : like");
+//alert(dataAjax+" erase : "+erase+" type : like");
                 $.ajax({
                     type: "POST",
                     url: "like.php",
                     dataType: "json",
-                    data: {data:dataAjax,eraseLike:erase,type:"like"},
-                    success: function(msg){
-                        //alert(msg);
+                    data: {data: dataAjax, eraseLike: erase, type: "like"},
+                    success: function(msg) {
+//alert(msg);
                         labelLike = elt.parent().children(".green");
                         labelUnlike = elt.parent().children(".red");
-                        if(erase){
-                            //alert(msg.nbLikeAjout + "  ___  "+ msg.nbLikeRetrait);
+                        if (erase) {
+//alert(msg.nbLikeAjout + " ___ "+ msg.nbLikeRetrait);
                             labelLike.html(msg.nbLikeAjout);
                             labelUnlike.html(msg.nbLikeRetrait);
                         } else {
                             labelLike.html(msg.nbLikeAjout);
                         }
-                        
-                        //changer l'icone en like/unlike
-                        elt.css('color','green');
-                        elt.css('cursor','auto');
-                        if(erase){
+//changer l'icone en like/unlike
+                        elt.css('color', 'green');
+                        elt.css('cursor', 'auto');
+                        if (erase) {
                             buttonUnlike = elt.parent().children(".unlike");
-                            buttonUnlike.css('color','black');
-                            buttonUnlike.css('cursor','pointer');
+                            buttonUnlike.css('color', 'black');
+                            buttonUnlike.css('cursor', 'pointer');
                         }
-                        localStorage.setItem(itemLocalSorage, "like"); 
-                        
-                    }}); 
+                        localStorage.setItem(itemLocalSorage, "like");
+                    }});
             }
         });
-        
-        
         $(".unlike").click(function() {
             var dataAjax = $(this).parent().children(".infosAjax").text();
             var infos = dataAjax.split(";");
             var ligne = infos[1];
             var destination = infos[2];
             var elt = $(this);
-            var erase=false;
-            var itemLocalSorage = ligne+""+destination;
-            if(localStorage.getItem(itemLocalSorage) == "like" ){
+            var erase = false;
+            var itemLocalSorage = ligne + "" + destination;
+            if (localStorage.getItem(itemLocalSorage) == "like") {
                 erase = true;
             }
-            
-            
-            if(localStorage.getItem(itemLocalSorage) == "unlike" ){
-                alert("Vous avez déjà unliker la ligne "+ligne);
+            if (localStorage.getItem(itemLocalSorage) == "unlike") {
+                alert("Vous avez déjà unliker la ligne " + ligne);
             }
             else {
-                //alert(dataAjax+" erase : "+erase+" type : unlike");
+//alert(dataAjax+" erase : "+erase+" type : unlike");
                 $.ajax({
                     type: "POST",
                     url: "like.php",
                     dataType: "json",
-                    data: {data:dataAjax,eraseLike:erase,type:"unlike"},
-                    success: function(msg){ 
+                    data: {data: dataAjax, eraseLike: erase, type: "unlike"},
+                    success: function(msg) {
                         labelUnlike = elt.parent().children(".red");
                         labelLike = elt.parent().children(".green");
-                        if(erase){
-                            //alert(msg.nbLikeAjout + "  ___  "+ msg.nbLikeRetrait);
+                        if (erase) {
+//alert(msg.nbLikeAjout + " ___ "+ msg.nbLikeRetrait);
                             labelUnlike.html(msg.nbLikeAjout);
                             labelLike.html(msg.nbLikeRetrait);
                         } else {
-                             labelUnlike.html(msg.nbLikeAjout);
+                            labelUnlike.html(msg.nbLikeAjout);
                         }
 
-                        //changer l'icone en like/unlike
-                        elt.css('color','#bb2b2b');
-                        elt.css('cursor','auto');
-                        
-                        if(erase){
+//changer l'icone en like/unlike
+                        elt.css('color', '#bb2b2b');
+                        elt.css('cursor', 'auto');
+                        if (erase) {
                             buttonLike = elt.parent().children(".like");
-                            buttonLike.css('color','black');
-                            buttonLike.css('cursor','pointer');
+                            buttonLike.css('color', 'black');
+                            buttonLike.css('cursor', 'pointer');
                         }
                         localStorage.setItem(itemLocalSorage, "unlike");
-                        
                     }});
             }
         });
-                             
     </script>
 </body>
 </html>

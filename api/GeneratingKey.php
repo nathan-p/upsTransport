@@ -1,12 +1,12 @@
 <?php
 
     include_once '../model/Database.php';
-    include_once 'Toolkit.php';
+    include_once '../toolkit/Toolkit.php';
     
     $keyGenerated = Toolkit::getKey();
     
-    $reqAddKey = "INSERT INTO apikey(ref) VALUES('".$keyGenerated."');";
+    $reqAddKey = "INSERT INTO apikey VALUES('".$keyGenerated."');";
     Database::getOneData($reqAddKey);
     
-    echo $keyGenerated;
+    echo $keyGenerated; 
 ?>
