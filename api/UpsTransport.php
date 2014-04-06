@@ -1,16 +1,16 @@
 <?php
 
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/model/Database.php");
+    require_once("../model/Database.php");
     
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/api/ApiKey.php");
+    require_once("../api/ApiKey.php");
     
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/moyenTransport/Bus.php");
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/moyenTransport/Velo.php");
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/moyenTransport/Metro.php");
+    require_once("../model/moyenTransport/Bus.php");
+    require_once("../model/moyenTransport/Velo.php");
+    require_once("../model/moyenTransport/Metro.php");
     
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Toolkit.php");
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Tisseo.php");
-    require_once($_SERVER['DOCUMENT_ROOT']."/upsTransport/toolkit/Google.php");
+    require_once("../toolkit/Toolkit.php");
+    require_once("../toolkit/Tisseo.php");
+    require_once("../toolkit/Google.php");
     
     if(isset($_GET['key'])){
         
@@ -50,10 +50,10 @@
                 echo json_encode($velo);               
             }
         } else {
-            echo "La clef est invalide ...";
+            echo "Votre clef est invalide ! V&eacute;rifiez que vous l'ayez rentr&eacute;e correctement.";
         }
     }else {
-        echo "Une clef est requise ....";
+        echo "Une clef est requise ! Vous pouvez la demander sur le site UPSTransport";
     }
 
 ?>

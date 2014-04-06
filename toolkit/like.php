@@ -116,8 +116,6 @@ if (isset($typeTransport)) {
         $nbLikeAjout = json_encode(array('nbLikeAjout'=>$retourNbUn_LikeAjout));
         echo $nbLikeAjout;
     }
-    //echo "b";
-    
     exit();
 }
 ?>

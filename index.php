@@ -9,26 +9,13 @@
     </head>  
     <body>
         <?php
-        // /Master/Projet_IAWS
-        //include 'transportCommun.php';
-        /*
-          require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/model/Database.php");
-          require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/moyenTransport/Bus.php");
-          require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/moyenTransport/Velo.php");
-          require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/moyenTransport/Metro.php");
-          require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/toolkit/Tisseo.php");
-          require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/toolkit/Toolkit.php");
-          require_once($_SERVER['DOCUMENT_ROOT'] . "/upsTransport/view/Vue.php");
-         */
-
-        require_once($_SERVER['DOCUMENT_ROOT'] . "/Master/Projet_IAWS/upsTransport/model/Database.php");
-        require_once($_SERVER['DOCUMENT_ROOT'] . "/Master/Projet_IAWS/upsTransport/moyenTransport/Bus.php");
-        require_once($_SERVER['DOCUMENT_ROOT'] . "/Master/Projet_IAWS/upsTransport/moyenTransport/Velo.php");
-        require_once($_SERVER['DOCUMENT_ROOT'] . "/Master/Projet_IAWS/upsTransport/moyenTransport/Metro.php");
-        require_once($_SERVER['DOCUMENT_ROOT'] . "/Master/Projet_IAWS/upsTransport/toolkit/Tisseo.php");
-        require_once($_SERVER['DOCUMENT_ROOT'] . "/Master/Projet_IAWS/upsTransport/toolkit/Toolkit.php");
-        require_once($_SERVER['DOCUMENT_ROOT'] . "/Master/Projet_IAWS/upsTransport/view/Vue.php");
-
+        require_once("/model/Database.php");
+        require_once("/model/moyenTransport/Bus.php");
+        require_once("/model/moyenTransport/Velo.php");
+        require_once("/model/moyenTransport/Metro.php");
+        require_once("/toolkit/Tisseo.php");
+        require_once("/toolkit/Toolkit.php");
+        require_once("/view/Vue.php");
         $db = new Database();
         $db->getConnection();
         ?>
