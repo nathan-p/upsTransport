@@ -56,6 +56,10 @@ class Vue {
         for ($i = 0; $i < count($parsed_json_linesArrets); $i++) {
             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
             if (isset($tabLineArrets[0]->{'dateTime'})) {
+                //verifier s'il y a un "s" en fin de numero de ligne, "s" pour soir
+                if( substr($numLigne[$j],strlen($numLigne[$j])-1,strlen($numLigne[$j])) == "s"){
+                       $numLigne[$j] = substr($numLigne[$j], 0, strlen($numLigne[$j])-1);
+                }
                 $bus = new Bus($numLigne[$j], $destinationLine[$j]);
                 if (Bus::existeBusDansBD($bus) == 0) {
                     Bus::insererBusDansBd($bus);
