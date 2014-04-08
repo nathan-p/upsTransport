@@ -68,6 +68,25 @@ class Toolkit {
         }
         return $rand_str;
     }
+    
+
+    public static function getDistance($p1Lat,$p1Lng, $p2Lat,$p2Lng) {
+        $r = 6378137; // Earth’s mean radius in meter
+        $dLat = Toolkit::rad($p1Lat - $p2Lat);
+        $dLong = Toolkit::rad($p1Lng - $p2Lng);
+        $a = sin($dLat / 2) * sin($dLat / 2) +
+        cos(Toolkit::rad($p1Lat)) * cos(Toolkit::rad($p2Lat)) *
+        sin($dLong / 2) * sin($dLong / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $d = $r * $c;
+
+        return $d; // returns the distance in m
+    }
+        
+
+    public static function rad($x) {
+        return $x * pi() / 180;
+    }
 }
 
 ?>
