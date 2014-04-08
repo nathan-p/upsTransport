@@ -3,43 +3,47 @@
 class Vue {
 
     public static function affichInfoVelo() {
-        $velo = new Velo(227, "Toulouse");
 
-        echo '<br/><div id="actu" class="center aligned column">
+
+        for ($i = 227; $i < 231; $i++) {
+            $velo = new Velo($i, "Toulouse");
+
+            echo '<br/><div id="actu" class="center aligned column">
                     <div class="ui animated list">
                         <div class="item ui piled segment ">
                             <img class="ui avatar image transport_lis_icon" src="images/velo.png">
                             <div class="content">
-                                <div class="header">Vélo Toulouse (Station 227)</div>';
-        echo Velo::getAdresse($velo) . " <br/> Nombre de vélos disponibles : " . Velo::getNbVeloDispo($velo);
-        echo "<div class=\"more_infos\">";
-        echo "Nombre de bornes totales : " . Velo::getNbBorneTotal($velo) . " <br/> Nombre de bornes disponibles : " . Velo::getNbBorneDispo($velo);
-        echo "<br/> Statut : " . Velo::estOuvert($velo) . "</div>";
-        echo '              </div>
+                                <div class="header">Vélo Toulouse (Station '.$i.')</div>';
+            echo Velo::getAdresse($velo) . " <br/> Nombre de vélos disponibles : " . Velo::getNbVeloDispo($velo);
+            echo "<div class=\"more_infos\">";
+            echo "Nombre de bornes totales : " . Velo::getNbBorneTotal($velo) . " <br/> Nombre de bornes disponibles : " . Velo::getNbBorneDispo($velo);
+            echo "<br/> Statut : " . Velo::estOuvert($velo) . "</div>";
+            echo '              </div>
                             <div class="right floated ui"><br>
                                 <i class="thumbs up icon like"></i>
                                 <div class="infosAjax">VELO;227;Toulouse</div>
                                 <span class="ui green circular label">';
-        $nbLike = Velo::getNbLikeVelo($velo);
-        if ($nbLike < 10) {
-            echo $nbLike . "&nbsp;";
-        } else {
-            echo $nbLike;
-        }
-        echo '</span><br/><br/>
+            $nbLike = Velo::getNbLikeVelo($velo);
+            if ($nbLike < 10) {
+                echo $nbLike . "&nbsp;";
+            } else {
+                echo $nbLike;
+            }
+            echo '</span><br/><br/>
                                 <i class="thumbs down icon unlike" style="margin-top: 2%;"></i>
                                 <span class="ui red circular label">';
-        $nbUnlike = Velo::getNbUnlikeVelo($velo);
-        if ($nbUnlike < 10) {
-            echo $nbUnlike . "&nbsp;";
-        } else {
-            echo $nbUnlike;
-        }
-        echo '</span>
+            $nbUnlike = Velo::getNbUnlikeVelo($velo);
+            if ($nbUnlike < 10) {
+                echo $nbUnlike . "&nbsp;";
+            } else {
+                echo $nbUnlike;
+            }
+            echo '</span>
                             </div>
                         </div>
                     </div>
                 </div>';
+        }
     }
 
     public static function affichInfoBus() {
@@ -47,7 +51,7 @@ class Vue {
         $numLigne = Tisseo::numLineArrets($parsed_json_linesArrets);
         $destinationLine = Tisseo::destinationLineArrets($parsed_json_linesArrets);
         $horaireLigne = Tisseo::horaireLineArrets($parsed_json_linesArrets);
-        
+
         echo '<div id="actu" class="center aligned column" >
                     <div class="ui animated list">';
         $j = 0;
@@ -57,8 +61,8 @@ class Vue {
             $tabLineArrets = $parsed_json_linesArrets[$i]->{'departures'}->{'departure'};
             if (isset($tabLineArrets[0]->{'dateTime'})) {
                 //verifier s'il y a un "s" en fin de numero de ligne, "s" pour soir
-                if( substr($numLigne[$j],strlen($numLigne[$j])-1,strlen($numLigne[$j])) == "s"){
-                       $numLigne[$j] = substr($numLigne[$j], 0, strlen($numLigne[$j])-1);
+                if (substr($numLigne[$j], strlen($numLigne[$j]) - 1, strlen($numLigne[$j])) == "s") {
+                    $numLigne[$j] = substr($numLigne[$j], 0, strlen($numLigne[$j]) - 1);
                 }
                 $bus = new Bus($numLigne[$j], $destinationLine[$j]);
                 if (Bus::existeBusDansBD($bus) == 0) {
@@ -123,7 +127,7 @@ class Vue {
     }
 
     public static function affichInfoMetro() {
-        
+
         $metroRamonville = new Metro('B', "Ramonville");
         $metroBorderouge = new Metro('B', "Borderouge");
         echo '<div class="ui animated list">

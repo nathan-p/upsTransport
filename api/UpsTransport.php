@@ -43,11 +43,13 @@
                 echo json_encode($metro);
                 
             } else if(isset($_GET['velo'])) {
-                $velo = new Velo(227, "Toulouse");
-                $velo = array("numStation"=>227,"adress"=>Velo::getAdresse($velo),
-                    "nbBorneTotal"=>Velo::getNbBorneTotal($velo),"nbBorneDispo"=>Velo::getNbBorneDispo($velo),
-                    "nbVeloDispo"=>Velo::getNbVeloDispo($velo),"statut"=>Velo::estOuvert($velo));
-                echo json_encode($velo);               
+                for ($i = 227; $i < 231; $i++) {
+                    $velo = new Velo($i, "Toulouse");
+                    $velo = array("numStation"=>$i,"adress"=>Velo::getAdresse($velo),
+                        "nbBorneTotal"=>Velo::getNbBorneTotal($velo),"nbBorneDispo"=>Velo::getNbBorneDispo($velo),
+                        "nbVeloDispo"=>Velo::getNbVeloDispo($velo),"statut"=>Velo::estOuvert($velo));
+                    echo json_encode($velo);  
+                }
             }
         } else {
             echo "Votre clef est invalide ! V&eacute;rifiez que vous l'ayez rentr&eacute;e correctement.";
@@ -55,5 +57,4 @@
     }else {
         echo "Une clef est requise ! Vous pouvez la demander sur le site UPSTransport";
     }
-
 ?>
