@@ -38,7 +38,50 @@ function calculate(){
     origin = "Universtité Paul Sabatier"; // Le point départ
     
     
-    if(origin && destination){      
+    if(origin && destination){    
+        //requete bus
+        var request = {
+            origin : origin,
+            destination : destination,
+            travelMode : google.maps.DirectionsTravelMode.DRIVING // Mode de conduite
+        }
+        var directionsServiceBus = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
+        directionsServiceBus.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
+            if(status == google.maps.DirectionsStatus.OK){
+                responseBus = response;
+                dureeBusMinute = response.routes[0].legs[0].duration.text;
+                dureeBus = response.routes[0].legs[0].duration.value;
+                
+                var geocoder = new google.maps.Geocoder();
+                var latDestination;
+                var lngDestination;
+              
+                geocoder.geocode({
+                    'address': destination
+                }, function (results, status) {  
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        latDestination = results[0].geometry.location.lat();
+                        lngDestination = results[0].geometry.location.lng();
+                        
+                        $.ajax({
+                            type: "POST",
+                            url: "toolkit/busAProximite.php",
+                            data: {lat : latDestination,lgn : lngDestination},
+                            success: function(reponse) {
+                                //afficheVeloProche = reponse;
+                                 document.getElementById('busAProximite').innerHTML = reponse;
+                            }
+                        });
+                       
+                    } else {
+                        alert("Request failed.")
+                    }
+                });
+            } else {
+                alert("Une erreur est survenue, veuillez saisir une adresse correcte !");
+            }
+        });
+
         //requete velo
         var request = {
             origin : origin,
@@ -78,7 +121,7 @@ function calculate(){
                         //alert(getDistance(latDestination,lngDestination, latStationVelo, lngStationVelo)+" km");
                         document.getElementById('bestTransport')
                         .innerHTML = ("Le meilleur moyen de transport trouvé est le vélo avec une durée de "
-                            +dureeVeloMinute+" minutes.<br>");
+                            +dureeVeloMinute+".<br>");
                         direction.setDirections(responseVelo); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
                     } else {
                         alert("Request failed.")

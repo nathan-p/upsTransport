@@ -90,7 +90,7 @@ class Tisseo {
         return $horaireLigne;
     }
     
-    public static function tabCodeOperateurItineraire($latitude, $longitude){ 
+    public static function tabCodeOperateurItineraire($latitude,$longitude){ 
         $latitude1 = $latitude+0.01;
         $longitude1 = $longitude+0.01;
         $latitude2 = $latitude-0.01;
