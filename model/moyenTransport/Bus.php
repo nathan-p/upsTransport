@@ -55,6 +55,13 @@ class Bus {
         $nbLike = Database::getOneData($reqNbLike);
         return $nbLike[0];
     }
+    
+    public static function getAllBus() {
+        $rqt = "SELECT * FROM BUS";
+
+        $res = Database::getAllData($rqt);
+        return $res;
+    }
 }
 
 ?>

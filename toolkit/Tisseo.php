@@ -18,7 +18,7 @@ class Tisseo {
         
         return $idZoneArretPaulSabatier;
     } 
-    
+        
     public static function tabCodeOperateur($idZoneArretPaulSabatier){ 
         $poteauxArrets = file_get_contents('http://pt.data.tisseo.fr/stopPointsList?stopAreaId='.$idZoneArretPaulSabatier.'&format=json&network=Tiss%C3%A9o&key=a03561f2fd10641d96fb8188d209414d8');
         $parsed_json_poteauxArrets = json_decode($poteauxArrets);
@@ -89,6 +89,64 @@ class Tisseo {
         }
         return $horaireLigne;
     }
+    
+    public static function tabCodeOperateurItineraire($latitude, $longitude){ 
+        $latitude1 = $latitude+0.01;
+        $longitude1 = $longitude+0.01;
+        $latitude2 = $latitude-0.01;
+        $longitude2 = $longitude-0.01;
+        
+        $bbox = '1.4572845%2C43.5961625%2C1.4372845%2C43.5761625';
+        //$bbox = $longitude1.'%2C'.$latitude1.'%2C'.$longitude2.'%2C'.$latitude2;
+        
+        $poteauxArrets = file_get_contents('http://pt.data.tisseo.fr/stopPointsList?bbox='.$bbox.'&format=json&network=Tiss%C3%A9o&key=a03561f2fd10641d96fb8188d209414d8');
+        $parsed_json_poteauxArrets = json_decode($poteauxArrets);
+        $tabPoteauxArrets = $parsed_json_poteauxArrets->{'physicalStops'}->{'physicalStop'};
+        $tabCodeOperateur = array();
+        $j = 0;
+        $res = "";
+        for ($i = 0; $i < count($tabPoteauxArrets); $i++) {
+            $res = $tabPoteauxArrets[$i]->{'operatorCodes'};
+            $tabCodeOperateur[$j] = $res[0]->{'operatorCode'}->{'value'};
+            $j++;
+        }
+        
+        return $tabCodeOperateur;
+    }  
+    
+    public static function linesArretsItineraire($tabCodeOperateur) {
+        $parsed_json_linesArrets = array();
+        $parsed_json_destinationArrets = array();
+        $res = array();
+        $j = 0;
+        $boolean = 0;
+        for ($i = 0; $i < count($tabCodeOperateur); $i++) {
+            $linesArrets = file_get_contents('http://pt.data.tisseo.fr/departureBoard?operatorCode=' . $tabCodeOperateur[$i] . '&number=1&format=json&key=a03561f2fd10641d96fb8188d209414d8');
+            $tmp = json_decode($linesArrets);
+            $tmp = $tmp->{'departures'}->{'departure'};
+            if (isset($tmp[0]->{'dateTime'})) {
+                $numLigne = $tmp[0]->{'line'}->{'shortName'};
+                $tmp = $tmp[0]->{'destination'};
+                $destinationLine = $tmp[0]->{'name'};
+                
+                for ($k = 0; $k < count($parsed_json_linesArrets); $k++)  {
+                    if ($parsed_json_linesArrets[$k] == $numLigne && $parsed_json_destinationArrets[$k] == $destinationLine) {
+                        $boolean = 1;
+                    }
+                }
+                
+                if ($boolean != 1) {
+                    $parsed_json_linesArrets[$j] = $numLigne;
+                    $parsed_json_destinationArrets[$j] = $destinationLine;
+                    $res[$j] = $numLigne.'!'.$destinationLine;
+                    $j++;
+                }
+                $boolean = 0;
+            }  
+        }
+        return $res;    
+    }
+    
 }
 
 ?>

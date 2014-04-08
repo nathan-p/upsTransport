@@ -8,7 +8,7 @@ class Vue {
         for ($i = 227; $i < 231; $i++) {
             $velo = new Velo($i, "Toulouse");
 
-            echo '<br/><div id="actu" class="center aligned column">
+            echo '<div id="actu" class="center aligned column">
                     <div class="ui animated list">
                         <div class="item ui piled segment ">
                             <img class="ui avatar image transport_lis_icon" src="images/velo.png">
