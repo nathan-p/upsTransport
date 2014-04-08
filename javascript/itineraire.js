@@ -9,10 +9,18 @@ var dureeVelo = 0;
 var dureeBus = 0;
 var dureeVeloMinute = "";
 var dureeBusMin = "";
-var latStationVelo = 43.56160969546884;
-var lngStationVelo = 1.462869145576551;
+var latStationVelo = 43.561141;
+var lngStationVelo = 1.463397;
+var afficheVeloProche="";
 
 function calculate(){
+    destination = document.getElementById('destination').value; // Le point d'arrivé
+    panel = document.getElementById('panel');
+    if(!destination){
+        document.getElementById('bestTransport').innerHTML = "Veuillez rentrer une destination correcte";
+        panel.innerHTML = "";
+        return;
+    }
     var latLng = new google.maps.LatLng(43.562779, 1.469354); // Correspond au coordonnées de paul sab
     var myOptions = {
         zoom : 14, // Zoom par défaut
@@ -20,7 +28,7 @@ function calculate(){
         mapTypeId : google.maps.MapTypeId.TERRAIN, // Type de carte, différentes valeurs possible HYBRID, ROADMAP, SATELLITE, TERRAIN
         maxZoom : 20
     };
-    panel = document.getElementById('panel');
+    
     panel.innerHTML = "";
     map = new google.maps.Map(document.getElementById('map'), myOptions);
     direction = new google.maps.DirectionsRenderer({
@@ -28,29 +36,9 @@ function calculate(){
         panel : panel
     });
     origin = "Universtité Paul Sabatier"; // Le point départ
-    destination = document.getElementById('destination').value; // Le point d'arrivé
     
-    if(origin && destination){
-        
-        //requete bus
-        /*var request = {
-            origin : origin,
-            destination : destination,
-            travelMode : google.maps.DirectionsTravelMode.DRIVING // Mode de conduite
-        }
-        var directionsServiceBus = new google.maps.DirectionsService(); // Service de calcul d'itinéraire
-        directionsServiceBus.route(request, function(response, status){ // Envoie de la requête pour calculer le parcours
-            if(status == google.maps.DirectionsStatus.OK){
-                responseBus = response;
-                dureeBusMin = response.routes[0].legs[0].duration.text;
-                dureeBus = response.routes[0].legs[0].duration.value;
-            }
-            else {
-                alert("Une erreur est survenue, veuillez saisir une adresse correcte !");
-            }
-        });*/
-        
-        
+    
+    if(origin && destination){      
         //requete velo
         var request = {
             origin : origin,
@@ -63,21 +51,35 @@ function calculate(){
                 responseVelo = response;
                 dureeVeloMinute = response.routes[0].legs[0].duration.text;
                 dureeVelo = response.routes[0].legs[0].duration.value;
-                console.log(response.routes[0].bounds);
+                console.log(response.routes[0]);
                 var geocoder = new google.maps.Geocoder();
                 var latDestination;
                 var lngDestination;
+              
                 geocoder.geocode({
                     'address': destination
-                }, function (results, status) {
+                }, function (results, status) {  
                     if (status == google.maps.GeocoderStatus.OK) {
                         latDestination = results[0].geometry.location.lat();
                         lngDestination = results[0].geometry.location.lng();
+                        
+                        //regarder s'il y a une station de velo au alentours
+                        $.ajax({
+                            type: "POST",
+                            url: "toolkit/veloAProximite.php",
+                            data: {lat : latDestination,lgn : lngDestination},
+                            success: function(reponse) {
+                                //afficheVeloProche = reponse;
+                                 document.getElementById('stationVeloAProximite').innerHTML = reponse;
+                            }
+                        });
                         console.log("Latitude: " + latDestination + "\nLongitude: " + lngDestination);
                         console.log(latDestination+" - "+lngDestination+" - "+latStationVelo+" - "+lngStationVelo);
-                        alert(getDistance(latDestination,lngDestination, latStationVelo, lngStationVelo)+" km");
-                        
-                        
+                        //alert(getDistance(latDestination,lngDestination, latStationVelo, lngStationVelo)+" km");
+                        document.getElementById('bestTransport')
+                        .innerHTML = ("Le meilleur moyen de transport trouvé est le vélo avec une durée de "
+                            +dureeVeloMinute+" minutes.<br>");
+                        direction.setDirections(responseVelo); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
                     } else {
                         alert("Request failed.")
                     }
@@ -88,33 +90,6 @@ function calculate(){
                 alert("Une erreur est survenue, veuillez saisir une adresse correcte !");
             }
         });
-        
-        
-        //if(dureeVelo < dureeBus){
-        document.getElementById('bestTransport')
-        .innerHTML = ("Le meilleur moyen de transport trouvé est le vélo avec une durée de "+dureeVeloMinute+" minutes");
-        direction.setDirections(responseVelo); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
-    /*}else{
-            document.getElementById('bestTransport')
-            .innerHTML = ("Le meilleur moyen de transport trouvé est le bus avec une durée de "+dureeBusMin+" minutes");
-            direction.setDirections(responseBus); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
-        }*/
     }
 };
 
-var rad = function(x) {
-    return x * Math.PI / 180;
-};
-
-var getDistance = function(p1Lat,p1Lng, p2Lat,p2Lng) {
-    var R = 6378137; // Earth’s mean radius in meter
-    var dLat = rad(p1Lat - p2Lat);
-    var dLong = rad(p1Lng - p2Lng);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(rad(p1Lat)) * Math.cos(rad(p2Lat)) *
-    Math.sin(dLong / 2) * Math.sin(dLong / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
-    console.log(d);
-    return d/1000; // returns the distance in km
-};
