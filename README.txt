@@ -12,7 +12,7 @@ Il faudra donc utiliser WAMP ou similaire pour pouvoir le lancer.
 Il faudra de plus modifier le fichier php.ini car nous utilisons une
 fonction de PHP qui nécessite une extension. 
 Il faut donc décommenter la ligne "extension=php_openssl.dll" du fichier php.ini
-pour que les requêtes vers Tisséo fonctinnent.
+pour que les requêtes vers Tisséo fonctionnent.
 
 Problèmes rencontrés : 
 

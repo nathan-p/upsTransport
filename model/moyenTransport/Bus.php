@@ -55,6 +55,39 @@ class Bus {
         $nbLike = Database::getOneData($reqNbLike);
         return $nbLike[0];
     }
+    
+    public static function getAllBus() {
+        $rqt = "SELECT * FROM BUS";
+
+        $res = Database::getAllData($rqt);
+        return $res;
+    }
+    
+    public static function comparerLines($linesDestination) {
+        $numLigne = array();
+        $destinationLigne = array();
+        $retour = array();
+        $l = 0;
+        for ($k = 0; $k < count($linesDestination); $k++)  {
+            $res = explode("!",$linesDestination[$k]);
+            $numLigne[$l] = $res[0];
+            $destinationLigne[$l] = $res[1];
+            $l++;
+        }
+        
+        $bus = getAllBus();
+        $j=0;
+        foreach($bus as $row){
+            for ($i = 0; $i < count($numLigne); $i++) { 
+                if ($row['numBus'] == $numLigne[$i] && $row['directionBus'] == htmlentities($destinationLigne[$i])) {
+                    $retour[$j] = $numLigne[$i].'!'.$destinationLigne[$i];
+                    $j++;
+                }
+            }
+        }
+        
+        return $retour; 
+	}
 }
 
 ?>

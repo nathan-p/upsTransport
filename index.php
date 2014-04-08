@@ -53,7 +53,12 @@
                 location.reload();">
                 RESET LOCALSTORAGE
             </div><br/><br/>
-            <?php Vue::affichInfoHome(); ?>  
+            <?php 
+                //$code = Tisseo::tabCodeOperateurItineraire(1.4472845,43.5861625);
+                //$lignes = Tisseo::linesArretsItineraire($code);
+                //print_r(Toolkit::comparerLines($lignes));
+                Vue::affichInfoHome(); 
+            ?>  
         </div>
         <div id="idDivBus" style="display:none;">
             <?php Vue::affichInfoBus(); ?>  

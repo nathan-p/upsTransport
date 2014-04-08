@@ -197,6 +197,7 @@ class Vue {
                 </div>
             </div>
         </div>
+        <p id="busAProximite"></p><br/><hr/>
         <p id="bestTransport"></p>
         <p id="stationVeloAProximite"></p>
         <div id="panel"></div>

@@ -1,5 +1,4 @@
 <?php
-
 class Toolkit {
     
     public static function arriveDans($horaire) {
@@ -68,8 +67,7 @@ class Toolkit {
         }
         return $rand_str;
     }
-    
-
+	
     public static function getDistance($p1Lat,$p1Lng, $p2Lat,$p2Lng) {
         $r = 6378137; // Earth’s mean radius in meter
         $dLat = Toolkit::rad($p1Lat - $p2Lat);
