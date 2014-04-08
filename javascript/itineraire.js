@@ -78,13 +78,12 @@ function calculate(){
                         //alert(getDistance(latDestination,lngDestination, latStationVelo, lngStationVelo)+" km");
                         document.getElementById('bestTransport')
                         .innerHTML = ("Le meilleur moyen de transport trouvé est le vélo avec une durée de "
-                            +dureeVeloMinute+" minutes.<br>");
+                            +dureeVeloMinute+".<br>");
                         direction.setDirections(responseVelo); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
                     } else {
                         alert("Request failed.")
                     }
                 });
-                
             }
             else {
                 alert("Une erreur est survenue, veuillez saisir une adresse correcte !");
