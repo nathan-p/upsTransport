@@ -179,7 +179,7 @@ class Vue {
     public static function affichInfoItineraire() {
         echo '
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=fr"></script>
-        <div class="ui two column middle aligned relaxed grid basic segment">
+        <center><div class="ui two column middle aligned relaxed grid basic segment">
             <div id="itineraire" class="aligned column">
                 <div class="ui form">
                     <center><h3><i class="location icon"></i>RENTRER CHEZ MOI</h3></center><br/>
@@ -197,7 +197,9 @@ class Vue {
                 </div>
             </div>
         </div>
-        <p id="busAProximite"></p><br/><hr/>
+        </center>
+        <p id="dureeBus"></p>
+        <p id="busAProximite"></p>
         <p id="bestTransport"></p>
         <p id="stationVeloAProximite"></p>
         <div id="panel"></div>

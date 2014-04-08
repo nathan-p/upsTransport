@@ -45,20 +45,9 @@
                 <i class="archive icon"></i> API
             </a>
         </div>
-    </center>
-
-    <center>
-        <div id="idDivHome" style="display:block;">
-             <div class="ui button" onclick="localStorage.clear();
-                location.reload();">
-                RESET LOCALSTORAGE
-            </div><br/><br/>
-            <?php 
-                //$code = Tisseo::tabCodeOperateurItineraire(1.4472845,43.5861625);
-                //$lignes = Tisseo::linesArretsItineraire($code);
-                //print_r(Toolkit::comparerLines($lignes));
-                Vue::affichInfoHome(); 
-            ?>  
+        
+        <div id="idDivHome" style="display:block;">          
+            <?php Vue::affichInfoHome(); ?>  
         </div>
         <div id="idDivBus" style="display:none;">
             <?php Vue::affichInfoBus(); ?>  
@@ -78,7 +67,7 @@
     </center>
 
     <footer>
-        <!--<div class="ui horizontal divider"></div><br/>-->
+        <div class="ui horizontal divider"></div><br/>
         UPS TRANSPORT - UE INTEROPERABILITE DES APPLICATIONS ET DES WEB SERVICES - Laurine Marmisse / Nathan Prior
     </footer>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>

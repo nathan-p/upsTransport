@@ -1,5 +1,5 @@
 <?php
-include_once 'Toolkit.php';
+require_once('Toolkit.php');
 
 $latDestination = $_POST['lat'];
 $lngDestination = $_POST['lgn'];

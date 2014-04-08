@@ -72,7 +72,9 @@ function calculate(){
                                  document.getElementById('busAProximite').innerHTML = reponse;
                             }
                         });
-                       
+                       document.getElementById('dureeBus')
+                        .innerHTML = ("<br/><h3>Trajet le plus rapide</h3>La durée du trajet du bus jusqu'à votre destination est de "
+                            +dureeBusMinute+".<br/><br/>Voici les différents choix possibles de bus : <br/>(Ceci peut prendre quelques secondes...)");
                     } else {
                         alert("Request failed.")
                     }
@@ -120,7 +122,7 @@ function calculate(){
                         console.log(latDestination+" - "+lngDestination+" - "+latStationVelo+" - "+lngStationVelo);
                         //alert(getDistance(latDestination,lngDestination, latStationVelo, lngStationVelo)+" km");
                         document.getElementById('bestTransport')
-                        .innerHTML = ("Le meilleur moyen de transport trouvé est le vélo avec une durée de "
+                        .innerHTML = ("<hr/><h3>Autre possibilité de trajet</h3>La durée du trajet avec un vélo jusqu'à votre destination est de "
                             +dureeVeloMinute+".<br>");
                         direction.setDirections(responseVelo); // Trace l'itinéraire sur la carte et les différentes étapes du parcours
                     } else {
