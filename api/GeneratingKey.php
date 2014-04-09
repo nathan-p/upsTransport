@@ -1,7 +1,7 @@
 <?php
 
-    include_once '../model/Database.php';
-    include_once '../toolkit/Toolkit.php';
+    require_once('../model/Database.php');
+    require_once('../toolkit/Toolkit.php');
     
     $keyGenerated = Toolkit::getKey();
     

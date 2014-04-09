@@ -1,3 +1,22 @@
+$(document).keydown(function(e){
+    if (e.keyCode == 39) { 
+        var suivant = $('.active').next();
+        if(typeof(suivant.attr('href')) != "undefined"){
+            var href = suivant.attr('href');
+            window.location.href = href;
+        }
+       return false;
+    } else if (e.keyCode == 37) { 
+        var prec = $('.active').prev();
+        if(typeof(prec.attr('href')) != "undefined"){
+            var href = prec.attr('href');
+            window.location.href = href;
+        }
+       return false;
+    }
+});
+
+
 function affichHome() {
     $('#idDivHome').css('display', 'block');
     $('#idDivBus').css('display', 'none');

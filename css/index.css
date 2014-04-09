@@ -74,6 +74,10 @@ footer{
     min-height:170px;
 }
 
+#idDivItineraire {
+    text-align:justify;    
+}
+
 #idDivHome, #idDivApi {
     text-align:justify;
     width:52%;

@@ -75,7 +75,7 @@ class Bus {
             $l++;
         }
         
-        $bus = getAllBus();
+        $bus = Bus::getAllBus();
         $j=0;
         foreach($bus as $row){
             for ($i = 0; $i < count($numLigne); $i++) { 

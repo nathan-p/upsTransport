@@ -96,8 +96,7 @@ class Tisseo {
         $latitude2 = $latitude-0.01;
         $longitude2 = $longitude-0.01;
         
-        $bbox = '1.4572845%2C43.5961625%2C1.4372845%2C43.5761625';
-        //$bbox = $longitude1.'%2C'.$latitude1.'%2C'.$longitude2.'%2C'.$latitude2;
+        $bbox = $longitude1.'%2C'.$latitude1.'%2C'.$longitude2.'%2C'.$latitude2;
         
         $poteauxArrets = file_get_contents('http://pt.data.tisseo.fr/stopPointsList?bbox='.$bbox.'&format=json&network=Tiss%C3%A9o&key=a03561f2fd10641d96fb8188d209414d8');
         $parsed_json_poteauxArrets = json_decode($poteauxArrets);

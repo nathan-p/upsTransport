@@ -179,7 +179,7 @@ class Vue {
     public static function affichInfoItineraire() {
         echo '
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&language=fr"></script>
-        <div class="ui two column middle aligned relaxed grid basic segment">
+        <center><div class="ui two column middle aligned relaxed grid basic segment">
             <div id="itineraire" class="aligned column">
                 <div class="ui form">
                     <center><h3><i class="location icon"></i>RENTRER CHEZ MOI</h3></center><br/>
@@ -197,7 +197,9 @@ class Vue {
                 </div>
             </div>
         </div>
-        <p id="busAProximite"></p><br/><hr/>
+        </center>
+        <p id="dureeBus"></p>
+        <p id="busAProximite"></p>
         <p id="bestTransport"></p>
         <p id="stationVeloAProximite"></p>
         <div id="panel"></div>
@@ -231,6 +233,8 @@ class Vue {
     }
 
     public static function affichInfoHome() {
+        echo "<p style='color:#1f8dd6;'><i class='help icon'></i> Vous pouvez naviguer dans les onglets avec les flêches du clavier</p>";
+        
         echo "<h3>Contexte</h3>Dans le cadre de l'UE Intéropérabilité des Applications et Introduction au Web Services"
         . " du Master 1 Informatique à l'Université Paul Sabatier, <b>Laurine MARMISSE et Nathan Prior</b> ont développé "
         . "ce site Web permettant à vous, personnels de l'Université, de vous déplacer le plus efficacement possible pour quitter l'Université. ";
